@@ -3,34 +3,42 @@ import Middleware from 'src/types/Middleware';
 import { AnyZodObject, ZodError } from 'zod';
 
 class RequestValidator {
-  private schema: AnyZodObject;
-
-  constructor(schema: AnyZodObject) {
-    this.schema = schema;
-  }
-
-  private _validator(req: Request, res: Response, next: NextFunction, type: 'body' | 'query' | 'params') {
-    try {
-      this.schema.parse(req[type]);
-      next();
-    } catch (error: unknown) {
-      if (error instanceof ZodError) {
-        return res.status(400).json({ error: error.errors });
-      }
-      return res.status(500).json({ error: 'Internal Server Error' });
+  private static _setupMiddleware(schema: AnyZodObject, type: 'body' | 'query' | 'params') {
+    function setup() {
+      return {
+        schema: schema,
+        reqInputType: type,
+      };
     }
+    return this._makeMiddleware(setup.bind(this));
   }
 
-  public body: Middleware<void> = (req: Request, res: Response, next: NextFunction) => {
-    this._validator(req, res, next, 'body');
-  };
+  private static _makeMiddleware(setup) {
+    return function _validator(req: Request, res: Response, next: NextFunction) {
+      const options = setup();
+      const { reqInputType, schema } = options;
+      try {
+        schema.parse(req[reqInputType]);
+        next();
+      } catch (error: unknown) {
+        if (error instanceof ZodError) {
+          return res.status(400).json({ error: error.errors });
+        }
+        return res.status(500).json({ error: 'Internal Server Error' });
+      }
+    };
+  }
 
-  public query: Middleware<void> = (req: Request, res: Response, next: NextFunction) => {
-    this._validator(req, res, next, 'query');
-  };
+  public static body(schema: AnyZodObject): Middleware<void> {
+    return this._setupMiddleware(schema, 'body');
+  }
 
-  public params: Middleware<void> = (req: Request, res: Response, next: NextFunction) => {
-    this._validator(req, res, next, 'params');
-  };
+  public static query(schema: AnyZodObject): Middleware<void> {
+    return this._setupMiddleware(schema, 'body');
+  }
+
+  public static params(schema: AnyZodObject): Middleware<void> {
+    return this._setupMiddleware(schema, 'params');
+  }
 }
 export default RequestValidator;
