@@ -3,9 +3,11 @@ import helmet from 'helmet';
 import cors from 'cors';
 import pc from 'picocolors';
 import httpLogger from 'morgan';
+import path from 'node:path';
 
 import environment from './configs/environment';
 import Router from './router';
+import buildEtaEngine from './configs/template.config';
 
 class App {
   app: Express;
@@ -26,12 +28,19 @@ class App {
   }
 
   public start() {
+    this._setupTemplateEngine();
     this._setupRoutes();
     this._listen();
   }
 
   private _setupRoutes() {
     Router.create(this.app);
+  }
+
+  private _setupTemplateEngine() {
+    this.app.engine('eta', buildEtaEngine());
+    this.app.set('view engine', 'eta');
+    this.app.set('views', path.join(__dirname, 'views'));
   }
 
   private _listen() {

@@ -28,7 +28,8 @@ class Router {
 
   private _handlePageNotFound() {
     this.router.all('*', async (_req, res) => {
-      res.status(HTTP_CODE.NotFound).send('Page Not Found');
+      // res.status(HTTP_CODE.NotFound).send('Page Not Found');
+      res.status(HTTP_CODE.NotFound).render('404');
     });
   }
 

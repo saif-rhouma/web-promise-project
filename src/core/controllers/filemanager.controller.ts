@@ -12,7 +12,7 @@ class FileManagerController {
   download: AsyncRouteHandler = async (req: Request, res: Response) => {
     const { fileName } = req.params;
 
-    const filePath = path.join(__dirname, '../../uploads', fileName);
+    const filePath = path.join(__dirname, '../../uploads', fileName as string);
 
     const stat = fs.statSync(filePath);
 
