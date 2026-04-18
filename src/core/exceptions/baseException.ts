@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 class BaseException extends Error {
   status: number;
   details?: any;

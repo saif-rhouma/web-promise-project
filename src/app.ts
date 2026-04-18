@@ -4,6 +4,9 @@ import cors from 'cors';
 import pc from 'picocolors';
 import httpLogger from 'morgan';
 import path from 'node:path';
+import session from 'express-session';
+import csrf from 'csurf';
+import rateLimit from 'express-rate-limit';
 
 import environment from './configs/environment';
 import Router from './router';
@@ -25,6 +28,36 @@ class App {
         methods: ['GET', 'POST', 'DELETE', 'PUT', 'PATCH', 'OPTIONS'],
       })
     );
+
+    // Session
+    this.app.use(
+      session({
+        secret: 'super-secret-key',
+        resave: false,
+        saveUninitialized: false,
+        // cookie: {
+        //   httpOnly: true,
+        //   secure: false, // TRUE in production (HTTPS)
+        // },
+      })
+    );
+
+    // CSRF protection
+    const csrfProtection = csrf();
+    this.app.use(csrfProtection);
+
+    // Make token available in all views
+    this.app.use((req, res, next) => {
+      res.locals.csrfToken = req.csrfToken();
+      next();
+    });
+
+    // Rate limiter (global basic)
+    const limiter = rateLimit({
+      windowMs: 15 * 60 * 1000, // 15 min
+      max: 100, // max requests per IP
+    });
+    this.app.use(limiter);
   }
 
   public start() {

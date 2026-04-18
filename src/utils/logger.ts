@@ -3,7 +3,6 @@ import environment from '../configs/environment';
 const { combine, printf, timestamp, colorize, json } = format;
 
 const getTransports = (() => {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const transportConfig: any[] = [
     new transports.Console({
       format: combine(
