@@ -16,7 +16,9 @@ import { Request, Response, NextFunction } from 'express';
  * @param fn The async function to wrap.
  * @returns A function that can be used as an Express middleware.
  */
-const runAsyncWrapper = (fn: (req: Request, res: Response, next: NextFunction) => Promise<void>) => {
+const runAsyncWrapper = (
+  fn: (req: Request, res: Response, next: NextFunction) => Promise<void | Response<any, Record<string, any>>>
+) => {
   return (req: Request, res: Response, next: NextFunction) => {
     Promise.resolve(fn(req, res, next)).catch(next);
   };

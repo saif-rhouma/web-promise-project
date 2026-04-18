@@ -2,22 +2,30 @@ import express, { Express, Router as IRouter } from 'express';
 
 import { AuthRoutes } from './apis/auth.routes';
 import { ExampleRoutes } from './apis/example.routes';
+
 import HTTP_CODE from '../core/constants/httpCode';
 import IRouteGroup from '../types/IRouteGroup';
 import runAsyncWrapper from '../utils/runAsyncWrapper';
+import PublicRoutes from './web/public.routes';
+import AuthWebRoutes from './web/auth-web.routes';
 
 class Router {
   router: IRouter;
   authRoutes: IRouteGroup;
+  publicRoutes: IRouteGroup;
+  authWebRoutes: IRouteGroup;
   exampleRoutes: IRouteGroup;
 
   constructor() {
     this.router = express.Router();
     this.authRoutes = AuthRoutes;
+    this.publicRoutes = PublicRoutes;
+    this.authWebRoutes = AuthWebRoutes;
     this.exampleRoutes = ExampleRoutes;
   }
 
   public create(app: Express) {
+    this._handleWebAPI();
     // TODO : attach middleware
     this._handleExampleAPI();
     this._handleAuthAPI();
@@ -49,6 +57,11 @@ class Router {
 
   private _handleAuthAPI() {
     this._attachRoutes(this.authRoutes, '/api');
+  }
+
+  private _handleWebAPI() {
+    this._attachRoutes(this.publicRoutes, '');
+    this._attachRoutes(this.authWebRoutes, '');
   }
 
   private _handleExampleAPI() {

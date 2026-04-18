@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="en">
+  <%~ include('./partials/head') %>
+  <body data-anm=".anm">
+    <!-- LOADING AREA START ===== -->
+    <div class="loading-area">
+      <div class="loading-box"></div>
+      <div class="loading-pic">
+        <div class="wrapper">
+          <div class="cssload-loader"></div>
+        </div>
+      </div>
+    </div>
+    <!-- LOADING AREA  END ====== -->
+
+    <div class="page-wraper">
+      <%~ include('./partials/header') %>
+
+      <!-- CONTENT START -->
+      <div class="page-content">
+        <!--Banner Start-->
+        <div class="twm-home-9-banner-section" style="background-image: url(images/home-9/banner-bg/pic1.jpg)">
+          <div class="container">
+            <div class="row">
+              <!--Left Section-->
+              <div class="col-xl-7 col-lg-12 col-md-12">
+                <div class="twm-bnr-left-section">
+                  <div class="twm-bnr-title-large">
+                    <span>Find Your</span>
+                    <span
+                      class="typewrite site-text-primary"
+                      data-period="2000"
+                      data-type='[ "Dream Job" , "Next Job"]'
+                    ></span>
+                    <div><span>Now It’s Easy.</span></div>
+                  </div>
+                </div>
+              </div>
+
+              <!--right Section-->
+              <div class="col-xl-5 col-lg-12 col-md-12 twm-bnr-right-section">
+                <div class="twm-bnr-right-content">
+                  <div class="bnr-media">
+                    <img src="images/home-9/banner-bg/right-pic1.png" alt="#" />
+                  </div>
+                  <div class="slider-thumb-wrap">
+                    <div class="slider-thumb"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!--Banner End-->
+
+        <!-- FOR EMPLOYEE START -->
+        <div class="section-full p-t120 p-b120 twm-for-employee-9-area site-bg-white">
+          <div class="container">
+            <div class="section-content">
+              <div class="twm-for-employee-9">
+                <div class="row">
+                  <div class="col-lg-5 col-md-12">
+                    <div class="twm-explore-9-media-wrap">
+                      <div class="twm-media">
+                        <img src="images/gir-large-2.png" alt="" />
+                        <div class="rectangle1-wrap">
+                          <div class="rectangle1 rotate-center"></div>
+                        </div>
+                        <div class="rectangle2-wrap">
+                          <div class="rectangle2"></div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-lg-7 col-md-12">
+                    <div class="twm-explore-content-outer-3">
+                      <div class="twm-explore-content-3">
+                        <div class="twm-title-small">Explore New Life</div>
+                        <div class="twm-title-large">
+                          <h2>Build your personal account profile</h2>
+                          <p>
+                            Lorem Ipsum is simply dummy text of the printing and typesetting industry the standard dummy
+                            text ever since the when an printer took. lorem Ipsum is simply dummy text.
+                          </p>
+                        </div>
+                        <div class="twm-upload-file">
+                          <button type="button" class="site-button">
+                            Upload Your Resume <i class="feather-upload"></i>
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- FOR EMPLOYEE END -->
+
+        <!-- JOB POST START -->
+        <div class="section-full p-t120 p-b90 site-bg-gray twm-bg-ring-wrap2">
+          <div class="twm-bg-ring-right"></div>
+          <div class="twm-bg-ring-left"></div>
+          <div class="container">
+            <div class="wt-separator-two-part">
+              <div class="row wt-separator-two-part-row">
+                <div class="col-xl-6 col-lg-6 col-md-12 wt-separator-two-part-left">
+                  <!-- TITLE START-->
+                  <div class="section-head left wt-small-separator-outer">
+                    <div class="wt-small-separator site-text-primary">
+                      <div>All Jobs Post</div>
+                    </div>
+                    <h2 class="wt-title">Find Your Career You Deserve it</h2>
+                  </div>
+                  <!-- TITLE END-->
+                </div>
+                <div class="col-xl-6 col-lg-6 col-md-12 wt-separator-two-part-right text-right">
+                  <a href="job-list.html" class="site-button">Browse All Jobs</a>
+                </div>
+              </div>
+            </div>
+
+            <div class="section-content">
+              <div class="twm-jobs-grid-wrap">
+                <div class="row">
+                  <div class="col-lg-4 col-md-6">
+                    <div class="twm-jobs-grid-style1 m-b30">
+                      <div class="twm-media">
+                        <img src="images/jobs-company/pic1.jpg" alt="#" />
+                      </div>
+                      <span class="twm-job-post-duration">1 days ago</span>
+                      <div class="twm-jobs-category green"><span class="twm-bg-green">New</span></div>
+                      <div class="twm-mid-content">
+                        <a href="job-detail.html" class="twm-job-title">
+                          <h4>Senior Web Designer , Developer</h4>
+                        </a>
+                        <p class="twm-job-address">1363-1385 Sunset Blvd Los Angeles, CA 90026, USA</p>
+                        <a
+                          href="https://themeforest.net/user/thewebmax/portfolio"
+                          class="twm-job-websites site-text-primary"
+                          >https://thewebmax.com</a
+                        >
+                      </div>
+                      <div class="twm-right-content">
+                        <div class="twm-jobs-amount">$2000 - $2500 <span>/ Month</span></div>
+                        <a href="job-detail.html" class="twm-jobs-browse site-text-primary">Browse Job</a>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-lg-4 col-md-6">
+                    <div class="twm-jobs-grid-style1 m-b30">
+                      <div class="twm-media">
+                        <img src="images/jobs-company/pic2.jpg" alt="#" />
+                      </div>
+                      <span class="twm-job-post-duration">15 days ago</span>
+                      <div class="twm-jobs-category green"><span class="twm-bg-brown">Intership</span></div>
+                      <div class="twm-mid-content">
+                        <a href="job-detail.html" class="twm-job-title">
+                          <h4>Senior Rolling Stock Technician</h4>
+                        </a>
+                        <p class="twm-job-address">1363-1385 Sunset Blvd Los Angeles, CA 90026, USA</p>
+                        <a
+                          href="https://themeforest.net/user/thewebmax/portfolio"
+                          class="twm-job-websites site-text-primary"
+                          >https://thewebmax.com</a
+                        >
+                      </div>
+                      <div class="twm-right-content">
+                        <div class="twm-jobs-amount">$7 <span>/ Hour</span></div>
+                        <a href="job-detail.html" class="twm-jobs-browse site-text-primary">Browse Job</a>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-lg-4 col-md-6">
+                    <div class="twm-jobs-grid-style1 m-b30">
+                      <div class="twm-media">
+                        <img src="images/jobs-company/pic3.jpg" alt="#" />
+                      </div>
+                      <span class="twm-job-post-duration">6 Month ago</span>
+                      <div class="twm-jobs-category green"><span class="twm-bg-purple">Fulltime</span></div>
+                      <div class="twm-mid-content">
+                        <a href="job-detail.html" class="twm-job-title">
+                          <h4 class="twm-job-title">IT Department Manager</h4>
+                        </a>
+                        <p class="twm-job-address">1363-1385 Sunset Blvd Los Angeles, CA 90026, USA</p>
+                        <a
+                          href="https://themeforest.net/user/thewebmax/portfolio"
+                          class="twm-job-websites site-text-primary"
+                          >https://thewebmax.com</a
+                        >
+                      </div>
+                      <div class="twm-right-content">
+                        <div class="twm-jobs-amount">$2000 - $2500 <span>/ Month</span></div>
+                        <a href="job-detail.html" class="twm-jobs-browse site-text-primary">Browse Job</a>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-lg-4 col-md-6">
+                    <div class="twm-jobs-grid-style1 m-b30">
+                      <div class="twm-media">
+                        <img src="images/jobs-company/pic4.jpg" alt="#" />
+                      </div>
+                      <span class="twm-job-post-duration">2 days ago</span>
+                      <div class="twm-jobs-category green"><span class="twm-bg-sky">Freelancer</span></div>
+                      <div class="twm-mid-content">
+                        <a href="job-detail.html" class="twm-job-title">
+                          <h4 class="twm-job-title">Art Production Specialist</h4>
+                        </a>
+                        <p class="twm-job-address">1363-1385 Sunset Blvd Los Angeles, CA 90026, USA</p>
+                        <a
+                          href="https://themeforest.net/user/thewebmax/portfolio"
+                          class="twm-job-websites site-text-primary"
+                          >https://thewebmax.com</a
+                        >
+                      </div>
+                      <div class="twm-right-content">
+                        <div class="twm-jobs-amount">$1500 - $1800 <span>/ Month</span></div>
+                        <a href="job-detail.html" class="twm-jobs-browse site-text-primary">Browse Job</a>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-lg-4 col-md-6">
+                    <div class="twm-jobs-grid-style1 m-b30">
+                      <div class="twm-media">
+                        <img src="images/jobs-company/pic5.jpg" alt="#" />
+                      </div>
+                      <span class="twm-job-post-duration">1 days ago</span>
+                      <div class="twm-jobs-category green"><span class="twm-bg-golden">Temporary</span></div>
+                      <div class="twm-mid-content">
+                        <a href="job-detail.html" class="twm-job-title">
+                          <h4 class="twm-job-title">Recreation & Fitness Worker</h4>
+                        </a>
+                        <p class="twm-job-address">1363-1385 Sunset Blvd Los Angeles, CA 90026, USA</p>
+                        <a
+                          href="https://themeforest.net/user/thewebmax/portfolio"
+                          class="twm-job-websites site-text-primary"
+                          >https://thewebmax.com</a
+                        >
+                      </div>
+                      <div class="twm-right-content">
+                        <div class="twm-jobs-amount">$500 - $1000 <span>/ Month</span></div>
+                        <a href="job-detail.html" class="twm-jobs-browse site-text-primary">Browse Job</a>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-lg-4 col-md-6">
+                    <div class="twm-jobs-grid-style1 m-b30">
+                      <div class="twm-media">
+                        <img src="images/jobs-company/pic1.jpg" alt="#" />
+                      </div>
+                      <span class="twm-job-post-duration">1 days ago</span>
+                      <div class="twm-jobs-category green"><span class="twm-bg-green">New</span></div>
+                      <div class="twm-mid-content">
+                        <a href="job-detail.html" class="twm-job-title">
+                          <h4>Senior Web Designer , Developer</h4>
+                        </a>
+                        <p class="twm-job-address">1363-1385 Sunset Blvd Los Angeles, CA 90026, USA</p>
+                        <a
+                          href="https://themeforest.net/user/thewebmax/portfolio"
+                          class="twm-job-websites site-text-primary"
+                          >https://thewebmax.com</a
+                        >
+                      </div>
+                      <div class="twm-right-content">
+                        <div class="twm-jobs-amount">$19 <span>/ Hour</span></div>
+                        <a href="job-detail.html" class="twm-jobs-browse site-text-primary">Browse Job</a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- JOB POST END -->
+
+        <!-- ABOUT SECTION START -->
+        <div class="section-full p-t120 p-b90 twm-about-8-area">
+          <div class="container">
+            <div class="twm-about-9-section-wrap">
+              <div class="row">
+                <div class="col-lg-6 col-md-12">
+                  <div class="twm-about-9-section">
+                    <div class="twm-media">
+                      <img src="images/home-9/pic1.png" alt="" />
+                    </div>
+                    <div class="img-bg-circle"></div>
+                    <!--icon-block-2-->
+                    <div class="twm-card-blocks-2 bounce2">
+                      <div class="twm-pics">
+                        <span><img src="images/main-slider/slider2/user/u-1.jpg" alt="" /></span>
+                        <span><img src="images/main-slider/slider2/user/u-2.jpg" alt="" /></span>
+                        <span><img src="images/main-slider/slider2/user/u-3.jpg" alt="" /></span>
+                        <span><img src="images/main-slider/slider2/user/u-4.jpg" alt="" /></span>
+                        <span><img src="images/main-slider/slider2/user/u-5.jpg" alt="" /></span>
+                        <span><img src="images/main-slider/slider2/user/u-6.jpg" alt="" /></span>
+                      </div>
+                      <div class="twm-content">
+                        <div class="tw-count-number text-clr-green"><span class="counter">3</span>K+</div>
+                        <p class="icon-content-info">Jobs Done</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-lg-6 col-md-12">
+                  <div class="twm-about-9-section-right">
+                    <!-- TITLE START-->
+                    <div class="section-head left wt-small-separator-outer">
+                      <div class="wt-small-separator site-text-primary">
+                        <div>About</div>
+                      </div>
+                      <h2 class="wt-title">Millions of jobs. Find the one that’s right for you.</h2>
+                    </div>
+                    <!-- TITLE END-->
+                    <ul class="description-list">
+                      <li>
+                        <i class="feather-check"></i>
+                        Full lifetime access
+                      </li>
+                      <li>
+                        <i class="feather-check"></i>
+                        20+ downloadable resources
+                      </li>
+                      <li>
+                        <i class="feather-check"></i>
+                        Certificate of completion
+                      </li>
+                      <li>
+                        <i class="feather-check"></i>
+                        Free Trial 7 Days
+                      </li>
+                    </ul>
+
+                    <div class="twm-about-1-bottom-wrap">
+                      <div class="row">
+                        <div class="col-lg-6 col-md-6">
+                          <!--icon-block-1-->
+                          <div class="twm-card-blocks">
+                            <div class="twm-icon pink">
+                              <img src="images/main-slider/slider2/icon-2.png" alt="" />
+                            </div>
+                            <div class="twm-content">
+                              <div class="tw-count-number text-clr-pink"><span class="counter">98</span> +</div>
+                              <p class="icon-content-info">Job For Countries</p>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div class="col-lg-6 col-md-6">
+                          <!--icon-block-3-->
+                          <div class="twm-card-blocks">
+                            <div class="twm-icon">
+                              <img src="images/main-slider/slider2/icon-1.png" alt="" />
+                            </div>
+                            <div class="twm-content">
+                              <div class="tw-count-number text-clr-sky"><span class="counter">12</span>K+</div>
+                              <p class="icon-content-info">Companies Jobs</p>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- ABOUT SECTION END -->
+      </div>
+      <!-- CONTENT END -->
+
+      <%~ include('./partials/footer') %>
+      <!-- BUTTON TOP START -->
+      <button class="scroltop"><span class="fa fa-angle-up relative" id="btn-vibrate"></span></button>
+      <%~ include('./partials/modals') %>
+    </div>
+    <%~ include('./partials/scripts') %>
+  </body>
+</html>

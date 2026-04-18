@@ -26,9 +26,8 @@ export class Application {
   cvUrl: string;
 
   @Column({
-    type: 'enum',
-    enum: ApplicationStatus,
-    default: ApplicationStatus.PENDING,
+    type: 'text',
+    default: 'PENDING',
   })
   status: ApplicationStatus;
 

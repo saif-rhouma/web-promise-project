@@ -5,8 +5,8 @@ import pc from 'picocolors';
 import httpLogger from 'morgan';
 import path from 'node:path';
 import session from 'express-session';
-import csrf from 'csurf';
-import rateLimit from 'express-rate-limit';
+// import csrf from 'csurf';
+// import rateLimit from 'express-rate-limit';
 
 import environment from './configs/environment';
 import Router from './router';
@@ -29,6 +29,9 @@ class App {
       })
     );
 
+    // ✅ STATIC FILES (FIXED)
+    this.app.use('', express.static(path.join(process.cwd(), 'src/public')));
+
     // Session
     this.app.use(
       session({
@@ -42,22 +45,22 @@ class App {
       })
     );
 
-    // CSRF protection
-    const csrfProtection = csrf();
-    this.app.use(csrfProtection);
+    // // CSRF protection
+    // const csrfProtection = csrf();
+    // this.app.use(csrfProtection);
 
-    // Make token available in all views
-    this.app.use((req, res, next) => {
-      res.locals.csrfToken = req.csrfToken();
-      next();
-    });
+    // // Make token available in all views
+    // this.app.use((req, res, next) => {
+    //   res.locals.csrfToken = req.csrfToken();
+    //   next();
+    // });
 
     // Rate limiter (global basic)
-    const limiter = rateLimit({
-      windowMs: 15 * 60 * 1000, // 15 min
-      max: 100, // max requests per IP
-    });
-    this.app.use(limiter);
+    // const limiter = rateLimit({
+    //   windowMs: 15 * 60 * 1000, // 15 min
+    //   max: 100, // max requests per IP
+    // });
+    // this.app.use(limiter);
   }
 
   public start() {
@@ -73,7 +76,7 @@ class App {
   private _setupTemplateEngine() {
     this.app.engine('eta', buildEtaEngine());
     this.app.set('view engine', 'eta');
-    this.app.set('views', path.join(__dirname, 'views'));
+    this.app.set('views', path.join(process.cwd(), 'src/views'));
   }
 
   private _listen() {

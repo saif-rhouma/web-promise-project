@@ -20,9 +20,8 @@ export class User {
   password: string;
 
   @Column({
-    type: 'enum',
-    enum: UserRole,
-    default: UserRole.STARTUP,
+    type: 'text',
+    default: 'PENDING',
   })
   role: UserRole;
 

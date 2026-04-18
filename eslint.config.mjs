@@ -7,6 +7,10 @@ import prettierPlugin from 'eslint-plugin-prettier';
 /** @type {import('eslint').Linter.FlatConfig[]} */
 export default [
   {
+    ignores: ['src/public/**', 'dist/**', 'node_modules/**'],
+  },
+
+  {
     files: ['**/*.{js,mjs,cjs,ts}'],
     languageOptions: {
       globals: globals.node,
