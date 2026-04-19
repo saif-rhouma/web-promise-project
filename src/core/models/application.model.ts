@@ -17,6 +17,9 @@ export class Application {
   fullName: string;
 
   @Column()
+  message: string;
+
+  @Column()
   email: string;
 
   @Column()

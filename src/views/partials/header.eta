@@ -5,8 +5,8 @@
       <div class="container-fluid clearfix">
         <div class="logo-header">
           <div class="logo-header-inner logo-header-one">
-            <a href="index.html">
-              <img src="images/logo-dark.png" alt="" />
+            <a href="/">
+              <img src="/images/logo-dark.png" alt="" />
             </a>
           </div>
         </div>
@@ -29,13 +29,13 @@
         <div class="nav-animation header-nav navbar-collapse collapse d-flex justify-content-center">
           <ul class="nav navbar-nav">
             <li class="has-mega-menu">
-              <a href="javascript:;">Acceuil</a>
+              <a href="/">Acceuil</a>
             </li>
             <li class="has-child">
-              <a href="javascript:;">Startups</a>
+              <a href="/startups">Startups</a>
             </li>
             <li class="has-child">
-              <a href="javascript:;"> Contactez-nous</a>
+              <a href="/contact"> Contactez-nous</a>
             </li>
           </ul>
         </div>
@@ -45,9 +45,7 @@
           <div class="extra-cell">
             <div class="header-nav-btn-section">
               <div class="twm-nav-btn-left">
-                <a class="twm-nav-sign-up" data-bs-toggle="modal" href="#sign_up_popup" role="button">
-                  <i class="feather-log-in"></i> Sign Up
-                </a>
+                <a class="twm-nav-sign-up" href="/auth/login"> <i class="feather-log-in"></i> Sign In </a>
               </div>
             </div>
           </div>

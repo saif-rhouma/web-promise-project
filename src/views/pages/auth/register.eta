@@ -45,62 +45,52 @@
                       <div class="tab-content" id="myTabContent">
                         <div class="tab-pane fade show active" id="twm-candidate-Signup">
                           <div class="row">
-                            <div class="col-lg-12">
-                              <div class="form-group mb-3">
-                                <input
-                                  name="username"
-                                  type="text"
-                                  required=""
-                                  class="form-control"
-                                  placeholder="Usearname*"
-                                />
-                              </div>
-                            </div>
-
-                            <div class="col-lg-12">
-                              <div class="form-group mb-3">
-                                <input
-                                  name="email"
-                                  type="text"
-                                  class="form-control"
-                                  required=""
-                                  placeholder="Password*"
-                                />
-                              </div>
-                            </div>
-
-                            <div class="col-lg-12">
-                              <div class="form-group mb-3">
-                                <input name="phone" type="text" class="form-control" required="" placeholder="Email*" />
-                              </div>
-                            </div>
-
-                            <div class="col-lg-12">
-                              <div class="form-group mb-3">
-                                <input name="phone" type="text" class="form-control" required="" placeholder="Phone*" />
-                              </div>
-                            </div>
-
-                            <div class="col-lg-12">
-                              <div class="form-group mb-3">
-                                <div class="form-check">
-                                  <input type="checkbox" class="form-check-input" id="agree1" />
-                                  <label class="form-check-label" for="agree1"
-                                    >I agree to the
-                                    <a href="javascript:;" class="site-text-primary">Terms and conditions</a></label
-                                  >
-                                  <p>
-                                    Already registered?
-                                    <a href="login.html" class="twm-backto-login m-l5 site-text-primary">Log in here</a>
-                                  </p>
+                            <form action="/auth/register" method="POST">
+                              <input type="hidden" name="_csrf" value="<%= it.csrfToken %>" />
+                              <div class="col-lg-12">
+                                <div class="form-group mb-3">
+                                  <input name="email" type="email" class="form-control" placeholder="Email*" required />
                                 </div>
                               </div>
-                            </div>
-                            <div class="col-md-12">
-                              <div class="form-group">
-                                <button type="submit" class="site-button">Sign Up</button>
+                              <div class="col-lg-12">
+                                <div class="form-group mb-3">
+                                  <input name="phone" type="text" class="form-control" placeholder="Phone*" required />
+                                </div>
                               </div>
-                            </div>
+                              <div class="col-lg-12">
+                                <div class="form-group mb-3">
+                                  <input
+                                    name="password"
+                                    type="password"
+                                    class="form-control"
+                                    placeholder="Password*"
+                                    required
+                                  />
+                                </div>
+                              </div>
+                              <div class="col-lg-12">
+                                <div class="form-group mb-3">
+                                  <div class="form-check">
+                                    <input type="checkbox" class="form-check-input" id="agree1" required />
+                                    <label class="form-check-label" for="agree1"
+                                      >I agree to the
+                                      <a href="javascript:;" class="site-text-primary">Terms and conditions</a></label
+                                    >
+                                    <p>
+                                      Already registered?
+                                      <a href="login.html" class="twm-backto-login m-l5 site-text-primary"
+                                        >Log in here</a
+                                      >
+                                    </p>
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="col-md-12">
+                                <div class="form-group">
+                                  <button type="submit" class="site-button">Sign Up</button>
+                                </div>
+                              </div>
+                            </form>
                           </div>
                         </div>
                       </div>

@@ -8,12 +8,14 @@ import IRouteGroup from '../types/IRouteGroup';
 import runAsyncWrapper from '../utils/runAsyncWrapper';
 import PublicRoutes from './web/public.routes';
 import AuthWebRoutes from './web/auth-web.routes';
+import StartupRoutes from './web/startup.routes';
 
 class Router {
   router: IRouter;
   authRoutes: IRouteGroup;
   publicRoutes: IRouteGroup;
   authWebRoutes: IRouteGroup;
+  startupRoutes: IRouteGroup;
   exampleRoutes: IRouteGroup;
 
   constructor() {
@@ -21,6 +23,7 @@ class Router {
     this.authRoutes = AuthRoutes;
     this.publicRoutes = PublicRoutes;
     this.authWebRoutes = AuthWebRoutes;
+    this.startupRoutes = StartupRoutes;
     this.exampleRoutes = ExampleRoutes;
   }
 
@@ -37,7 +40,7 @@ class Router {
   private _handlePageNotFound() {
     this.router.all('*', async (_req, res) => {
       // res.status(HTTP_CODE.NotFound).send('Page Not Found');
-      res.status(HTTP_CODE.NotFound).render('404');
+      res.status(HTTP_CODE.NotFound).render('error-404');
     });
   }
 
@@ -61,6 +64,7 @@ class Router {
 
   private _handleWebAPI() {
     this._attachRoutes(this.publicRoutes, '');
+    this._attachRoutes(this.startupRoutes, '');
     this._attachRoutes(this.authWebRoutes, '');
   }
 

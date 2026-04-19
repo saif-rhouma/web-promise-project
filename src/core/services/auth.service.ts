@@ -2,7 +2,7 @@ import { hashPassword } from '../../helpers/auth.helpers';
 import { MSG_EXCEPTION } from '../constants/messages';
 import UnauthorizedException from '../exceptions/unauthorizedException';
 import usersRepository from '../repositories/user.repository';
-import { User } from '../models/user.model';
+import { UserRole } from '../models/user.model';
 import { scrypt as _scrypt } from 'crypto';
 import { promisify } from 'util';
 import { instanceToPlain } from 'class-transformer';
@@ -15,26 +15,32 @@ const scrypt = promisify(_scrypt);
 class AuthService {
   private usersRepository = usersRepository;
 
-  async signup(userData: User) {
-    const users = await this.usersRepository.findByEmail(userData.email);
-    if (users.length) {
+  async signup(data: { email: string; password: string; phone: string; role: UserRole }) {
+    const existing = await this.usersRepository.findByEmail(data.email);
+
+    if (existing.length) {
       throw new UnauthorizedException(MSG_EXCEPTION.OTHER_ALREADY_IN_USE_EMAIL);
     }
-    // Hash the users password
-    const result = await hashPassword(userData.password);
-    userData.password = result;
-    // Create a new user and save it
-    const user = await usersRepository.create({
-      ...userData,
+
+    const hashed = await hashPassword(data.password);
+
+    const user = await this.usersRepository.create({
+      email: data.email,
+      phone: data.phone,
+      password: hashed,
+      role: data.role,
     });
+
     return user;
   }
 
   async login(email: string, password: string) {
-    const [user] = await usersRepository.findByEmail(email);
+    const [user] = await this.usersRepository.findByEmail(email);
+
     if (!user) {
       throw new UnauthorizedException(MSG_EXCEPTION.NOT_FOUND_USER);
     }
+
     const [salt, storedHash] = user.password.split('.');
     const hash = (await scrypt(password, salt, 32)) as Buffer;
 
@@ -42,13 +48,19 @@ class AuthService {
       throw new UnauthorizedException(MSG_EXCEPTION.OTHER_BAD_PASSWORD);
     }
 
-    //! HERE NEED SERIALIZE THE USER FOR TOKEN ()
-    const userPlain = instanceToPlain(user);
+    // ✅ serialize user (remove password)
+    const userPlain = instanceToPlain(user) as any;
     delete userPlain.password;
-    //! END SERIALIZE THE USER FOR TOKEN
 
+    // ✅ generate tokens
     const { accessToken, refreshToken } = await this.generateUserTokens(userPlain);
-    return { ...user, accessToken, refreshToken };
+
+    // ✅ return clean object
+    return {
+      ...userPlain,
+      accessToken,
+      refreshToken,
+    };
   }
 
   async generateUserTokens(user) {

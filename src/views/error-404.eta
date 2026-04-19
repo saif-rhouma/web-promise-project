@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+  <%~ include('./partials/head') %>
+  <body>
+    <!-- LOADING AREA START ===== -->
+    <div class="loading-area">
+      <div class="loading-box"></div>
+      <div class="loading-pic">
+        <div class="wrapper">
+          <div class="cssload-loader"></div>
+        </div>
+      </div>
+    </div>
+    <!-- LOADING AREA  END ====== -->
+
+    <div class="page-wraper">
+      <%~ include('./partials/header') %>
+
+      <!-- CONTENT START -->
+      <div class="page-content">
+        <!-- OUR BLOG START -->
+        <div class="section-full p-t120 p-b90 site-bg-white">
+          <div class="container">
+            <div class="twm-error-wrap">
+              <div class="row">
+                <div class="col-lg-6 col-md-12">
+                  <div class="twm-error-image">
+                    <img src="/images/error-404.png" alt="#" />
+                  </div>
+                </div>
+
+                <div class="col-lg-6 col-md-12">
+                  <div class="twm-error-content">
+                    <h2 class="twm-error-title">404</h2>
+                    <h4 class="twm-error-title2 site-text-primary">We Are Sorry, Page Not Found</h4>
+                    <p>
+                      The page you are looking for might have been removed had its name changed or is temporarily
+                      unavailable.
+                    </p>
+                    <a href="/" class="site-button">Go To Home</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- OUR BLOG END -->
+      </div>
+      <!-- CONTENT END -->
+
+      <%~ include('./partials/footer') %>
+      <!-- BUTTON TOP START -->
+      <button class="scroltop"><span class="fa fa-angle-up relative" id="btn-vibrate"></span></button>
+    </div>
+    <%~ include('./partials/scripts') %>
+  </body>
+</html>

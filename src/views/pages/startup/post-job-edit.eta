@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="en">
+  <%~ include('./partials/head') %>
+
+  <body>
+    <!-- LOADING AREA START ===== -->
+    <div class="loading-area">
+      <div class="loading-box"></div>
+      <div class="loading-pic">
+        <div class="wrapper">
+          <div class="cssload-loader"></div>
+        </div>
+      </div>
+    </div>
+    <!-- LOADING AREA  END ====== -->
+
+    <div class="page-wraper">
+      <!-- CONTENT START -->
+      <div class="page-content">
+        <%~ include('./partials/startup-inner-banner') %>
+
+        <!-- OUR BLOG START -->
+        <div class="section-full p-t120 p-b90 site-bg-white">
+          <div class="container">
+            <div class="row">
+              <%~ include('./partials/startup-sidemenu') %>
+
+              <div class="col-xl-9 col-lg-8 col-md-12 m-b30">
+                <!--Filter Short By-->
+                <div class="twm-right-section-panel site-bg-gray">
+                  <form action="/startup/jobs/<%= it.job.id %>/edit" method="POST" enctype="multipart/form-data">
+                    <input type="hidden" name="_csrf" value="<%= it.csrfToken %>" />
+                    <!--Basic Information-->
+                    <div class="panel panel-default">
+                      <div class="panel-heading wt-panel-heading p-a20">
+                        <h4 class="panel-tittle m-a0"><i class="fa fa-suitcase"></i>Job Details</h4>
+                      </div>
+                      <div class="panel-body wt-panel-body p-a20 m-b30">
+                        <div class="row">
+                          <!--Job title-->
+                          <div class="col-xl-4 col-lg-6 col-md-12">
+                            <div class="form-group">
+                              <label>Job Title</label>
+                              <div class="ls-inputicon-box">
+                                <input
+                                  class="form-control"
+                                  name="title"
+                                  type="text"
+                                  placeholder="Devid Smith"
+                                  value="<%= it.job.title %>"
+                                />
+                                <i class="fs-input-icon fa fa-address-card"></i>
+                              </div>
+                            </div>
+                          </div>
+
+                          <!--Job Category-->
+                          <div class="col-xl-4 col-lg-6 col-md-12">
+                            <div class="form-group city-outer-bx has-feedback">
+                              <label>Job Category</label>
+                              <div class="ls-inputicon-box">
+                                <select
+                                  class="wt-select-box selectpicker"
+                                  data-live-search="true"
+                                  title=""
+                                  name="category"
+                                  id="j-category"
+                                  data-bv-field="size"
+                                >
+                                  <option disabled selected value="">Select Category</option>
+                                  <option <%= it.job.category === 'Accounting and Finance' ? 'selected' : '' %>>Accounting and Finance</option>
+                                  <option <%= it.job.category === 'Clerical &amp; Data Entry' ? 'selected' : '' %>>Clerical &amp; Data Entry</option>
+                                  <option <%= it.job.category === 'Counseling' ? 'selected' : '' %>>Counseling</option>
+                                  <option <%= it.job.category === 'Court Administration' ? 'selected' : '' %>>Court Administration</option>
+                                  <option <%= it.job.category === 'Human Resources' ? 'selected' : '' %>>Human Resources</option>
+                                  <option <%= it.job.category === 'Investigative' ? 'selected' : '' %>>Investigative</option>
+                                  <option <%= it.job.category === 'IT and Computers' ? 'selected' : '' %>>IT and Computers</option>
+                                  <option <%= it.job.category === 'Law Enforcement' ? 'selected' : '' %>>Law Enforcement</option>
+                                  <option <%= it.job.category === 'Management' ? 'selected' : '' %>>Management</option>
+                                  <option <%= it.job.category === 'Miscellaneous' ? 'selected' : '' %>>Miscellaneous</option>
+                                  <option <%= it.job.category === 'Public Relations' ? 'selected' : '' %>>Public Relations</option>
+                                </select>
+                                <i class="fs-input-icon fa fa-border-all"></i>
+                              </div>
+                            </div>
+                          </div>
+
+                          <!--Job Type-->
+                          <div class="col-xl-4 col-lg-6 col-md-12">
+                            <div class="form-group">
+                              <label>Job Type</label>
+                              <div class="ls-inputicon-box">
+                                <select
+                                  class="wt-select-box selectpicker"
+                                  data-live-search="true"
+                                  title=""
+                                  name="type"
+                                  id="s-category"
+                                  data-bv-field="size"
+                                >
+                                  <option class="bs-title-option" value="">Select Category</option>
+                                  <option <%= it.job.type === 'Full Time' ? 'selected' : '' %>>Full Time</option>
+                                  <option <%= it.job.type === 'Freelance' ? 'selected' : '' %>>Freelance</option>
+                                  <option <%= it.job.type === 'Part Time' ? 'selected' : '' %>>Part Time</option>
+                                  <option <%= it.job.type === 'Internship' ? 'selected' : '' %>>Internship</option>
+                                  <option <%= it.job.type === 'Temporary' ? 'selected' : '' %>>Temporary</option>
+                                </select>
+                                <i class="fs-input-icon fa fa-file-alt"></i>
+                              </div>
+                            </div>
+                          </div>
+                          <!--Gender-->
+                          <div class="col-xl-4 col-lg-6 col-md-12">
+                            <div class="form-group">
+                              <label>Gender</label>
+                              <div class="ls-inputicon-box">
+                                <select
+                                  class="wt-select-box selectpicker"
+                                  data-live-search="true"
+                                  title=""
+                                  name="gender"
+                                  id="gender"
+                                  data-bv-field="size"
+                                >
+                                  <option class="bs-title-option" value="">Gender</option>
+                                  <option <%= it.job.gender === 'Male' ? 'selected' : '' %>>Male</option>
+                                  <option <%= it.job.gender === 'Female' ? 'selected' : '' %>>Female</option>
+                                </select>
+                                <i class="fs-input-icon fa fa-venus-mars"></i>
+                              </div>
+                            </div>
+                          </div>
+
+                          <!-- Period -->
+                          <div class="col-xl-4 col-lg-6 col-md-12">
+                            <div class="form-group">
+                              <label>Period</label>
+                              <div class="ls-inputicon-box">
+                                <input
+                                  class="form-control"
+                                  name="period"
+                                  type="text"
+                                  value="<%= it.job.period %>"
+                                  placeholder="e.g. 6 months / 1 year / permanent"
+                                />
+                                <i class="fs-input-icon fa fa-clock"></i>
+                              </div>
+                            </div>
+                          </div>
+
+                          <!--Experience-->
+                          <div class="col-xl-4 col-lg-6 col-md-12">
+                            <div class="form-group">
+                              <label>Experience</label>
+                              <div class="ls-inputicon-box">
+                                <input
+                                  class="form-control"
+                                  name="experience"
+                                  type="text"
+                                  value="<%= it.job.experience %>"
+                                  placeholder="E.g. Minimum 3 years"
+                                />
+                                <i class="fs-input-icon fa fa-user-edit"></i>
+                              </div>
+                            </div>
+                          </div>
+
+                          <!--Qualification-->
+                          <div class="col-xl-12 col-lg-6 col-md-12">
+                            <div class="form-group">
+                              <label>Qualification</label>
+                              <div class="ls-inputicon-box">
+                                <input
+                                  class="form-control"
+                                  name="qualification"
+                                  type="text"
+                                  value="<%= it.job.qualification %>"
+                                  placeholder="Qualification Title"
+                                />
+                                <i class="fs-input-icon fa fa-user-graduate"></i>
+                              </div>
+                            </div>
+                          </div>
+
+                          <!--Complete Address-->
+                          <div class="col-xl-12 col-lg-6 col-md-12">
+                            <div class="form-group">
+                              <label>Complete Address</label>
+                              <div class="ls-inputicon-box">
+                                <input
+                                  class="form-control"
+                                  name="location"
+                                  type="text"
+                                  value="<%= it.job.location %>"
+                                  placeholder="1363-1385 Sunset Blvd Los Angeles, CA 90026, USA"
+                                />
+                                <i class="fs-input-icon fa fa-home"></i>
+                              </div>
+                            </div>
+                          </div>
+
+                          <div class="col-xl-12 col-lg-12 col-md-12">
+                            <div class="form-group">
+                              <label>Image Cover</label>
+                              <div class="ls-inputicon-box">
+                                <input class="form-control" name="cover" type="file" />
+                                <i class="fs-input-icon fa fa-globe-americas"></i>
+                              </div>
+                            </div>
+                          </div>
+
+                          <!--Description-->
+                          <div class="col-md-12">
+                            <div class="form-group">
+                              <label>Description</label>
+                              <textarea
+                                class="form-control"
+                                rows="3"
+                                name="description"
+                                placeholder="Greetings! We are Galaxy Software Development Company. We hope you enjoy our services and quality."
+                              >
+<%= it.job.description %></textarea
+                              >
+                            </div>
+                          </div>
+
+                          <!-- Languages -->
+                          <div class="col-xl-6 col-lg-6 col-md-12">
+                            <div class="form-group">
+                              <label>Languages</label>
+                              <div class="ls-inputicon-box">
+                                <select
+                                  class="wt-select-box selectpicker"
+                                  multiple
+                                  data-live-search="true"
+                                  name="languages[]"
+                                >
+                                  <option value="arabic" <%= it.job.languages?.includes('arabic') ? 'selected' : '' %>>Arabic</option>
+                                  <option value="french" <%= it.job.languages?.includes('french') ? 'selected' : '' %>>French</option>
+                                  <option value="english" <%= it.job.languages?.includes('english') ? 'selected' : '' %>>English</option>
+                                  <option value="spanish" <%= it.job.languages?.includes('spanish') ? 'selected' : '' %>>Spanish</option>
+                                </select>
+                                <i class="fs-input-icon fa fa-language"></i>
+                              </div>
+                            </div>
+                          </div>
+
+                          <!-- Remote Work -->
+                          <div class="col-xl-6 col-lg-6 col-md-12">
+                            <div class="form-group">
+                              <label>Travail à distance</label>
+                              <div class="ls-inputicon-box">
+                                <select class="wt-select-box selectpicker" name="remoteWork" data-live-search="true">
+                                  <option value=""  disabled selected>Choose option</option>
+                                  <option value="on-site"  <%= it.job.remoteWork === 'on-site' ? 'selected' : '' %>>>Sur site</option>
+                                  <option value="hybrid"  <%= it.job.remoteWork === 'hybrid' ? 'selected' : '' %>>>Hybride</option>
+                                  <option value="remote"  <%= it.job.remoteWork === 'remote' ? 'selected' : '' %>>>100% Télétravail</option>
+                                </select>
+                                <i class="fs-input-icon fa fa-laptop-house"></i>
+                              </div>
+                            </div>
+                          </div>
+
+                          <!-- Roles & Responsibilities -->
+                          <div class="col-xl-12 col-md-12">
+                            <div class="form-group">
+                              <label>Roles & Responsibilities</label>
+
+                              <div id="rolesEditor" style="height: 200px; background: white"></div>
+
+                              <!-- hidden field sent to backend -->
+                              <input type="hidden" name="roles" id="rolesInput" />
+                            </div>
+                          </div>
+
+                          <div class="col-xl-12 col-md-12">
+                            <div class="form-group">
+                              <label>Ce que nous vous offrons</label>
+
+                              <div id="offerEditor" style="height: 200px; background: white"></div>
+
+                              <input type="hidden" name="offers" id="offersInput" />
+                            </div>
+                          </div>
+
+                          <div class="col-xl-12 col-md-12">
+                            <div class="form-group">
+                              <label>Connaissances</label>
+                              <div id="knowledgeEditor" style="height: 200px; background: white"></div>
+                              <input type="hidden" name="knowledge" id="knowledgeInput" />
+                            </div>
+                          </div>
+
+                          <div class="col-xl-12 col-md-12">
+                            <div class="form-group">
+                              <label>Soft Skill</label>
+                              <div id="skillEditor" style="height: 200px; background: white"></div>
+                              <input type="hidden" name="softSkills" id="skillInput" />
+                            </div>
+                          </div>
+
+                          <div class="col-xl-12 col-md-12">
+                            <div class="form-group">
+                              <label>Tools</label>
+                              <div id="toolsEditor" style="height: 200px; background: white"></div>
+                              <input type="hidden" name="tools" id="toolsInput" />
+                            </div>
+                          </div>
+
+                          <div class="col-xl-12 col-md-12">
+                            <div class="form-group">
+                              <label>Preferred Experience</label>
+                              <div id="experienceEditor" style="height: 200px; background: white"></div>
+                              <input type="hidden" name="preferredExperience" id="experienceInput" />
+                            </div>
+                          </div>
+
+                          <div class="col-lg-12 col-md-12">
+                            <div class="text-left">
+                              <button type="submit" name="action" value="publish" class="site-button m-r5">
+                                Publish Job
+                              </button>
+
+                              <button type="submit" name="action" value="draft" class="site-button outline-primary">
+                                Save Draft
+                              </button>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- OUR BLOG END -->
+      </div>
+      <!-- CONTENT END -->
+
+      <%~ include('./partials/footer') %>
+      <!-- BUTTON TOP START -->
+      <button class="scroltop"><span class="fa fa-angle-up relative" id="btn-vibrate"></span></button>
+    </div>
+
+    <%~ include('./partials/scripts') %>
+    <div id="job-data" data-job="<%= JSON.stringify(it.job || {}) %>"></div>
+    <script src="/js/job-editor-edit.js"></script>
+  </body>
+</html>

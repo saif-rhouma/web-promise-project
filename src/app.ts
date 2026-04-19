@@ -23,37 +23,27 @@ class App {
     this.app.use(helmet());
     this.app.use(
       cors({
+        origin: true,
         credentials: true,
-        origin: '*',
-        methods: ['GET', 'POST', 'DELETE', 'PUT', 'PATCH', 'OPTIONS'],
       })
     );
 
     // ✅ STATIC FILES (FIXED)
     this.app.use('', express.static(path.join(process.cwd(), 'src/public')));
+    this.app.use('/uploads', express.static(path.join(process.cwd(), 'uploads')));
 
-    // Session
+    // session FIRST
     this.app.use(
       session({
-        secret: 'super-secret-key',
+        secret: 'secret',
         resave: false,
         saveUninitialized: false,
-        // cookie: {
-        //   httpOnly: true,
-        //   secure: false, // TRUE in production (HTTPS)
-        // },
+        cookie: {
+          httpOnly: true,
+          sameSite: 'lax',
+        },
       })
     );
-
-    // // CSRF protection
-    // const csrfProtection = csrf();
-    // this.app.use(csrfProtection);
-
-    // // Make token available in all views
-    // this.app.use((req, res, next) => {
-    //   res.locals.csrfToken = req.csrfToken();
-    //   next();
-    // });
 
     // Rate limiter (global basic)
     // const limiter = rateLimit({

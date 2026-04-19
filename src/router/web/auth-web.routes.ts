@@ -1,9 +1,11 @@
 import IRouteGroup from 'src/types/IRouteGroup';
 import authWebController from '../../core/controllers/auth-web.controller';
+import csrfProtection from '../../core/middlewares/csrf.middleware';
 
 const AuthWebRoutes: IRouteGroup = {
   group: {
     prefix: '/auth',
+    middleware: [csrfProtection],
   },
   routes: [
     {

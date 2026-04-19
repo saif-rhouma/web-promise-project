@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+  <%~ include('./partials/head') %>
+
+  <body>
+    <!-- LOADING AREA START ===== -->
+    <div class="loading-area">
+      <div class="loading-box"></div>
+      <div class="loading-pic">
+        <div class="wrapper">
+          <div class="cssload-loader"></div>
+        </div>
+      </div>
+    </div>
+    <!-- LOADING AREA  END ====== -->
+
+    <div class="page-wraper">
+      <%~ include('./partials/header') %>
+
+      <!-- CONTENT START -->
+      <div class="page-content">
+        <!-- INNER PAGE BANNER -->
+        <div class="wt-bnr-inr overlay-wraper bg-center" style="background-image: url(/images/banner/1.jpg)">
+          <div class="overlay-main site-bg-white opacity-01"></div>
+          <div class="container">
+            <div class="wt-bnr-inr-entry">
+              <div class="banner-title-outer">
+                <div class="banner-title-name">
+                  <h2 class="wt-title">Your application for "<%= it.job.title %>" has been sent successfully.</h2>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- INNER PAGE BANNER END -->
+      </div>
+      <!-- CONTENT END -->
+
+      <%~ include('./partials/footer') %>
+
+      <!-- BUTTON TOP START -->
+      <button class="scroltop"><span class="fa fa-angle-up relative" id="btn-vibrate"></span></button>
+    </div>
+    <%~ include('./partials/scripts') %>
+  </body>
+</html>

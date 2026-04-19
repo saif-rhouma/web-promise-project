@@ -1,4 +1,4 @@
-import { DeepPartial, ObjectLiteral, Repository } from 'typeorm';
+import { DeepPartial, FindManyOptions, FindOptionsWhere, ObjectLiteral, Repository } from 'typeorm';
 
 class BaseRepository<T extends ObjectLiteral> {
   protected repo: Repository<T>;
@@ -12,25 +12,38 @@ class BaseRepository<T extends ObjectLiteral> {
     return this.repo.save(entity);
   }
 
-  async findAll(): Promise<T[]> {
-    return this.repo.find();
+  async findAll(options?: FindManyOptions<T>): Promise<T[]> {
+    return this.repo.find(options);
   }
 
-  async findOne(id: number | string): Promise<T | null> {
-    return this.repo.findOneBy({ id } as any);
+  // ======================
+  // FIND ONE (SAFE)
+  // ======================
+  async findOne(options: { where: FindOptionsWhere<T>; relations?: string[] }): Promise<T | null> {
+    return this.repo.findOne(options);
   }
 
-  async update(id: number, data: DeepPartial<T>): Promise<T | null> {
-    const entity = await this.findOne(id);
+  async update(id: string | number, data: DeepPartial<T>): Promise<T | null> {
+    const entity = await this.repo.findOneBy({ id } as any);
     if (!entity) return null;
 
     Object.assign(entity, data);
     return this.repo.save(entity);
   }
 
-  async destroy(id: number): Promise<boolean> {
+  // ======================
+  // DELETE
+  // ======================
+  async destroy(id: string | number): Promise<boolean> {
     const result = await this.repo.delete(id);
-    return result.affected !== 0;
+    return !!result.affected;
+  }
+
+  // ======================
+  // SAVE (FIXED)
+  // ======================
+  async save(entity: DeepPartial<T>): Promise<T> {
+    return this.repo.save(entity);
   }
 }
 

@@ -1,0 +1,50 @@
+<div class="col-xl-3 col-lg-4 col-md-12 rightSidebar m-b30">
+  <div class="side-bar-st-1">
+    <div class="twm-candidate-profile-pic">
+      <img id="avatarPreview" src="<%= it.startupProfile.avatar || '../images/jobs-company/pic1.jpg' %>" alt="" />
+
+      <div class="upload-btn-wrapper">
+        <div id="upload-image-grid"></div>
+        <!-- 🔄 Spinner overlay -->
+        <div id="avatarLoading" class="avatar-loading hidden">
+          <div class="wrapper">
+            <div class="cssload-loader"></div>
+          </div>
+        </div>
+
+        <button type="button" id="avatarBtn" class="site-button button-sm">Upload Photo</button>
+        <input type="file" id="avatarInput" name="avatar" accept=".jpg,.jpeg,.png,.webp" style="display: none" />
+      </div>
+    </div>
+
+    <div class="twm-mid-content text-center">
+      <a href="candidate-detail.html" class="twm-job-title">
+        <h4>Artistre Studio PVT Ltd</h4>
+      </a>
+      <p>IT Contractor</p>
+    </div>
+
+    <div class="twm-nav-list-1">
+      <ul>
+        <li class="active">
+          <a href="/startup/profile"><i class="fa fa-user"></i> Company Profile</a>
+        </li>
+        <li>
+          <a href="/startup/jobs"><i class="fa fa-suitcase"></i> Manage Jobs</a>
+        </li>
+        <li>
+          <a href="/startup/post-job"><i class="fa fa-book-reader"></i> Post A Jobs</a>
+        </li>
+        <li>
+          <a href="candidate-grid.html"><i class="fa fa-user-check"></i> Browse Candidates</a>
+        </li>
+        <li>
+          <a href="employer-change-password.html"><i class="fa fa-fingerprint"></i> Change Password</a>
+        </li>
+        <li>
+          <a href="/auth/logout"><i class="fa fa-share-square"></i> Logout</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>

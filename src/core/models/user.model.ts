@@ -19,13 +19,19 @@ export class User {
   @Column()
   password: string;
 
+  @Column()
+  phone: string;
+
   @Column({
     type: 'text',
-    default: 'PENDING',
+    default: 'STARTUP',
   })
   role: UserRole;
 
-  @OneToOne(() => StartupProfile, (profile) => profile.user)
+  @OneToOne(() => StartupProfile, (profile) => profile.user, {
+    cascade: true,
+    eager: true,
+  })
   startupProfile: StartupProfile;
 
   @CreateDateColumn()
@@ -33,4 +39,10 @@ export class User {
 
   @UpdateDateColumn()
   updateAt: Date;
+}
+
+export interface SessionUser {
+  id: string;
+  email: string;
+  role: UserRole;
 }

@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+  <%~ include('./partials/head') %>
+
+  <body data-anm=".anm">
+    <!-- LOADING AREA START ===== -->
+    <div class="loading-area">
+      <div class="loading-box"></div>
+      <div class="loading-pic">
+        <div class="wrapper">
+          <div class="cssload-loader"></div>
+        </div>
+      </div>
+    </div>
+    <!-- LOADING AREA  END ====== -->
+
+    <div class="page-wraper">
+      <%~ include('./partials/header') %>
+
+      <!-- CONTENT START -->
+      <div class="page-content">
+        <!-- Testimonial START -->
+        <div class="section-full p-t120 p-b90 site-bg-white twm-testimonial-page8-wrap">
+          <div class="container">
+            <!-- TITLE START-->
+            <div class="section-head center wt-small-separator-outer">
+              <h2 class="wt-title"><%= it.startup.name %></h2>
+            </div>
+            <!-- TITLE END-->
+            <div class="twm-testimonial-page8-section">
+              <div class="row">
+                <div class="col-lg-5 col-md-12">
+                  <div class="twm-testimonial-page8-left">
+                    <div class="twm-media bounce2">
+                      <img src="<%= it.startup.avatar || '/images/default-cover.jpg' %>" alt="cover" />
+                    </div>
+                  </div>
+                </div>
+                <div class="col-lg-7 col-md-12">
+                  <div class="twm-testimonial-page8-right">
+                    <div class="testimonial-thumb-1-wrap">
+                      <div class="swiper testimonial-thumb-1">
+                        <div class="swiper-wrapper">
+                          <!--1-->
+                          <div class="swiper-slide">
+                            <div class="twm-testi-content">
+                              <div class="t-testimonial-top">
+                                <div class="t-quote"><i class="fa fa-quote-left"></i></div>
+                              </div>
+                              <div class="t-discription"><%= it.startup.description %></div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Testimonial END -->
+
+        <!-- OUR BLOG START -->
+        <div class="section-full p-t60 p-b90 site-bg-white">
+          <div class="container">
+            <!-- TITLE START-->
+            <div class="section-head center wt-small-separator-outer">
+              <h2 class="wt-title">Offre proposée & Profiling</h2>
+            </div>
+            <!-- TITLE END-->
+
+            <div class="section-content">
+              <div class="twm-blog-post-h5-wrap">
+                <div class="row">
+
+                <% it.startup.jobPosts.forEach((job)=> { %>
+                  <div class="col-lg-4 col-md-6">
+                    <!--Block one-->
+                    <div class="blog-post twm-blog-post-h5-outer">
+                      <div class="wt-post-media">
+                        <a  href="/jobs/<%= job.id %>"><img src="<%= job.cover || '/images/default-cover.jpg' %>" alt="cover" /></a>
+                      </div>
+                      <div class="wt-post-info">
+                      
+                        <div class="wt-post-title">
+                          <h4 class="post-title">
+                            <a  href="/jobs/<%= job.id %>"><%= job.title %></a>
+                          </h4>
+                        </div>
+                        <div class="post-author">
+                          <div class="post-categories">
+                            <a  href="/jobs/<%= job.id %>"><%= job.period %></a>
+                          </div>
+                        </div>
+                        <div class="wt-post-text">
+                          <p><%= job.description %></p>
+                        </div>
+                        <div class="wt-post-readmore">
+                          <a href="/jobs/<%= job.id %>" class="site-button-link site-text-primary">Read More</a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                <% }) %>
+
+                 
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- OUR BLOG END -->
+      </div>
+      <!-- CONTENT END -->
+
+      <%~ include('./partials/footer') %>
+      <!-- BUTTON TOP START -->
+      <button class="scroltop"><span class="fa fa-angle-up relative" id="btn-vibrate"></span></button>
+      <%~ include('./partials/modals') %>
+    </div>
+    <%~ include('./partials/scripts') %>
+  </body>
+</html>

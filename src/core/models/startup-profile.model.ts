@@ -11,16 +11,36 @@ export class StartupProfile {
   name: string;
 
   @Column({ nullable: true })
+  email: string;
+
+  @Column({ nullable: true })
   description: string;
 
   @Column({ nullable: true })
   sector: string;
 
   @Column({ nullable: true })
-  avatarUrl: string;
+  website: string;
 
   @Column({ nullable: true })
-  coverUrl: string;
+  phone: string;
+
+  @Column({ nullable: true })
+  adress: string;
+
+  // ✅ SOCIAL LINKS
+  @Column({ type: 'json', nullable: true })
+  socialLinks: {
+    facebook?: string;
+    linkedin?: string;
+    youtube?: string;
+  };
+
+  @Column({ nullable: true })
+  avatar: string;
+
+  @Column({ nullable: true })
+  cover: string;
 
   @OneToOne(() => User, (user) => user.startupProfile, {
     onDelete: 'CASCADE',
