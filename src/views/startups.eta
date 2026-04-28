@@ -14,17 +14,17 @@
     </div>
     <!-- LOADING AREA  END ====== -->
 
-    <div class="page-wraper">
+    <div class="page-wraper bg-gradient-to-br">
       <%~ include('./partials/header') %>
 
         <!-- CONTENT START -->
         <div class="page-content">
           <!-- OUR BLOG START -->
-          <div class="section-full p-t120 p-b90 site-bg-gray">
+          <div class="section-full p-t120 p-b90">
             <div class="container">
               <!-- TITLE START-->
               <div class="section-head center wt-small-separator-outer">
-                <h2 class="wt-title">Découvrez les startups</h2>
+                <h2 class="wt-title">Découvrez <%= it.page ? "les startups":"les entreprises" %></h2>
               </div>
               <!-- TITLE END-->
 
@@ -37,7 +37,7 @@
                         <div class="blog-post twm-blog-post-1-outer">
                           <div class="wt-post-media">
                             <a href="/startups/<%= s.id %>">
-                              <img src="<%= s.cover || '/images/default-cover.jpg' %>" alt="cover" />
+                              <img src="/images/<%= s.avatar || '/images/default-cover.jpg' %>" alt="cover" />
                             </a>
                           </div>
                           <div class="wt-post-info">

@@ -3,9 +3,13 @@ import { StartupProfile } from './startup-profile.model';
 
 export enum UserRole {
   ADMIN = 'ADMIN',
-  STARTUP = 'STARTUP',
+  USER = 'USER',
 }
 
+export enum ProfileType {
+  STARTUP = 'STARTUP',
+  ENTERPRISE = 'ENTERPRISE',
+}
 @Entity({ name: 'users' })
 export class User {
   @PrimaryGeneratedColumn('uuid')
@@ -24,9 +28,16 @@ export class User {
 
   @Column({
     type: 'text',
-    default: 'STARTUP',
+    default: 'USER',
   })
   role: UserRole;
+
+  @Column({
+    type: 'text',
+    nullable: true,
+    default: 'STARTUP',
+  })
+  type: string;
 
   @OneToOne(() => StartupProfile, (profile) => profile.user, {
     cascade: true,

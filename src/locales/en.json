@@ -1,0 +1,64 @@
+{
+  "home": {
+    "banner": {
+      "prefix": "Find Your",
+      "dynamic": ["Dream Job", "Next Job"],
+      "suffix": "Now It’s Easy."
+    },
+    "employee": {
+      "tag": "Explore New Life",
+      "title": "Build your personal account profile",
+      "description": "Lorem Ipsum is simply dummy text of the printing and typesetting industry the standard dummy text ever since the when an printer took. Lorem Ipsum is simply dummy text.",
+      "upload_cv": "Upload Your Resume"
+    }
+  },
+
+  "header": {
+    "menu": {
+      "home": "Home",
+      "startups": "Startups",
+      "enterprise": "Enterprise",
+      "contact": "Contact Us"
+    },
+    "auth": {
+      "signin": "Sign In"
+    },
+    "mobile": {
+      "toggle": "Toggle navigation"
+    }
+  },
+  "footer": {
+    "about": "Many desktop publishing packages and web page editors now.",
+    "links": {
+      "startups": "Startups",
+      "contact": "Contact Us",
+      "signin": "Sign In",
+      "register": "Register"
+    },
+    "contact": {
+      "address_label": "Address :",
+      "address": "65 Sunset CA 90026, USA",
+      "email_label": "Email :",
+      "email": "example@max.com",
+      "phone_label": "Call :",
+      "phone": "555-555-1234"
+    },
+    "copyright": "Copyright © 2026 - All Rights Reserved."
+  },
+
+  "startup": {
+    "sidebar": {
+      "default_name": "Un Named",
+      "default_sector": "Un Sectored",
+      "upload_photo": "Upload Photo",
+      "menu": {
+        "profile": "Company Profile",
+        "jobs": "Manage Jobs",
+        "post_job": "Post A Job",
+        "applications": "Browse Candidates",
+        "change_password": "Change Password",
+        "logout": "Logout"
+      }
+    }
+  }
+}

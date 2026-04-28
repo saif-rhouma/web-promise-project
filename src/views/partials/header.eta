@@ -19,7 +19,7 @@
           type="button"
           class="navbar-toggler collapsed"
         >
-          <span class="sr-only">Toggle navigation</span>
+          <span class="sr-only"><%= it.__('header.mobile.toggle') %></span>
           <span class="icon-bar icon-bar-first"></span>
           <span class="icon-bar icon-bar-two"></span>
           <span class="icon-bar icon-bar-three"></span>
@@ -29,13 +29,16 @@
         <div class="nav-animation header-nav navbar-collapse collapse d-flex justify-content-center">
           <ul class="nav navbar-nav">
             <li class="has-mega-menu">
-              <a href="/">Acceuil</a>
+              <a href="/"><%= it.__('header.menu.home') %></a>
             </li>
             <li class="has-child">
-              <a href="/startups">Startups</a>
+              <a href="/startups"><%= it.__('header.menu.startups') %></a>
             </li>
             <li class="has-child">
-              <a href="/contact"> Contactez-nous</a>
+              <a href="/enterprises"><%= it.__('header.menu.enterprise') %></a>
+            </li>
+            <li class="has-child">
+              <a href="/contact"> <%= it.__('header.menu.contact') %></a>
             </li>
           </ul>
         </div>
@@ -45,25 +48,14 @@
           <div class="extra-cell">
             <div class="header-nav-btn-section">
               <div class="twm-nav-btn-left">
-                <a class="twm-nav-sign-up" href="/auth/login"> <i class="feather-log-in"></i> Sign In </a>
+                <a class="twm-nav-sign-up" href="/auth/login">
+                  <i class="feather-log-in"></i> <%= it.__('header.auth.signin') %>
+                </a>
               </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
-
-    <!-- SITE Search -->
-    <div id="search">
-      <span class="close"></span>
-      <form role="search" id="searchform" action="/search" method="get" class="radius-xl">
-        <input class="form-control" value="" name="q" type="search" placeholder="Type to search" />
-        <span class="input-group-append">
-          <button type="button" class="search-btn">
-            <i class="fa fa-paper-plane"></i>
-          </button>
-        </span>
-      </form>
     </div>
   </div>
 </header>

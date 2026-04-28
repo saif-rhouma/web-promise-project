@@ -30,6 +30,11 @@ const PublicRoutes: IRouteGroup = {
     },
     {
       method: 'get',
+      path: '/enterprises',
+      handler: publicController.listEnterprise,
+    },
+    {
+      method: 'get',
       path: '/startups/:id',
       handler: publicController.getStartupDetails,
     },
@@ -49,6 +54,12 @@ const PublicRoutes: IRouteGroup = {
       method: 'get',
       path: '/success/:jobId',
       handler: publicController.applySuccess,
+    },
+    {
+      method: 'get',
+      path: '/jobs/:id/download',
+      middleware: [csrfProtection],
+      handler: publicController.downloadJob,
     },
   ],
 };

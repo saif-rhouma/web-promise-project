@@ -1,10 +1,14 @@
 import { Request, Response } from 'express';
+import path from 'path';
+import fs from 'fs';
 import AsyncRouteHandler from 'src/types/AsyncRouteHandler';
 import usersRepository from '../repositories/user.repository';
 import { StartupProfile } from '../models/startup-profile.model';
 import jobPostRepository from '../repositories/job-post.repository';
 import { JobPost, JobStatus } from '../models/job-post.model';
 import { getUser } from '../../helpers/getUser.helpers';
+import { comparePassword, hashPassword } from '../../helpers/auth.helpers';
+import applicationRepository from '../repositories/application.repository';
 
 class StartupController {
   // ======================
@@ -18,10 +22,69 @@ class StartupController {
         csrfToken: req.csrfToken(),
         user,
         startupProfile: user?.startupProfile || {},
+        currentPath: req.path,
       });
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
     } catch (error) {
       return res.status(500).send('Failed to load profile');
+    }
+  };
+
+  // ======================
+  // PASSWORD CHANGE (GET)
+  // ======================
+
+  passwordPage: AsyncRouteHandler = async (req: Request, res: Response) => {
+    try {
+      const user = await getUser(req, res, usersRepository);
+      return res.render('pages/startup/change-password', {
+        csrfToken: req.csrfToken(),
+        user,
+        startupProfile: user?.startupProfile || {},
+        currentPath: req.path,
+      });
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    } catch (error) {
+      return res.status(500).send('Failed to load profile');
+    }
+  };
+
+  changePassword: AsyncRouteHandler = async (req, res) => {
+    try {
+      const user = await getUser(req, res, usersRepository);
+
+      const { oldPassword, newPassword, confirmPassword } = req.body;
+      // ======================
+      // VALIDATION
+      // ======================
+      if (!oldPassword || !newPassword || !confirmPassword) {
+        return res.status(400).send('All fields are required');
+      }
+
+      if (newPassword !== confirmPassword) {
+        return res.status(400).send('Passwords do not match');
+      }
+
+      // ======================
+      // VERIFY OLD PASSWORD
+      // ======================
+      const isValid = await comparePassword(user.password, oldPassword);
+
+      if (!isValid) {
+        return res.status(400).send('Old password is incorrect');
+      }
+
+      // ======================
+      // HASH NEW PASSWORD
+      // ======================
+      user.password = await hashPassword(newPassword);
+
+      await usersRepository.save(user);
+
+      return res.redirect('/startup/profile');
+    } catch (error) {
+      console.error(error);
+      return res.status(500).send('Failed to change password');
     }
   };
 
@@ -33,9 +96,6 @@ class StartupController {
       const user = await getUser(req, res, usersRepository);
 
       const { phone, name, email, description, sector, website, adress, socialLinks } = req.body;
-
-      // ✅ SAFE FILE EXTRACTION
-      const coverFile = req.file;
 
       // ======================
       // USER UPDATE
@@ -49,12 +109,15 @@ class StartupController {
         user.startupProfile = new StartupProfile();
       }
 
+      // ✅ SAFE FILE EXTRACTION
+      const coverFile = req.file;
+
       // ======================
       // FILE (ONLY IF EXIST)
       // ======================
 
       if (coverFile) {
-        user.startupProfile.cover = `/uploads/images/${coverFile.filename}`;
+        user.startupProfile.cover = `${coverFile.filename}`;
       }
 
       // ======================
@@ -99,7 +162,7 @@ class StartupController {
         user.startupProfile = new StartupProfile();
       }
 
-      user.startupProfile.avatar = `/uploads/images/${file.filename}`;
+      user.startupProfile.avatar = `${file.filename}`;
 
       await usersRepository.save(user);
 
@@ -122,6 +185,7 @@ class StartupController {
         csrfToken: req.csrfToken(),
         user,
         startupProfile: user?.startupProfile || {},
+        currentPath: req.path,
       });
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
     } catch (error) {
@@ -139,16 +203,7 @@ class StartupController {
       const limit = 10;
       const skip = (page - 1) * limit;
 
-      const [jobs, total] = await jobPostRepository.findAndCount({
-        where: {
-          startup: { id: user.startupProfile.id },
-        },
-        order: {
-          createdAt: 'DESC',
-        },
-        take: limit,
-        skip,
-      });
+      const [jobs, total] = await jobPostRepository.findJobsDetails(user.startupProfile.id, limit, skip);
 
       const totalPages = Math.ceil(total / limit);
 
@@ -159,6 +214,7 @@ class StartupController {
         totalPages,
         user,
         startupProfile: user?.startupProfile || {},
+        currentPath: req.path,
       });
     } catch (error) {
       console.error(error);
@@ -275,7 +331,7 @@ class StartupController {
       // ======================
 
       if (coverFile) {
-        job.cover = `/uploads/images/${coverFile.filename}`;
+        job.cover = `${coverFile.filename}`;
       }
 
       job.period = period;
@@ -322,6 +378,7 @@ class StartupController {
         job,
         user,
         startupProfile: user?.startupProfile || {},
+        currentPath: req.path,
       });
     } catch (err) {
       console.error(err);
@@ -340,11 +397,7 @@ class StartupController {
 
       if (!job) return res.status(404).send('Job not found');
 
-      const files = req.files as {
-        cover?: Express.Multer.File[];
-      };
-
-      const coverFile = files?.cover?.[0];
+      const coverFile = req.file;
 
       // ================= UPDATE FIELDS =================
       Object.assign(job, {
@@ -372,7 +425,7 @@ class StartupController {
       });
 
       if (coverFile) {
-        job.cover = `/uploads/images/${coverFile.filename}`;
+        job.cover = `${coverFile.filename}`;
       }
 
       await jobPostRepository.save(job);
@@ -383,6 +436,113 @@ class StartupController {
     } catch (err) {
       console.error(err);
       return res.status(500).send('Error updating job');
+    }
+  };
+
+  getApplications: AsyncRouteHandler = async (req, res) => {
+    try {
+      const user = await getUser(req, res, usersRepository);
+
+      const applications = await applicationRepository.findByStartup(user.startupProfile.id);
+
+      return res.render('pages/startup/applications', {
+        applications,
+        user,
+        startupProfile: user?.startupProfile || {},
+        currentPath: req.path,
+      });
+    } catch (err) {
+      console.error(err);
+      return res.status(500).send('Failed to load applications');
+    }
+  };
+
+  getApplicationsByJob: AsyncRouteHandler = async (req, res) => {
+    try {
+      const user = await getUser(req, res, usersRepository);
+      const jobId = Array.isArray(req.params.id) ? req.params.id[0] : req.params.id;
+
+      const applications = await applicationRepository.findByJob(jobId);
+      let job;
+      if (applications.length > 0) {
+        job = applications[0].jobPost;
+      }
+
+      return res.render('pages/startup/applications', {
+        applications,
+        user,
+        startupProfile: user?.startupProfile || {},
+        job,
+        currentPath: req.path,
+      });
+    } catch (err) {
+      console.error(err);
+      return res.status(500).send('Failed');
+    }
+  };
+
+  updateApplicationStatus: AsyncRouteHandler = async (req, res) => {
+    try {
+      const id = Array.isArray(req.params.id) ? req.params.id[0] : req.params.id;
+      const { status } = req.body;
+
+      const app = await applicationRepository.findOne({
+        where: { id },
+      });
+
+      if (!app) return res.status(404).json({ message: 'Not found' });
+
+      app.status = status;
+
+      await applicationRepository.save(app);
+
+      return res.json({ success: true });
+    } catch (err) {
+      console.error(err);
+      return res.status(500).json({ message: 'Failed' });
+    }
+  };
+
+  downloadCV: AsyncRouteHandler = async (req, res) => {
+    try {
+      const user = await getUser(req, res, usersRepository);
+
+      const id = Array.isArray(req.params.id) ? req.params.id[0] : req.params.id;
+
+      const application = await applicationRepository.findOne({
+        where: { id },
+        relations: ['jobPost', 'jobPost.startup'],
+      });
+
+      if (!application) {
+        return res.status(404).send('Application not found');
+      }
+
+      // 🔒 SECURITY: ensure startup owns this application
+      if (application.jobPost.startup.id !== user.startupProfile.id) {
+        return res.status(403).send('Unauthorized');
+      }
+
+      const filePath = path.join(process.cwd(), '/src/uploads/cv/', application.cvUrl as string);
+
+      const stat = fs.statSync(filePath);
+      res.writeHead(200, {
+        'Content-Type': 'application/zip',
+        'Content-Length': stat.size,
+        'Content-Disposition': `attachment; filename="${`${application.fullName?.toLocaleLowerCase()} - CV.pdf`}"`,
+      });
+
+      const fileStream = fs.createReadStream(filePath);
+
+      fileStream.pipe(res);
+
+      fileStream.on('error', (err) => {
+        console.error('Error during file streaming:', err);
+        res.status(500).send('File streaming failed.');
+      });
+    } catch (err) {
+      console.error(err);
+      return res.status(500).send('Download failed');
     }
   };
 }

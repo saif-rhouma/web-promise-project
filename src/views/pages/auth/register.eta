@@ -24,15 +24,15 @@
               <div class="col-xl-8 col-lg-6 col-md-5 twm-log-reg-media-wrap">
                 <div class="twm-log-reg-media">
                   <div class="twm-l-media">
-                    <img src="../images/reg-bg.png" alt="" />
+                    <img src="/images/reg-bg.png" alt="" />
                   </div>
                 </div>
               </div>
               <div class="col-xl-4 col-lg-6 col-md-7">
                 <div class="twm-log-reg-form-wrap">
                   <div class="twm-log-reg-logo-head">
-                    <a href="index.html">
-                      <img src="../images/logo-dark.png" alt="" class="logo" />
+                    <a href="/">
+                      <img src="/images/logo-dark.png" alt="" class="logo" />
                     </a>
                   </div>
                   <div class="twm-log-reg-inner">
@@ -78,7 +78,7 @@
                                     >
                                     <p>
                                       Already registered?
-                                      <a href="login.html" class="twm-backto-login m-l5 site-text-primary"
+                                      <a href="/auth/login" class="twm-backto-login m-l5 site-text-primary"
                                         >Log in here</a
                                       >
                                     </p>

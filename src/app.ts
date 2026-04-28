@@ -5,12 +5,10 @@ import pc from 'picocolors';
 import httpLogger from 'morgan';
 import path from 'node:path';
 import session from 'express-session';
-// import csrf from 'csurf';
-// import rateLimit from 'express-rate-limit';
-
 import environment from './configs/environment';
 import Router from './router';
 import buildEtaEngine from './configs/template.config';
+import i18n from './configs/i18n.config';
 
 class App {
   app: Express;
@@ -28,9 +26,11 @@ class App {
       })
     );
 
+    this.app.use(i18n.init);
+
     // ✅ STATIC FILES (FIXED)
     this.app.use('', express.static(path.join(process.cwd(), 'src/public')));
-    this.app.use('/uploads', express.static(path.join(process.cwd(), 'uploads')));
+    this.app.use('', express.static(path.join(process.cwd(), 'src/uploads')));
 
     // session FIRST
     this.app.use(

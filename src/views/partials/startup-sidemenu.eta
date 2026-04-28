@@ -1,7 +1,11 @@
 <div class="col-xl-3 col-lg-4 col-md-12 rightSidebar m-b30">
   <div class="side-bar-st-1">
     <div class="twm-candidate-profile-pic">
-      <img id="avatarPreview" src="<%= it.startupProfile.avatar || '../images/jobs-company/pic1.jpg' %>" alt="" />
+      <img
+        id="avatarPreview"
+        src="<%= it.startupProfile.avatar ? '/images/' + it.startupProfile.avatar : '/images/jobs-company/pic1.jpg' %>"
+        alt=""
+      />
 
       <div class="upload-btn-wrapper">
         <div id="upload-image-grid"></div>
@@ -12,37 +16,45 @@
           </div>
         </div>
 
-        <button type="button" id="avatarBtn" class="site-button button-sm">Upload Photo</button>
+        <button type="button" id="avatarBtn" class="site-button button-sm">
+          <%= it.__('startup.sidebar.upload_photo') %>
+        </button>
         <input type="file" id="avatarInput" name="avatar" accept=".jpg,.jpeg,.png,.webp" style="display: none" />
       </div>
     </div>
 
     <div class="twm-mid-content text-center">
-      <a href="candidate-detail.html" class="twm-job-title">
-        <h4>Artistre Studio PVT Ltd</h4>
+      <a href="/startup/" class="twm-job-title">
+        <h4><%= it.startupProfile.name || it.__('startup.sidebar.default_name') %></h4>
       </a>
-      <p>IT Contractor</p>
+      <p><%= it.startupProfile.sector || it.__('startup.sidebar.default_sector') %></p>
     </div>
 
     <div class="twm-nav-list-1">
       <ul>
-        <li class="active">
-          <a href="/startup/profile"><i class="fa fa-user"></i> Company Profile</a>
+        <li class="<%= it.currentPath === '/startup/profile' ? 'active' : '' %>">
+          <a href="/startup/profile"><i class="fa fa-user"></i> <%= it.__('startup.sidebar.menu.profile') %></a>
+        </li>
+        <li class="<%= it.currentPath.startsWith('/startup/jobs') ? 'active' : '' %>">
+          <a href="/startup/jobs"><i class="fa fa-suitcase"></i> <%= it.__('startup.sidebar.menu.jobs') %></a>
+        </li>
+        <li class="<%= it.currentPath === '/startup/post-job' ? 'active' : '' %>">
+          <a href="/startup/post-job"
+            ><i class="fa fa-book-reader"></i> <%= it.__('startup.sidebar.menu.post_job') %></a
+          >
+        </li>
+        <li class="<%= it.currentPath === '/startup/applications' ? 'active' : '' %>">
+          <a href="/startup/applications"
+            ><i class="fa fa-user-check"></i> <%= it.__('startup.sidebar.menu.applications') %></a
+          >
+        </li>
+        <li class="<%= it.currentPath.startsWith('/startup/profile/password') ? 'active' : '' %>">
+          <a href="/startup/profile/password"
+            ><i class="fa fa-fingerprint"></i> <%= it.__('startup.sidebar.menu.change_password') %></a
+          >
         </li>
         <li>
-          <a href="/startup/jobs"><i class="fa fa-suitcase"></i> Manage Jobs</a>
-        </li>
-        <li>
-          <a href="/startup/post-job"><i class="fa fa-book-reader"></i> Post A Jobs</a>
-        </li>
-        <li>
-          <a href="candidate-grid.html"><i class="fa fa-user-check"></i> Browse Candidates</a>
-        </li>
-        <li>
-          <a href="employer-change-password.html"><i class="fa fa-fingerprint"></i> Change Password</a>
-        </li>
-        <li>
-          <a href="/auth/logout"><i class="fa fa-share-square"></i> Logout</a>
+          <a href="/startup/logout"><i class="fa fa-share-square"></i> <%= it.__('startup.sidebar.menu.logout') %></a>
         </li>
       </ul>
     </div>

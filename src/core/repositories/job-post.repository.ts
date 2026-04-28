@@ -33,6 +33,22 @@ class JobPostRepository extends BaseRepository<JobPost> {
       relations,
     } as FindManyOptions<JobPost>);
   }
+  async findJobsDetails(startupId, limit, skip) {
+    return this.repo
+      .createQueryBuilder('job')
+      .leftJoin('job.startup', 'startup')
+      .where('startup.id = :startupId', {
+        startupId: startupId,
+      })
+      .loadRelationCountAndMap(
+        'job.applicationsCount', // 👈 new virtual field
+        'job.applications'
+      )
+      .orderBy('job.createdAt', 'DESC')
+      .take(limit)
+      .skip(skip)
+      .getManyAndCount();
+  }
 }
 
 export default new JobPostRepository();

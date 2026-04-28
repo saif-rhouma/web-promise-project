@@ -2,7 +2,7 @@ import authSessionMiddleware from '../../core/middlewares/auth-session.middlewar
 import StartupController from '../../core/controllers/startup.controller';
 import IRouteGroup from 'src/types/IRouteGroup';
 import { uploadImage } from '../../core/middlewares/uploader.middleware';
-import csrfProtection from '../..//core/middlewares/csrf.middleware';
+import csrfProtection from '../../core/middlewares/csrf.middleware';
 
 const StartupRoutes: IRouteGroup = {
   group: {
@@ -20,23 +20,34 @@ const StartupRoutes: IRouteGroup = {
       middleware: [csrfProtection],
       handler: StartupController.profilePage,
     },
-
     // ======================
     // UPDATE PROFILE
     // ======================
     {
       method: 'post',
       path: '/profile',
-      middleware: [
-        uploadImage.fields([
-          { name: 'avatar', maxCount: 1 },
-          { name: 'cover', maxCount: 1 },
-        ]),
-        csrfProtection,
-      ],
+      middleware: [uploadImage.single('cover'), csrfProtection],
       handler: StartupController.updateProfile,
     },
+    // ======================
+    // GET PASSWORD CHANGE PAGE
+    // ======================
+    {
+      method: 'get',
+      path: '/profile/password',
+      middleware: [csrfProtection],
+      handler: StartupController.passwordPage,
+    },
 
+    // ======================
+    // UPDATE PASSWORD CHANGE PAGE (POST)
+    // ======================
+    {
+      method: 'post',
+      path: '/change-password',
+      middleware: [csrfProtection],
+      handler: StartupController.changePassword,
+    },
     // ======================
     // UPDATE AVATAR PROFILE
     // ======================
@@ -46,7 +57,6 @@ const StartupRoutes: IRouteGroup = {
       middleware: [uploadImage.single('avatar'), csrfProtection],
       handler: StartupController.updateAvatar,
     },
-
     // ======================
     // GET POST A JOBS PAGE
     // ======================
@@ -56,7 +66,6 @@ const StartupRoutes: IRouteGroup = {
       middleware: [csrfProtection],
       handler: StartupController.postJobPage,
     },
-
     // ======================
     // CREATE POST A JOBS
     // ======================
@@ -117,6 +126,27 @@ const StartupRoutes: IRouteGroup = {
       handler: StartupController.updateJob,
     },
 
+    {
+      method: 'get',
+      path: '/applications',
+      handler: StartupController.getApplications,
+    },
+    {
+      method: 'get',
+      path: '/jobs/:id/applications',
+      handler: StartupController.getApplicationsByJob,
+    },
+    {
+      method: 'patch',
+      path: '/applications/:id/status',
+      handler: StartupController.updateApplicationStatus,
+    },
+    {
+      method: 'get',
+      path: '/applications/:id/cv',
+      handler: StartupController.downloadCV,
+    },
+
     // ======================
     // OPTIONAL: VIEW PUBLIC DASHBOARD
     // ======================
@@ -134,7 +164,7 @@ const StartupRoutes: IRouteGroup = {
     // OPTIONAL: LOGOUT FROM STARTUP AREA
     // ======================
     {
-      method: 'post',
+      method: 'get',
       path: '/logout',
       handler: async (req, res) => {
         req.session.destroy(() => {

@@ -42,7 +42,8 @@ class AuthWebController {
       req.session['accessToken'] = user.accessToken;
 
       // ✅ Redirect based on role
-      if (user.role === UserRole.STARTUP) {
+      if (user.role === UserRole.USER) {
+        console.log('---> USER', user);
         return res.redirect('/startup/profile');
       }
 
@@ -78,7 +79,7 @@ class AuthWebController {
       email,
       password,
       phone,
-      role: UserRole.STARTUP,
+      role: UserRole.USER,
     });
 
     return res.redirect('/auth/login');

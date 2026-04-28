@@ -4,7 +4,7 @@ import fs from 'fs';
 import TinyID from '../../utils/tinyID';
 
 // base upload folder (safe for prod build)
-const baseUploadPath = path.join(process.cwd(), 'uploads');
+const baseUploadPath = path.join(process.cwd(), 'src/uploads');
 
 // ensure folders exist
 const ensureDir = (folder: string) => {

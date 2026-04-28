@@ -14,7 +14,7 @@
     </div>
     <!-- LOADING AREA  END ====== -->
 
-    <div class="page-wraper">
+    <div class="page-wraper bg-gradient-to-br">
       <%~ include('./partials/header') %>
 
       <!-- CONTENT START -->

@@ -3427,7 +3427,7 @@ ol.comment-list {
 }
 
 .twm-blog-post-1-outer {
-	background-color: $clr-white;
+	// background-color: $clr-white;
 	border-radius: 10px;
 	padding: 20px;
 	box-shadow: 0px 0px 25px rgba(180, 205, 237, 0.70);
@@ -9741,6 +9741,7 @@ h3.twm-title {
 		margin-left: auto;
 		margin-right: auto;
 
+
 		a {
 			height: auto;
 			display: flex;
@@ -9749,7 +9750,7 @@ h3.twm-title {
 			img {
 				width: auto;
 				height: auto;
-
+				border-radius: 25px;
 			}
 
 			&:hover {

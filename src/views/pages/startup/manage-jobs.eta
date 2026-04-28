@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-  <%~ include('./partials/head') %>
+<%~ include('./partials/head') %>
 
   <body>
     <!-- LOADING AREA START ===== -->
@@ -19,128 +19,138 @@
       <div class="page-content">
         <%~ include('./partials/startup-inner-banner') %>
 
-        <!-- OUR BLOG START -->
-        <div class="section-full p-t120 p-b90 site-bg-white">
-          <div class="container">
-            <div class="row">
-              <%~ include('./partials/startup-sidemenu') %>
+          <!-- OUR BLOG START -->
+          <div class="section-full p-t120 p-b90 site-bg-white">
+            <div class="container">
+              <div class="row">
+                <%~ include('./partials/startup-sidemenu') %>
 
-              <div class="col-xl-9 col-lg-8 col-md-12 m-b30">
-                <!--Filter Short By-->
-                <div class="twm-right-section-panel site-bg-gray">
-                  <form>
-                    <input type="hidden" name="_csrf" value="<%= it.csrfToken %>" />
+                  <div class="col-xl-9 col-lg-8 col-md-12 m-b30">
+                    <!--Filter Short By-->
+                    <div class="twm-right-section-panel site-bg-gray">
+                      <form>
+                        <input type="hidden" name="_csrf" value="<%= it.csrfToken %>" />
 
-                    <!--Basic Information-->
-                    <div class="panel panel-default">
-                      <div class="panel-heading wt-panel-heading p-a20">
-                        <h4 class="panel-tittle m-a0"><i class="fa fa-suitcase"></i>Manage jobs</h4>
-                      </div>
-                      <div class="panel-body wt-panel-body m-b30">
-                        <div class="twm-D_table p-a20 table-responsive">
-                          <table id="jobs_bookmark_table" class="table table-bordered twm-bookmark-list-wrap">
-                            <thead>
-                              <tr>
-                                <th>Job Title</th>
-                                <th>Category</th>
-                                <th>Job Types</th>
-                                <th>Applications</th>
-                                <th>Date</th>
-                                <th>Action</th>
-                              </tr>
-                            </thead>
-                            <tbody>
-                                <% it.jobs.forEach(job => { %>
+                        <!--Basic Information-->
+                        <div class="panel panel-default">
+                          <div class="panel-heading wt-panel-heading p-a20">
+                            <h4 class="panel-tittle m-a0"><i class="fa fa-suitcase"></i>Manage jobs</h4>
+                          </div>
+                          <div class="panel-body wt-panel-body m-b30">
+                            <div class="twm-D_table p-a20 table-responsive">
+                              <table id="jobs_bookmark_table" class="table table-bordered twm-bookmark-list-wrap">
+                                <thead>
+                                  <tr>
+                                    <th>Job Title</th>
+                                    <th>Category</th>
+                                    <th>Job Types</th>
+                                    <th>Applications</th>
+                                    <th>Date</th>
+                                    <th>Action</th>
+                                  </tr>
+                                </thead>
+                                <tbody>
+                                  <% it.jobs.forEach(job=> { %>
                                     <tr>
-                                    <td>
+                                      <td>
                                         <div class="twm-bookmark-list">
-                                            <div class="twm-mid-content">
-                                                <a href="../startup/jobs/<%= job.id %>/edit" class="twm-job-title">
-                                                    <h4><%= job.title %></h4>
-                                                    <p class="twm-bookmark-address">
-                                                        <i class="feather-map-pin"></i><%= job.location %>
-                                                    </p>
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </td>
-
-                                    <td><%= job?.category || '-' %></td>
-
-                                    <td>
-                                        <div class="twm-jobs-category">
-<%
-  const jobTypeColors = {
-    'Full Time': 'twm-bg-green',
-    'Freelance': 'twm-bg-sky',
-    'Part Time': 'twm-bg-yellow',
-    'Internship': 'twm-bg-purple',
-    'Temporary': 'twm-bg-golden'
-  };
-%>
-
-<span class="<%= jobTypeColors[job?.type] || 'text-clr-default' %>">
-  <%= job?.type || 'N/A' %>
-</span>
-
-                                        </div>
-                                    </td>
-
-                                    <td>
-                                        <a href="javascript:;" class="site-text-primary">
-                                        <%= job.applications?.length || 0 %> Applied
-                                        </a>
-                                    </td>
-
-                                    <td>
-                                        <span class="<%= job.status === 'published' ? 'text-clr-green2' : 'text-clr-yellow' %>">
-                                        <%= job.status %>
-                                        </span>
-                                    </td>
-
-                                    <td>
-                                        <div class="twm-table-controls">
-                                        <ul class="twm-DT-controls-icon list-unstyled">
-                                            <li>
-                                            <a href="/startup/jobs/<%= job.id %>/edit">
-                                                <span class="fa fa-eye"></span>
+                                          <div class="twm-mid-content">
+                                            <a href="/startup/jobs/<%= job.id %>/edit" class="twm-job-title">
+                                              <h4>
+                                                <%= job.title %>
+                                              </h4>
+                                              <p class="twm-bookmark-address">
+                                                <i class="feather-map-pin"></i>
+                                                <%= job.location %>
+                                              </p>
                                             </a>
-                                            </li>
-                                                <li>
-                                                    <button type="button" class="btn-delete-job" data-id="<%= job.id %>">
-                                                    <span class="far fa-trash-alt"></span>
-                                                    </button>
-                                                </li>
-
-                                                <li>
-                                                    <button type="button" class="toggle-status" data-id="<%= job.id %>">
-  <span class="fa fa-sync"></span>
-</button>
-                                                </li>
-                                        </ul>
+                                          </div>
                                         </div>
-                                    </td>
+                                      </td>
+
+                                      <td>
+                                        <%= job?.category || '-' %>
+                                      </td>
+
+                                      <td>
+                                        <div class="twm-jobs-category">
+                                          <% const jobTypeColors={ 'Full Time' : 'twm-bg-green' , 'Freelance'
+                                            : 'twm-bg-sky' , 'Part Time' : 'twm-bg-yellow' , 'Internship'
+                                            : 'twm-bg-purple' , 'Temporary' : 'twm-bg-golden' }; %>
+
+                                            <span class="<%= jobTypeColors[job?.type] || 'text-clr-default' %>">
+                                              <%= job?.type || 'N/A' %>
+                                            </span>
+
+                                        </div>
+                                      </td>
+
+                                      <td>
+
+                                        <% if (job.applicationsCount > 0) { %>
+                                          <a href="/startup/jobs/<%= job.id %>/applications" class="site-text-primary">
+                                            <%= job.applicationsCount || 0 %> Applied
+                                          </a>
+                                          <% } else { %>
+                                            <span
+                                              class="site-text-primary">
+                                              <%= job.applicationsCount || 0 %> Applied
+                                            </span>
+                                            <% } %>
+
+                                      </td>
+
+                                      <td>
+                                        <span
+                                          class="<%= job.status === 'published' ? 'text-clr-green2' : 'text-clr-yellow' %>">
+                                          <%= job.status %>
+                                        </span>
+                                      </td>
+
+                                      <td>
+                                        <div class="twm-table-controls">
+                                          <ul class="twm-DT-controls-icon list-unstyled">
+                                            <li>
+                                              <a href="/startup/jobs/<%= job.id %>/edit">
+                                                <span class="fa fa-eye"></span>
+                                              </a>
+                                            </li>
+                                            <li>
+                                              <button type="button" class="btn-delete-job" data-id="<%= job.id %>">
+                                                <span class="far fa-trash-alt"></span>
+                                              </button>
+                                            </li>
+
+                                            <li>
+                                              <button type="button" class="toggle-status" data-id="<%= job.id %>">
+                                                <span class="fa fa-sync"></span>
+                                              </button>
+                                            </li>
+                                          </ul>
+                                        </div>
+                                      </td>
                                     </tr>
-                                <% }) %>
-                            </tbody>
-                          </table>
+                                    <% }) %>
+                                </tbody>
+                              </table>
+                            </div>
+                          </div>
                         </div>
-                      </div>
+                      </form>
                     </div>
-                  </form>
-                </div>
+                  </div>
               </div>
             </div>
           </div>
-        </div>
-        <!-- OUR BLOG END -->
+          <!-- OUR BLOG END -->
       </div>
       <!-- CONTENT END -->
 
       <%~ include('./partials/footer') %>
-      <!-- BUTTON TOP START -->
-      <button class="scroltop"><span class="fa fa-angle-up relative" id="btn-vibrate"></span></button>
+        <!-- BUTTON TOP START -->
+        <button class="scroltop"><span class="fa fa-angle-up relative" id="btn-vibrate"></span></button>
     </div>
     <%~ include('./partials/scripts') %>
   </body>
+
 </html>
