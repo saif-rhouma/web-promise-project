@@ -203,7 +203,7 @@ class StartupController {
       const limit = 10;
       const skip = (page - 1) * limit;
 
-      const [jobs, total] = await jobPostRepository.findJobsDetails(user.startupProfile.id, limit, skip);
+      const [jobs, total] = await jobPostRepository.findJobsDetails(user.startupProfile?.id, limit, skip);
 
       const totalPages = Math.ceil(total / limit);
 
@@ -443,7 +443,11 @@ class StartupController {
     try {
       const user = await getUser(req, res, usersRepository);
 
-      const applications = await applicationRepository.findByStartup(user.startupProfile.id);
+      if (!user.startupProfile?.id) {
+        return res.redirect('/startup/profile');
+      }
+
+      const applications = await applicationRepository.findByStartup(user.startupProfile?.id);
 
       return res.render('pages/startup/applications', {
         applications,

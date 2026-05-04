@@ -30,8 +30,8 @@
                                             <div class="contact-form-outer">
                                                 <!-- TITLE START-->
                                                 <div class="section-head left wt-small-separator-outer">
-                                                    <h2 class="wt-title">Contactez-nous</h2>
-                                                    <p>Feel free to contact us and we will get back to you as soon as we
+                                                    <h2 class="wt-title" style="color: #e5e5e5;">Contactez-nous</h2>
+                                                    <p style="color: #e5e5e5;">Feel free to contact us and we will get back to you as soon as we
                                                         can.</p>
                                                 </div>
                                                 <!-- TITLE END-->

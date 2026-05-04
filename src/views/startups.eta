@@ -24,7 +24,7 @@
             <div class="container">
               <!-- TITLE START-->
               <div class="section-head center wt-small-separator-outer">
-                <h2 class="wt-title">Découvrez <%= it.page ? "les startups":"les entreprises" %></h2>
+                <h2 class="wt-title" style="color: #e5e5e5;">Découvrez <%= it.page ? "les startups":"les entreprises" %></h2>
               </div>
               <!-- TITLE END-->
 

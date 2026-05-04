@@ -29,16 +29,16 @@
         <div class="nav-animation header-nav navbar-collapse collapse d-flex justify-content-center">
           <ul class="nav navbar-nav">
             <li class="has-mega-menu">
-              <a href="/"><%= it.__('header.menu.home') %></a>
+              <a href="/" ><%= it.__('header.menu.home') %></a>
             </li>
             <li class="has-child">
-              <a href="/startups"><%= it.__('header.menu.startups') %></a>
+              <a href="/startups" ><%= it.__('header.menu.startups') %></a>
             </li>
             <li class="has-child">
-              <a href="/enterprises"><%= it.__('header.menu.enterprise') %></a>
+              <a href="/enterprises" ><%= it.__('header.menu.enterprise') %></a>
             </li>
             <li class="has-child">
-              <a href="/contact"> <%= it.__('header.menu.contact') %></a>
+              <a href="/contact" > <%= it.__('header.menu.contact') %></a>
             </li>
           </ul>
         </div>

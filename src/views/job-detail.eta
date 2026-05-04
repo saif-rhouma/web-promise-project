@@ -19,7 +19,7 @@
         <!-- CONTENT START -->
         <div class="page-content">
           <!-- OUR BLOG START -->
-          <div class="section-full p-t60 p-b90 bg-white">
+          <div class="section-full p-t60 p-b90">
             <div class="container">
               <!-- BLOG SECTION START -->
               <div class="section-content">
@@ -32,12 +32,13 @@
                         <div class="overlay-main site-bg-primary opacity-01"></div>
                         <div class="twm-candi-self-info">
                           <div class="twm-candi-self-top">
-                            <div class="twm-media">
+                            <div class="twm-media" >
                               <img src="/images/<%= it.job.startup.avatar || '/images/default-cover.jpg' %>"
+                              style="width: 90px;height: 90px;border-radius: 50%;border: 4px solid #0b7480;"
                                 alt="cover" />
                             </div>
                             <div class="twm-mid-content">
-                              <h4 class="twm-job-title">
+                              <h4 class="twm-job-title" >
                                 <%=it.job.startup.name %>
                               </h4>
 
@@ -49,63 +50,63 @@
                           </div>
                         </div>
                       </div>
-                      <h4 class="twm-s-title">
+                      <h4 class="twm-s-title" style="color: #e5e5e5;">
                         <%=it.job.title %>
                       </h4>
 
-                      <p>
+                      <p style="color: #b8b8b8;">
                         <%=it.job.description %>
                       </p>
 
-                      <h4 class="twm-s-title">Roles et Responsabilités</h4>
+                      <h4 class="twm-s-title" style="color: #e5e5e5;">Roles et Responsabilités</h4>
                       <div class="twm-timing-list-wrap">
                         <div class="twm-timing-list">
-                          <div class="twm-time-list-discription">
+                          <div class="twm-time-list-discription" style="color: #b8b8b8;">
                             <%~it.job.roles %>
                           </div>
                         </div>
                       </div>
 
-                      <h4 class="twm-s-title">Ce que nous vous offrons</h4>
+                      <h4 class="twm-s-title" style="color: #e5e5e5;">Ce que nous vous offrons</h4>
                       <div class="twm-timing-list-wrap">
                         <div class="twm-timing-list">
-                          <div class="twm-time-list-discription">
+                          <div class="twm-time-list-discription" style="color: #b8b8b8;">
                             <%~it.job.offers %>
                           </div>
                         </div>
                       </div>
 
-                      <h4 class="twm-s-title">Connaissances</h4>
+                      <h4 class="twm-s-title" style="color: #e5e5e5;">Connaissances</h4>
                       <div class="twm-timing-list-wrap">
                         <div class="twm-timing-list">
-                          <div class="twm-time-list-discription">
+                          <div class="twm-time-list-discription" style="color: #b8b8b8;">
                             <%~it.job.knowledge %>
                           </div>
                         </div>
                       </div>
 
-                      <h4 class="twm-s-title">Soft skills</h4>
+                      <h4 class="twm-s-title" style="color: #e5e5e5;">Soft skills</h4>
                       <div class="twm-timing-list-wrap">
                         <div class="twm-timing-list">
-                          <div class="twm-time-list-discription">
+                          <div class="twm-time-list-discription" style="color: #b8b8b8;">
                             <%~it.job.softSkills %>
                           </div>
                         </div>
                       </div>
 
-                      <h4 class="twm-s-title">Outils (par ordre d’importance)</h4>
+                      <h4 class="twm-s-title" style="color: #e5e5e5;">Outils (par ordre d’importance)</h4>
                       <div class="twm-timing-list-wrap">
                         <div class="twm-timing-list">
-                          <div class="twm-time-list-discription">
+                          <div class="twm-time-list-discription" style="color: #b8b8b8;">
                             <%~it.job.tools %>
                           </div>
                         </div>
                       </div>
 
-                      <h4 class="twm-s-title">Expérience préférée</h4>
+                      <h4 class="twm-s-title" style="color: #e5e5e5;">Expérience préférée</h4>
                       <div class="twm-timing-list-wrap">
                         <div class="twm-timing-list">
-                          <div class="twm-time-list-discription">
+                          <div class="twm-time-list-discription" style="color: #b8b8b8;">
                             <%~it.job.tools %>
                           </div>
                         </div>

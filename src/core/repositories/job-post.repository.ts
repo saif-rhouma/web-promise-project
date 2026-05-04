@@ -1,6 +1,6 @@
 import { FindManyOptions, FindOptionsWhere } from 'typeorm';
 import AppDataSource from '../../database/data-source';
-import { JobPost } from '../models/job-post.model';
+import { JobPost, JobStatus } from '../models/job-post.model';
 
 import BaseRepository from './baseRepository';
 
@@ -48,6 +48,23 @@ class JobPostRepository extends BaseRepository<JobPost> {
       .take(limit)
       .skip(skip)
       .getManyAndCount();
+  }
+
+  async getRandom(limit: number = 10): Promise<any[]> {
+    const dbType = this.repo.manager.connection.options.type;
+
+    const randomFn = dbType === 'mysql' || dbType === 'mariadb' ? 'RAND()' : 'RANDOM()';
+
+    const result = await this.repo
+      .createQueryBuilder('job')
+      .leftJoin('job.startup', 'startup')
+      .where('job.cover IS NOT NULL')
+      .andWhere('job.status = :status', { status: JobStatus.PUBLISHED })
+      .orderBy(randomFn)
+      .limit(limit)
+      .getRawMany();
+
+    return result;
   }
 }
 
