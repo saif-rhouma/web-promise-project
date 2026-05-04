@@ -24,7 +24,7 @@
             <div class="container">
               <!-- TITLE START-->
               <div class="section-head center wt-small-separator-outer">
-                <h2 class="wt-title">
+                <h2 class="wt-title" style="color: #e5e5e5;">
                   <%= it.startup.name %>
                 </h2>
               </div>
@@ -70,7 +70,7 @@
             <div class="container">
               <!-- TITLE START-->
               <div class="section-head center wt-small-separator-outer">
-                <h2 class="wt-title">Offre proposée & Profiling</h2>
+                <h2 class="wt-title" style="color: #e5e5e5;">Offre proposée & Profiling</h2>
               </div>
               <!-- TITLE END-->
 

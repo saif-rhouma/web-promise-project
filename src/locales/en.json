@@ -2,7 +2,7 @@
   "home": {
     "banner": {
       "prefix": "Find Your",
-      "dynamic": ["Dream Job", "Next Job"],
+      "dynamic": ["Match !", "Next Job"],
       "suffix": "Now It’s Easy."
     },
     "employee": {

@@ -61,7 +61,7 @@
               <div class="wt-small-separator site-text-primary">
                 <div>Top Companies</div>
               </div>
-              <h2 class="wt-title">Get hired in top companies</h2>
+              <h2 class="wt-title" style="color: #e5e5e5;">Get hired in top companies</h2>
             </div>
             <!-- TITLE END-->
 
@@ -149,12 +149,7 @@
                               <%= it.__('home.employee.description') %>
                             </p>
                           </div>
-                          <div class="twm-upload-file">
-                            <button type="button" class="site-button">
-                              <%= it.__('home.employee.upload_cv') %>
-                                <i class="feather-upload"></i>
-                            </button>
-                          </div>
+                          
                         </div>
                       </div>
                     </div>

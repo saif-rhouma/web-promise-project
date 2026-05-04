@@ -13,7 +13,9 @@ import { ProfileType } from '../models/user.model';
 class PublicController {
   home: AsyncRouteHandler = async (_req, res) => {
     const randomProfiles = await startupProfileRepository.getRandomAvatarsOnly(10);
-    res.render('home', { randomProfiles });
+    const randomOffers = await jobPostRepository.getRandom(6);
+    console.log('---> randomOffers', randomOffers);
+    res.render('home', { randomProfiles, randomOffers });
   };
 
   contactPage: AsyncRouteHandler = async (req, res) => {

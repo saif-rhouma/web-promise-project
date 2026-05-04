@@ -183,7 +183,7 @@ This files [Table of contents] are outlined below
 }
 
 body {
-  color: #f5f5f5;
+  color: #3c3c3c;
   font-family: "Rubik", sans-serif;
   line-height: 1.7;
   font-weight: 400;
@@ -194,7 +194,7 @@ body {
 }
 
 a {
-  color: #e5e5e5;
+  color: #292929;
   outline: 0px none;
   text-decoration: none;
 }
@@ -279,7 +279,7 @@ h5,
 h6 {
   font-family: "Rubik", sans-serif;
   line-height: 1.2;
-  color: #e5e5e5;
+  color: #292929;
 }
 
 h1 {
@@ -2104,7 +2104,7 @@ ol li {
 
 .site-button-link:hover {
   padding-left: 15px;
-  color: #e5e5e5;
+  color: #292929;
 }
 
 .site-button-link:hover:after {
@@ -2139,7 +2139,7 @@ ol li {
   overflow: hidden;
   cursor: pointer;
   display: inline-table;
-  background-color: #1967d2;
+  background-color: #0b7480;
   border: none;
   font-size: 16px;
   font-weight: 600;
@@ -2738,8 +2738,8 @@ ol li {
 }
 
 .header-style-3 .header-nav-btn-section .twm-nav-btn-left .twm-nav-sign-up {
-  background-color: #e0eeff;
-  color: #1967d2;
+  background-color: #d0faff;
+  color: #0b7480;
   font-size: 16px;
   border-radius: 10px;
   padding: 8px 15px;
@@ -3118,7 +3118,7 @@ ol li {
 }
 
 .header-style-3 .header-nav .nav>li>a {
-  color: #e5e5e5;
+  color: #c7c6c6;
   font-size: 16px;
   padding: 15px 16px;
   cursor: pointer;
@@ -6139,7 +6139,7 @@ ol li {
 
 /*Footer Light version css*/
 .footer-light {
-  color: #e5e5e5;
+  color: #292929;
   color: #f5f5f5;
   font-size: 16px;
   padding-top: 50px;
@@ -9006,11 +9006,17 @@ ol.comment-list li.comment .comment-respond .comment-form p {
 
 .twm-blog-post-1-outer .wt-post-info .wt-post-title .post-title {
   margin-bottom: 15px;
+  color: #fafafa !important;
+}
+
+.twm-blog-post-1-outer .wt-post-info .wt-post-title .post-title a {
+  color: #fafafa !important;
 }
 
 .twm-blog-post-1-outer .wt-post-info .wt-post-text p {
   font-size: 16px;
   margin-bottom: 10px;
+  color: #e5e5e5;
 }
 
 /*Blog post 2*/
@@ -23010,6 +23016,7 @@ strong {
 .testimonial-thumb-1-wrap .testimonial-thumb-1 .t-discription {
   margin-bottom: 20px;
   font-size: 16px;
+  color: #c7c6c6;
 }
 
 .testimonial-thumb-1-wrap .testimonial-thumb-1 .twm-testi-detail {
