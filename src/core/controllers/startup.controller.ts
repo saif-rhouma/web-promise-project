@@ -408,11 +408,25 @@ class StartupController {
 
       if (!job) return res.status(404).send('Job not found');
 
-      const coverFile = req.file;
+      const files = req.files as
+        | {
+            [fieldname: string]: Express.Multer.File[];
+          }
+        | undefined;
 
-      // ✅ Only update cover if new file uploaded
+      const coverFile = files?.cover?.[0];
+      const pdfFile = files?.pdfFile?.[0];
+
+      // ======================
+      // FILE (ONLY IF EXIST)
+      // ======================
+
       if (coverFile) {
-        job.cover = coverFile.filename;
+        job.cover = `${coverFile.filename}`;
+      }
+
+      if (pdfFile) {
+        job.pdfFile = pdfFile.filename;
       }
 
       // ✅ Safe languages handling
@@ -436,7 +450,6 @@ class StartupController {
         period: req.body.period,
         remoteWork: req.body.remoteWork,
         languages,
-
         roles: req.body.roles,
         offers: req.body.offers,
         knowledge: req.body.knowledge,

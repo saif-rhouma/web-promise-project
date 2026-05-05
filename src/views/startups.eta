@@ -52,7 +52,11 @@
                               </h3>
                             </div>
                             <div class="wt-post-text">
-                              <p><%= s.description %></p>
+                              <p><%= s.description.length> 110
+                                  ? s.description.substring(0, 110) + '...'
+                                  : s.description
+                                  %>
+                              </p></p>
                             </div>
                             <div class="wt-post-readmore">
                               <a href="/startups/<%= s.id %>" class="site-button-link site-text-primary">Découvrez les
