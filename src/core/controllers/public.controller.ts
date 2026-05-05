@@ -101,8 +101,7 @@ class PublicController {
   };
 
   applySuccess: AsyncRouteHandler = async (req, res) => {
-    const jobId = Array.isArray(req.params.id) ? req.params.id[0] : req.params.id;
-
+    const jobId = Array.isArray(req.params.jobId) ? req.params.jobId[0] : req.params.jobId;
     const job = await jobPostRepository.findOne({
       where: { id: jobId },
       relations: ['startup'],
