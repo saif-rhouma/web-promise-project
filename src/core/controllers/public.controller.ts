@@ -9,7 +9,8 @@ import applicationRepository from '../repositories/application.repository';
 import { Application } from '../models/application.model';
 import { sendContactEmail } from '../../utils/mailer';
 import { ProfileType } from '../models/user.model';
-import puppeteer from 'puppeteer';
+import puppeteer from 'puppeteer-core';
+import chromium from '@sparticuz/chromium';
 import { getHtmlObj } from '../../helpers/getHtmlObj.helpers';
 
 class PublicController {
@@ -145,9 +146,9 @@ class PublicController {
 
       if (!job.pdfFile) {
         const puppeteerOptions = {
-          ignoreDefaultArgs: ['--disable-extensions'],
-          headless: true, // Ensures headless mode
-          args: ['--no-sandbox', '--disable-setuid-sandbox'],
+          args: [...chromium.args, '--no-sandbox', '--disable-setuid-sandbox'],
+          executablePath: await chromium.executablePath(),
+          headless: true,
         };
 
         const browser = await puppeteer.launch(puppeteerOptions);
