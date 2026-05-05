@@ -73,12 +73,13 @@ class AuthWebController {
   // ======================
 
   register = async (req: Request, res: Response) => {
-    const { email, password, phone } = req.body;
+    const { email, password, phone, type } = req.body;
 
     await authService.signup({
       email,
       password,
       phone,
+      type,
       role: UserRole.USER,
     });
 

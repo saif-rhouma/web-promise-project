@@ -2,7 +2,7 @@ import { hashPassword } from '../../helpers/auth.helpers';
 import { MSG_EXCEPTION } from '../constants/messages';
 import UnauthorizedException from '../exceptions/unauthorizedException';
 import usersRepository from '../repositories/user.repository';
-import { UserRole } from '../models/user.model';
+import { ProfileType, UserRole } from '../models/user.model';
 import { scrypt as _scrypt } from 'crypto';
 import { promisify } from 'util';
 import { instanceToPlain } from 'class-transformer';
@@ -15,7 +15,7 @@ const scrypt = promisify(_scrypt);
 class AuthService {
   private usersRepository = usersRepository;
 
-  async signup(data: { email: string; password: string; phone: string; role: UserRole }) {
+  async signup(data: { email: string; password: string; phone: string; type: string; role: UserRole }) {
     const existing = await this.usersRepository.findByEmail(data.email);
 
     if (existing.length) {
@@ -23,11 +23,12 @@ class AuthService {
     }
 
     const hashed = await hashPassword(data.password);
-
+    const userType = data.type === ProfileType.ENTERPRISE ? ProfileType.ENTERPRISE : ProfileType.STARTUP;
     const user = await this.usersRepository.create({
       email: data.email,
       phone: data.phone,
       password: hashed,
+      type: userType,
       role: data.role,
     });
 
