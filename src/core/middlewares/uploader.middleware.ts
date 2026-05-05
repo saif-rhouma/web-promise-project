@@ -73,3 +73,37 @@ export const uploadImage = multer({
     fileSize: 3 * 1024 * 1024, // 3MB
   },
 });
+
+export const uploadJobFiles = multer({
+  storage: multer.diskStorage({
+    destination: (_req, file, cb) => {
+      if (file.mimetype === 'application/pdf') {
+        cb(null, path.join(baseUploadPath, 'pdf'));
+      } else {
+        cb(null, path.join(baseUploadPath, 'images'));
+      }
+    },
+
+    filename: (_req, file, cb) => {
+      const ext = path.extname(file.originalname);
+      const fileName = `${TinyID(10)}-${Date.now()}${ext}`;
+      cb(null, fileName);
+    },
+  }),
+
+  fileFilter: (_req, file, cb) => {
+    const allowedImages = ['image/png', 'image/jpeg', 'image/jpg', 'image/webp'];
+
+    const allowedPdf = ['application/pdf'];
+
+    if ([...allowedImages, ...allowedPdf].includes(file.mimetype)) {
+      cb(null, true);
+    } else {
+      cb(new Error('Only images or PDF files allowed'));
+    }
+  },
+
+  limits: {
+    fileSize: 5 * 1024 * 1024, // 5MB max
+  },
+});

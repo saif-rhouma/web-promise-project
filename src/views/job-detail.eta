@@ -32,13 +32,13 @@
                         <div class="overlay-main site-bg-primary opacity-01"></div>
                         <div class="twm-candi-self-info">
                           <div class="twm-candi-self-top">
-                            <div class="twm-media" >
+                            <div class="twm-media">
                               <img src="/images/<%= it.job.startup.avatar || '/images/default-cover.jpg' %>"
-                              style="width: 90px;height: 90px;border-radius: 50%;border: 4px solid #0b7480;"
+                                style="width: 90px;height: 90px;border-radius: 50%;border: 4px solid #0b7480;"
                                 alt="cover" />
                             </div>
                             <div class="twm-mid-content">
-                              <h4 class="twm-job-title" >
+                              <h4 class="twm-job-title">
                                 <%=it.job.startup.name %>
                               </h4>
 
@@ -198,7 +198,7 @@
                       </div>
 
                       <div class="twm-s-contact-wrap mb-5">
-                        <h4 class="section-head-small mb-4">Apply</h4>
+                        <h4 class="section-head-small mb-4" style="color: #e5e5e5;">Apply</h4>
                         <form action="/applications/<%= it.job.id %>" method="POST" enctype="multipart/form-data">
                           <input type="hidden" name="_csrf" value="<%= it.csrfToken %>" />
                           <div class="twm-s-contact">

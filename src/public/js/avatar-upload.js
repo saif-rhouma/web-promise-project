@@ -12,14 +12,14 @@ document.addEventListener('DOMContentLoaded', () => {
     const file = input.files[0];
     if (!file) return;
 
-    // preview instantly
-    preview.src = URL.createObjectURL(file);
+    // 1. instant local preview
+    const tempUrl = URL.createObjectURL(file);
+    preview.src = tempUrl;
 
     const formData = new FormData();
     formData.append('avatar', file);
 
     try {
-      // 🔄 SHOW LOADER
       loader.classList.remove('hidden');
 
       const res = await fetch('/startup/profile/avatar', {
@@ -34,12 +34,15 @@ document.addEventListener('DOMContentLoaded', () => {
       const data = await res.json();
 
       if (data.avatar) {
-        preview.src = data.avatar;
+        // 2. force refresh + prevent cache issues
+        preview.src = '/images/'+data.avatar + '?t=' + Date.now();
+        // optional: cleanup blob URL
+        URL.revokeObjectURL(tempUrl);
       }
+
     } catch (err) {
       console.error(err);
     } finally {
-      // 🔄 HIDE LOADER
       loader.classList.add('hidden');
     }
   });

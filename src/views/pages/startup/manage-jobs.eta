@@ -75,7 +75,7 @@
                                       <td>
                                         <div class="twm-jobs-category">
                                           <% const jobTypeColors={ 'Full Time' : 'twm-bg-green' , 'Freelance'
-                                            : 'twm-bg-sky' , 'Part Time' : 'twm-bg-yellow' , 'Internship'
+                                            : 'twm-bg-sky' , 'Part Time' : 'twm-bg-brown' , 'Internship'
                                             : 'twm-bg-purple' , 'Temporary' : 'twm-bg-golden' }; %>
 
                                             <span class="<%= jobTypeColors[job?.type] || 'text-clr-default' %>">

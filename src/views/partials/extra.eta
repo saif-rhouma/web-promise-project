@@ -31,10 +31,10 @@
               <div class="twm-media">
                 <img src="/images/<%= job.job_cover || '/images/default-cover.jpg' %>" alt="cover" />
               </div>
-              <span class="twm-job-post-duration">1 days ago</span>
+              <!-- <span class="twm-job-post-duration">1 days ago</span> -->
                <div class="twm-jobs-category">
-                                          <% const jobTypeColors={ 'Full Time' : 'twm-bg-green' , 'Freelance'
-                                            : 'twm-bg-sky' , 'Part Time' : 'twm-bg-yellow' , 'Internship'
+                                           <% const jobTypeColors={ 'Full Time' : 'twm-bg-green' , 'Freelance'
+                                            : 'twm-bg-sky' , 'Part Time' : 'twm-bg-brown' , 'Internship'
                                             : 'twm-bg-purple' , 'Temporary' : 'twm-bg-golden' }; %>
 
                                             <span class="<%= jobTypeColors[job?.job_type] || 'text-clr-default' %>">

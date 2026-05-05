@@ -14,7 +14,7 @@
     </div>
     <!-- LOADING AREA  END ====== -->
 
-    <div class="page-wraper">
+    <div class="page-wraper bg-gradient-to-br">
       <!-- CONTENT START -->
       <div class="page-content">
         <!-- Register Section Start -->
@@ -32,7 +32,7 @@
                 <div class="twm-log-reg-form-wrap">
                   <div class="twm-log-reg-logo-head">
                     <a href="/">
-                      <img src="/images/logo-dark.png" alt="" class="logo" />
+                      <img src="/images/logo-light.png" alt="" class="logo" />
                     </a>
                   </div>
                   <div class="twm-log-reg-inner">

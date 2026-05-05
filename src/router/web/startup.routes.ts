@@ -1,7 +1,7 @@
 import authSessionMiddleware from '../../core/middlewares/auth-session.middleware';
 import StartupController from '../../core/controllers/startup.controller';
 import IRouteGroup from 'src/types/IRouteGroup';
-import { uploadImage } from '../../core/middlewares/uploader.middleware';
+import { uploadImage, uploadJobFiles } from '../../core/middlewares/uploader.middleware';
 import csrfProtection from '../../core/middlewares/csrf.middleware';
 
 const StartupRoutes: IRouteGroup = {
@@ -72,7 +72,13 @@ const StartupRoutes: IRouteGroup = {
     {
       method: 'post',
       path: '/jobs/create',
-      middleware: [uploadImage.single('cover'), csrfProtection],
+      middleware: [
+        uploadJobFiles.fields([
+          { name: 'cover', maxCount: 1 },
+          { name: 'pdfFile', maxCount: 1 },
+        ]),
+        csrfProtection,
+      ],
       handler: StartupController.createJob,
     },
 
@@ -122,7 +128,13 @@ const StartupRoutes: IRouteGroup = {
     {
       method: 'post',
       path: '/jobs/:id/edit',
-      middleware: [uploadImage.single('cover'), csrfProtection],
+      middleware: [
+        uploadJobFiles.fields([
+          { name: 'cover', maxCount: 1 },
+          { name: 'pdfFile', maxCount: 1 },
+        ]),
+        csrfProtection,
+      ],
       handler: StartupController.updateJob,
     },
 

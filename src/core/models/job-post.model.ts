@@ -82,6 +82,9 @@ export class JobPost {
   @Column({ nullable: true })
   cover: string;
 
+  @Column({ nullable: true })
+  pdfFile: string;
+
   // ================= STATUS =================
   @Column({ type: 'text', default: JobStatus.DRAFT })
   status: JobStatus;

@@ -204,7 +204,7 @@ class StartupController {
       const skip = (page - 1) * limit;
 
       const [jobs, total] = await jobPostRepository.findJobsDetails(user.startupProfile?.id, limit, skip);
-
+      console.log('---> jobs', jobs);
       const totalPages = Math.ceil(total / limit);
 
       return res.render('pages/startup/manage-jobs', {
@@ -285,7 +285,14 @@ class StartupController {
     try {
       const user = await getUser(req, res, usersRepository);
       // ✅ SAFE FILE EXTRACTION
-      const coverFile = req.file;
+      const files = req.files as
+        | {
+            [fieldname: string]: Express.Multer.File[];
+          }
+        | undefined;
+
+      const coverFile = files?.cover?.[0];
+      const pdfFile = files?.pdfFile?.[0];
 
       if (!coverFile) {
         return res.redirect('/startup/profile');
@@ -332,6 +339,10 @@ class StartupController {
 
       if (coverFile) {
         job.cover = `${coverFile.filename}`;
+      }
+
+      if (pdfFile) {
+        job.pdfFile = pdfFile.filename;
       }
 
       job.period = period;
@@ -399,6 +410,18 @@ class StartupController {
 
       const coverFile = req.file;
 
+      // ✅ Only update cover if new file uploaded
+      if (coverFile) {
+        job.cover = coverFile.filename;
+      }
+
+      // ✅ Safe languages handling
+      const languages = req.body.languages
+        ? Array.isArray(req.body.languages)
+          ? req.body.languages
+          : [req.body.languages]
+        : [];
+
       // ================= UPDATE FIELDS =================
       Object.assign(job, {
         title: req.body.title,
@@ -412,7 +435,7 @@ class StartupController {
         address: req.body.address,
         period: req.body.period,
         remoteWork: req.body.remoteWork,
-        languages: req.body.languages,
+        languages,
 
         roles: req.body.roles,
         offers: req.body.offers,
@@ -421,17 +444,15 @@ class StartupController {
         tools: req.body.tools,
         preferredExperience: req.body.preferredExperience,
 
-        status: action === 'publish' ? 'published' : 'draft',
+        status: action === 'publish' ? JobStatus.PUBLISHED : JobStatus.DRAFT,
       });
 
-      if (coverFile) {
-        job.cover = `${coverFile.filename}`;
-      }
-
       await jobPostRepository.save(job);
+      // ✅ redirect logic
       if (action === 'draft') {
         return res.redirect(`/startup/jobs/${jobId}/edit`);
       }
+
       return res.redirect(`/startup/jobs/`);
     } catch (err) {
       console.error(err);

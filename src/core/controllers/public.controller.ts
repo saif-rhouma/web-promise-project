@@ -9,12 +9,13 @@ import applicationRepository from '../repositories/application.repository';
 import { Application } from '../models/application.model';
 import { sendContactEmail } from '../../utils/mailer';
 import { ProfileType } from '../models/user.model';
+import puppeteer from 'puppeteer';
+import { getHtmlObj } from '../../helpers/getHtmlObj.helpers';
 
 class PublicController {
   home: AsyncRouteHandler = async (_req, res) => {
     const randomProfiles = await startupProfileRepository.getRandomAvatarsOnly(10);
     const randomOffers = await jobPostRepository.getRandom(6);
-    console.log('---> randomOffers', randomOffers);
     res.render('home', { randomProfiles, randomOffers });
   };
 
@@ -140,13 +141,47 @@ class PublicController {
 
       if (!job) return res.status(404).send('Job not found');
 
-      const filePath = path.join(process.cwd(), '/src/uploads/jobs/', `${jobId}.pdf` as string);
+      const filename = `${job.startup.name} - ${job.title}`.toLowerCase().replace(/[^a-z0-9-_]+/gi, '-') + '.pdf';
+
+      if (!job.pdfFile) {
+        const puppeteerOptions = {
+          ignoreDefaultArgs: ['--disable-extensions'],
+          headless: true, // Ensures headless mode
+          args: ['--no-sandbox', '--disable-setuid-sandbox'],
+        };
+
+        const browser = await puppeteer.launch(puppeteerOptions);
+        const page = await browser.newPage();
+        await page.setContent(getHtmlObj(job), { waitUntil: 'networkidle0' });
+
+        fs.writeFileSync('output.txt', getHtmlObj(job), 'utf8');
+
+        const outputFilePath = path.join(process.cwd(), '/src/uploads/pdf/', filename);
+
+        await page.pdf({
+          width: '1280px',
+          height: '720px',
+          printBackground: true,
+          preferCSSPageSize: true,
+          path: outputFilePath,
+        });
+
+        await browser.close();
+
+        Object.assign(job, {
+          pdfFile: filename,
+        });
+        await jobPostRepository.save(job);
+      }
+
+      const filePath = path.join(process.cwd(), '/src/uploads/pdf/', job.pdfFile as string);
 
       const stat = fs.statSync(filePath);
+
       res.writeHead(200, {
-        'Content-Type': 'application/zip',
+        'Content-Type': 'application/pdf',
         'Content-Length': stat.size,
-        'Content-Disposition': `attachment; filename="${`${job.title?.toLocaleLowerCase()}.pdf`}"`,
+        'Content-Disposition': `attachment; filename="${filename}"`,
       });
 
       const fileStream = fs.createReadStream(filePath);

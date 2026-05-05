@@ -14,7 +14,7 @@
   </div>
   <!-- LOADING AREA END ====== -->
 
-  <div class="page-wraper">
+  <div class="page-wraper bg-gradient-to-br">
     <div class="page-content">
 
       <div class="section-full site-bg-white">
@@ -36,7 +36,7 @@
 
                 <div class="twm-log-reg-logo-head">
                   <a href="/">
-                    <img src="/images/logo-dark.png" alt="" class="logo" />
+                    <img src="/images/logo-light.png" alt="" class="logo" />
                   </a>
                 </div>
 

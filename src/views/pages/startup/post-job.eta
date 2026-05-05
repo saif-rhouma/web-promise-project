@@ -42,7 +42,7 @@
                             <div class="form-group">
                               <label>Job Title</label>
                               <div class="ls-inputicon-box">
-                                <input class="form-control" name="title" type="text" placeholder="Devid Smith" />
+                                <input class="form-control" name="title" type="text" placeholder="exp.Full Stack ..." />
                                 <i class="fs-input-icon fa fa-address-card"></i>
                               </div>
                             </div>
@@ -193,11 +193,21 @@
                             <div class="form-group">
                               <label>Image Cover</label>
                               <div class="ls-inputicon-box">
-                                <input class="form-control" name="cover" type="file" />
+                                <input class="form-control" name="cover" type="file" required />
                                 <i class="fs-input-icon fa fa-globe-americas"></i>
                               </div>
                             </div>
                           </div>
+
+                          <div class="col-xl-12 col-lg-12 col-md-12">
+  <div class="form-group">
+    <label>Job PDF (Optional)</label>
+    <div class="ls-inputicon-box">
+      <input class="form-control" name="pdfFile" type="file" accept=".pdf" />
+      <i class="fs-input-icon fa fa-file-pdf"></i>
+    </div>
+  </div>
+</div>
 
                           <!--Description-->
                           <div class="col-md-12">
