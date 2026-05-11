@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+  <%~ include('./partials/head') %>
+
+  <body>
+    <!-- LOADING AREA START ===== -->
+    <div class="loading-area">
+      <div class="loading-box"></div>
+      <div class="loading-pic">
+        <div class="wrapper">
+          <div class="cssload-loader"></div>
+        </div>
+      </div>
+    </div>
+    <!-- LOADING AREA  END ====== -->
+
+    <div class="page-wraper">
+      <!-- CONTENT START -->
+      <div class="page-content">
+        <%~ include('./partials/startup-inner-banner') %>
+
+        <!-- OUR BLOG START -->
+        <div class="section-full p-t120 p-b90 site-bg-white">
+          <div class="container">
+            <div class="row">
+              <%~ include('./partials/startup-sidemenu') %>
+
+              <div class="col-xl-9 col-lg-8 col-md-12 m-b30">
+                <!--Filter Short By-->
+                <div class="twm-right-section-panel site-bg-gray">
+               <div class="container mt-4">
+
+  <!-- STATS -->
+  <div class="row mb-4">
+
+    <div class="col-md-4">
+      <div class="card p-3">
+        <h4><%= it.unreadCount %></h4>
+        <p>Unread Messages</p>
+      </div>
+    </div>
+
+    <div class="col-md-4">
+      <div class="card p-3">
+        <h4><%= it.sentContacts.length %></h4>
+        <p>Sent Messages</p>
+      </div>
+    </div>
+
+    <div class="col-md-4">
+      <div class="card p-3">
+        <h4><%= it.totalConversations || 0 %></h4>
+        <p>Conversations</p>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- TABS -->
+  <ul class="nav nav-tabs">
+    <li class="nav-item">
+      <a class="nav-link active" data-bs-toggle="tab" href="#inbox">
+        Inbox
+      </a>
+    </li>
+
+    <li class="nav-item">
+      <a class="nav-link" data-bs-toggle="tab" href="#sent">
+        Sent
+      </a>
+    </li>
+  </ul>
+
+  <div class="tab-content mt-3">
+
+    <!-- INBOX -->
+  <div class="tab-pane fade show active" id="inbox">
+
+  <% it.receivedContacts.forEach(c => { %>
+
+    <a href="/startup/contacts/conversation/<%= c.sender.id %>">
+
+      <div class="card p-3 mb-2 <%= !c.lastMessage.isRead ? 'border-primary' : '' %>">
+
+        <div class="d-flex justify-content-between align-items-start">
+
+          <div class="d-flex">
+
+
+            <div class="conversation-avatar-media">
+                            <img
+                                src="/images/<%= c.sender.avatar || '/images/default-cover.jpg' %>" alt="cover" />
+                          </div>
+
+            <div>
+              <h6 class="mb-1">
+                <%= c.sender.name %>
+              </h6>
+
+              <p class="mb-1 text-muted">
+                <%= c.lastMessage.message %>
+              </p>
+
+              <small>
+                <%= c.messages.length %> messages
+              </small>
+            </div>
+
+          </div>
+
+          <div class="text-end">
+
+            <% if (c.unreadCount > 0) { %>
+              <span class="badge bg-danger">
+                <%= c.unreadCount %>
+              </span>
+            <% } %>
+
+            <div class="small text-muted mt-1">
+              <%= new Date(c.lastMessage.createdAt).toLocaleDateString() %>
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </a>
+
+  <% }) %>
+
+</div>
+
+    <!-- SENT -->
+    <div class="tab-pane fade" id="sent">
+
+      <% it.sentContacts.forEach(c => { %>
+        <a href="/startup/contacts/conversation/<%= c.sender.id %>"> 
+        <div class="card p-3 mb-2">
+          <h6><%= c.subject %></h6>
+          <small>To: <%= c.receiver.name %></small>
+        </div>
+        </a>
+      <% }) %>
+
+    </div>
+
+  </div>
+
+</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- OUR BLOG END -->
+      </div>
+      <!-- CONTENT END -->
+
+      <%~ include('./partials/footer') %>
+      <!-- BUTTON TOP START -->
+      <button class="scroltop"><span class="fa fa-angle-up relative" id="btn-vibrate"></span></button>
+    </div>
+
+    <%~ include('./partials/scripts') %>
+  </body>
+</html>

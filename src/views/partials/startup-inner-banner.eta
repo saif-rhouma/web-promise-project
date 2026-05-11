@@ -8,7 +8,18 @@
     <div class="wt-bnr-inr-entry">
       <div class="banner-title-outer">
         <div class="banner-title-name">
-          <h2 class="wt-title"><%= it.startupProfile.name || it.__('startup.sidebar.default_name') %></h2>
+          <h2
+            class="wt-title"
+            style="
+              text-shadow:
+                -1px -1px 0 #fff,
+                1px -1px 0 #fff,
+                -1px 1px 0 #fff,
+                1px 1px 0 #fff;
+            "
+          >
+            <%= it.startupProfile.name || it.__('startup.sidebar.default_name') %>
+          </h2>
         </div>
       </div>
       <!-- BREADCRUMB ROW -->

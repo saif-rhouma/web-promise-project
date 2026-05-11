@@ -52,8 +52,11 @@
       "default_sector": "Un Sectored",
       "upload_photo": "Upload Photo",
       "menu": {
+        "dashboard": "Dashboard",
         "profile": "Company Profile",
         "jobs": "Manage Jobs",
+        "startups": "Startups",
+        "messages": "Messages",
         "post_job": "Post A Job",
         "applications": "Browse Candidates",
         "change_password": "Change Password",

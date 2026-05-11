@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+  <%~ include('./partials/head') %>
+
+  <body>
+    <!-- LOADING AREA START ===== -->
+    <div class="loading-area">
+      <div class="loading-box"></div>
+      <div class="loading-pic">
+        <div class="wrapper">
+          <div class="cssload-loader"></div>
+        </div>
+      </div>
+    </div>
+    <!-- LOADING AREA  END ====== -->
+
+    <div class="page-wraper">
+      <!-- CONTENT START -->
+      <div class="page-content">
+        <%~ include('./partials/startup-inner-banner') %>
+
+        <!-- OUR BLOG START -->
+        <div class="section-full p-t120 p-b90 site-bg-white">
+          <div class="container">
+            <div class="row">
+              <%~ include('./partials/startup-sidemenu') %>
+
+              <div class="col-xl-9 col-lg-8 col-md-12 m-b30">
+                <!--Filter Short By-->
+                <div class="twm-right-section-panel site-bg-gray">
+                  <div class="twm-dash-b-blocks mb-5">
+                    <div class="row">
+                      <div class="col-xl-4 col-lg-6 col-md-12 mb-3">
+                        <div class="panel panel-default">
+                          <div class="panel-body wt-panel-body gradi-1 dashboard-card">
+                            <div class="wt-card-wrap">
+                              <div class="wt-card-icon"><i class="far fa-address-book"></i></div>
+                              <div class="wt-card-right wt-total-active-listing counter">
+                                <%= it.stats.publishedJobs %>
+                              </div>
+                              <div class="wt-card-bottom">
+                                <h4 class="m-b0">Published Post</h4>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-xl-4 col-lg-6 col-md-12 mb-3">
+                        <div class="panel panel-default">
+                          <div class="panel-body wt-panel-body gradi-2 dashboard-card">
+                            <div class="wt-card-wrap">
+                              <div class="wt-card-icon"><i class="far fa-file-alt"></i></div>
+                              <div class="wt-card-right wt-total-listing-view counter">
+                                <%= it.stats.totalApplications %>
+                              </div>
+                              <div class="wt-card-bottom">
+                                <h4 class="m-b0">Applications</h4>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-xl-4 col-lg-12 col-md-12 mb-3">
+                        <div class="panel panel-default">
+                          <div class="panel-body wt-panel-body gradi-4 dashboard-card">
+                            <div class="wt-card-wrap">
+                              <div class="wt-card-icon"><i class="far fa-bell"></i></div>
+                              <div class="wt-card-right wt-total-listing-bookmarked counter">99999</div>
+                              <div class="wt-card-bottom">
+                                <h4 class="m-b0">Notifications</h4>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-xl-12 col-lg-12 col-md-12 mb-4">
+                        <div class="panel panel-default site-bg-white">
+                          <div class="panel-heading wt-panel-heading p-a20">
+                            <h4 class="panel-tittle m-a0"><i class="far fa-chart-bar"></i>Applications Per Job</h4>
+                          </div>
+                          <div class="panel-body wt-panel-body twm-pro-view-chart">
+                            <canvas id="applicationsPerJobChart"></canvas>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-xl-12 col-lg-12 col-md-12 mb-4">
+                        <div class="panel panel-default site-bg-white">
+                          <div class="panel-heading wt-panel-heading p-a20">
+                            <h4 class="panel-tittle m-a0"><i class="far fa-chart-bar"></i>Applications Over Time</h4>
+                          </div>
+                          <div class="panel-body wt-panel-body twm-pro-view-chart">
+                            <canvas id="applicationsOverTimeChart"></canvas>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- OUR BLOG END -->
+      </div>
+      <!-- CONTENT END -->
+
+      <%~ include('./partials/footer') %>
+      <!-- BUTTON TOP START -->
+      <button class="scroltop"><span class="fa fa-angle-up relative" id="btn-vibrate"></span></button>
+    </div>
+
+    <%~ include('./partials/scripts') %>
+
+    <div
+      id="dashboard-data"
+      data-applications-per-job="<%= JSON.stringify(it.applicationsPerJob || []) %>"
+      data-applications-over-time="<%= JSON.stringify(it.applicationsOverTime || []) %>"
+    ></div>
+    <script src="/js/startup-dashboard.js"></script>
+  </body>
+</html>

@@ -1,5 +1,6 @@
 import authSessionMiddleware from '../../core/middlewares/auth-session.middleware';
 import StartupController from '../../core/controllers/startup.controller';
+import ContactController from '../../core/controllers/contact.controller';
 import IRouteGroup from 'src/types/IRouteGroup';
 import { uploadImage, uploadJobFiles } from '../../core/middlewares/uploader.middleware';
 import csrfProtection from '../../core/middlewares/csrf.middleware';
@@ -11,6 +12,22 @@ const StartupRoutes: IRouteGroup = {
   },
 
   routes: [
+    // ======================
+    // GET PROFILE PAGE
+    // ======================
+    {
+      method: 'get',
+      path: '/',
+      handler: StartupController.dashboardPage,
+    },
+    // ======================
+    // GET PROFILE PAGE
+    // ======================
+    {
+      method: 'get',
+      path: '/dashboard',
+      handler: StartupController.dashboardPage,
+    },
     // ======================
     // GET PROFILE PAGE
     // ======================
@@ -160,7 +177,7 @@ const StartupRoutes: IRouteGroup = {
     },
 
     // ======================
-    // OPTIONAL: VIEW PUBLIC DASHBOARD
+    // VIEW PUBLIC DASHBOARD
     // ======================
     {
       method: 'get',
@@ -170,6 +187,85 @@ const StartupRoutes: IRouteGroup = {
           user: req.session['user'],
         });
       },
+    },
+    // ======================
+    //  LIST STARTUPS
+    // ======================
+    {
+      method: 'get',
+      path: '/startups',
+      middleware: [csrfProtection],
+      handler: StartupController.startupsPage,
+    },
+
+    // ======================
+    // CONTACTS PAGE
+    // ======================
+    {
+      method: 'get',
+      path: '/messages',
+      middleware: [csrfProtection],
+      handler: ContactController.contactsPage,
+    },
+
+    // ======================
+    // CONTACT DETAILS PAGE
+    // ======================
+    {
+      method: 'get',
+      path: '/contacts/:id',
+      middleware: [csrfProtection],
+      handler: ContactController.getContactDetails,
+    },
+
+    // ======================
+    // SEND CONTACT MESSAGE
+    // ======================
+    {
+      method: 'post',
+      path: '/contacts/send',
+      middleware: [csrfProtection],
+      handler: ContactController.sendContact,
+    },
+
+    // ======================
+    // UPDATE CONTACT STATUS
+    // ======================
+    {
+      method: 'patch',
+      path: '/contacts/:id/status',
+      middleware: [csrfProtection],
+      handler: ContactController.updateStatus,
+    },
+
+    // ======================
+    // MARK AS READ
+    // ======================
+    {
+      method: 'patch',
+      path: '/contacts/:id/read',
+      middleware: [csrfProtection],
+      handler: ContactController.markAsRead,
+    },
+
+    // ======================
+    // DELETE CONTACT
+    // ======================
+    {
+      method: 'delete',
+      path: '/contacts/:id',
+      middleware: [csrfProtection],
+      handler: ContactController.deleteContact,
+    },
+
+    // ======================
+    // CONVERSATION VIEW (CHAT STYLE)
+    // ======================
+    {
+      method: 'get',
+      path: '/contacts/conversation/:id',
+      middleware: [csrfProtection],
+      handler: ContactController.getConversation,
     },
 
     // ======================

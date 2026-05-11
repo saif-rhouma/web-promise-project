@@ -306,3 +306,36 @@
   </div>
 </div>
 <!--Model Popup Section End-->
+
+<div
+  class="modal fade twm-sign-up"
+  id="sign_up_popup"
+  aria-hidden="true"
+  aria-labelledby="sign_up_popupLabel"
+  tabindex="-1"
+>
+  <div class="modal-dialog modal-dialog-centered">
+    <form id="messageForm" class="modal-content">
+      <div class="modal-header">
+        <h2 class="modal-title" id="sign_up_popupLabel2">>Send Message to <span id="startupName"></span></h2>
+        <h5 class="modal-title">Send Message to <span id="startupName"></span></h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+
+      <div class="modal-body">
+        <div class="twm-tabs-style-2">
+          <input type="hidden" name="startupId" id="startupId" />
+
+          <div class="mb-3">
+            <label class="form-label">Message</label>
+            <textarea class="form-control" name="message" id="messageText" rows="4" required></textarea>
+          </div>
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <button type="submit" class="site-button">Send</button>
+      </div>
+    </form>
+  </div>
+</div>

@@ -46,6 +46,7 @@ class Router {
   private _handleExceptions() {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     this.router.use((err, _req, res, _next) => {
+      console.log('------> err', err);
       err.statusCode = err.status || err.statusCode || HTTP_CODE.InternalServerError;
       return res.status(HTTP_CODE.NotFound).render('error-404');
     });

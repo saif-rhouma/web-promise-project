@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<%~ include('./partials/head') %>
+
+  <body>
+    <!-- LOADING AREA START ===== -->
+    <div class="loading-area">
+      <div class="loading-box"></div>
+      <div class="loading-pic">
+        <div class="wrapper">
+          <div class="cssload-loader"></div>
+        </div>
+      </div>
+    </div>
+    <!-- LOADING AREA  END ====== -->
+
+    <div class="page-wraper">
+      <!-- CONTENT START -->
+      <div class="page-content">
+        <%~ include('./partials/startup-inner-banner') %>
+
+          <!-- OUR BLOG START -->
+          <div class="section-full p-t120 p-b90 site-bg-white">
+            <div class="container">
+              <div class="row">
+                <%~ include('./partials/startup-sidemenu') %>
+
+                  <div class="col-xl-9 col-lg-8 col-md-12 m-b30">
+                    <!--Filter Short By-->
+                    <div class="twm-right-section-panel candidate-save-job site-bg-gray">
+                      <div class="twm-D_table table-responsive">
+                        <table id="jobs_bookmark_table" class="table table-bordered twm-candidate-save-job-list-wrap">
+                          <thead>
+                            <tr>
+                              <th>Name</th>
+                              <th>Sector</th>
+                              <th></th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <% it.startups.forEach(s=> { %>
+                              <tr>
+                                <td>
+                                  <div class="twm-DT-candidates-list">
+                                    <div class="twm-media">
+                                      <div class="twm-media-pic">
+                                        <img src="/images/<%= s.avatar || '/images/default-cover.jpg' %>" alt="cover" />
+                                      </div>
+                                    </div>
+                                    <div class="twm-mid-content">
+                                      <a href="#" class="twm-job-title">
+                                        <h4>
+                                          <%= s.name %>
+                                        </h4>
+                                        <p class="twm-candidate-address">
+                                          <i class="feather-map-pin"></i>
+                                          <%= s.adress %>
+                                        </p>
+                                      </a>
+
+                                    </div>
+
+                                  </div>
+                                </td>
+
+                                <td>
+                                  <span>
+                                    <%= s.sector %>
+                                  </span>
+                                </td>
+
+
+                                <td>
+                                  <div class="twm-table-controls">
+                                    <ul class="twm-DT-controls-icon list-unstyled">
+                                      <li>
+                                        <button type="button" title="Send message" data-bs-toggle="modal"
+                                          data-bs-target="#sign_up_popup" data-startup-id="<%= s.id %>"
+                                          data-startup-name="<%= s.name %>">
+
+                                          <span class="far fa-envelope-open"></span>
+
+                                        </button>
+                                      </li>
+                                    </ul>
+                                  </div>
+                                </td>
+                              </tr>
+                              <% }) %>
+                          </tbody>
+                          <tfoot>
+                            <tr>
+                              <th>Name</th>
+                              <th>Sector</th>
+                              <th></th>
+                            </tr>
+                          </tfoot>
+                        </table>
+                      </div>
+                    </div>
+                  </div>
+              </div>
+            </div>
+          </div>
+          <!-- OUR BLOG END -->
+      </div>
+      <!-- CONTENT END -->
+      <div class="modal fade twm-sign-up" id="sign_up_popup" tabindex="-1" aria-labelledby="sign_up_popupLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+          <form id="messageForm" class="modal-content">
+            <div class="modal-header">
+              <h3 class="modal-title" id="sign_up_popupLabel2">Send Message to <span id="startupName"></span></h3>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+            <div class="modal-body">
+              <div class="twm-tabs-style-2">
+                <div class="tab-content" id="myTabContent">
+                  <div class="tab-pane fade show active">
+                    <div class="row">
+                      <div class="col-lg-12">
+                        <input type="hidden" name="startupId" id="startupId" />
+                        <input type="hidden" name="_csrf" value="<%= it.csrfToken %>" />
+                        <div class="mb-3">
+                          <label class="form-label">Message</label>
+                          <textarea class="form-control" name="message" id="messageText" rows="6"
+                            style="min-height: 160px;" required></textarea>
+                        </div>
+                      </div>
+                      <div class="col-lg-12"> <button type="submit" class="site-button">Send</button></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+
+
+        <%~ include('./partials/footer') %>
+          <!-- BUTTON TOP START -->
+          <button class="scroltop"><span class="fa fa-angle-up relative" id="btn-vibrate"></span></button>
+      </div>
+      <%~ include('./partials/scripts') %>
+        <script src="/js/messages.js"></script>
+  </body>
+
+</html>

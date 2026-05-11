@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<%~ include('./partials/head') %>
+
+    <body>
+        <!-- LOADING AREA START ===== -->
+        <div class="loading-area">
+            <div class="loading-box"></div>
+            <div class="loading-pic">
+                <div class="wrapper">
+                    <div class="cssload-loader"></div>
+                </div>
+            </div>
+        </div>
+        <!-- LOADING AREA  END ====== -->
+<script>
+  window.currentUserAvatar = "Images.jpg";
+</script>
+        <div class="page-wraper">
+            <!-- CONTENT START -->
+            <div class="page-content">
+                <%~ include('./partials/startup-inner-banner') %>
+
+                    <!-- OUR BLOG START -->
+                    <div class="section-full p-t120 p-b90 site-bg-white">
+                        <div class="container">
+                            <div class="row">
+                                <%~ include('./partials/startup-sidemenu') %>
+
+                                    <div class="col-xl-9 col-lg-8 col-md-12 m-b30">
+                                        <!--Filter Short By-->
+                                        <div class="twm-right-section-panel candidate-save-job site-bg-gray">
+                                            <!-- RIGHT MESSAGE SECTION -->
+
+
+
+                                            <!-- CHAT BOX -->
+                                            <div class="wt-admin-dashboard-msg-2">
+                                                <!--Right Msg section-->
+                                                <div class="wt-dashboard-msg-box">
+                                                    <div class="single-msg-user-name-box">
+
+                                                        <div class="twm-DT-candidates-list">
+                                                            <div class="twm-media">
+                                                                <div class="twm-media-pic">
+                                                                    <img src="<%= it.startup.avatar 
+                              ? '/images/' + it.startup.avatar
+                              : '/images/default-cover.jpg' %>" alt="<%= it.startup.name %>" alt="cover" />
+                                                                </div>
+                                                            </div>
+                                                            <div class="twm-mid-content">
+                                                                <a href="#" class="twm-job-title">
+                                                                    <h4>
+                                                                        <%= it.startup.name %>
+                                                                    </h4>
+                                                                    <p class="twm-candidate-address">
+                                                                        <i class="feather-map-pin"></i>
+                                                                        <%= it.startup.adress || '' %>
+                                                                    </p>
+                                                                </a>
+
+                                                            </div>
+
+                                                        </div>
+                                                     
+
+                                                                
+                                                    </div>
+
+                                                    <!-- MESSAGES -->
+                                                    <div id="msg-chat-wrap"
+                                                        class="single-user-msg-conversation scrollbar-macosx">
+
+                                                        <% it.conversations.forEach(message=> { %>
+
+                                                            <% const
+                                                                isMine=message.sender.id===it.user.startupProfile.id;
+                                                                const author=message.sender;; %>
+
+                                                                <div
+                                                                    class="single-user-comment-wrap <%= isMine ? 'sigle-user-reply' : '' %>">
+
+                                                                    <div
+                                                                        class="row <%= isMine ? 'justify-content-end' : '' %>">
+
+                                                                        <div class="col-xl-9 col-lg-12">
+
+                                                                            <div
+                                                                                class="single-user-comment-block clearfix">
+
+                                                                                <!-- AVATAR -->
+                                                                                <div class="single-user-com-pic">
+
+                                                                                    <img src="<%= author.avatar
+                                    ? '/images/' + author.avatar
+                                    : '/images/default-cover.jpg' %>" alt="avatar">
+
+                                                                                </div>
+
+                                                                                <!-- TEXT -->
+                                                                                <div class="single-user-com-text">
+
+                                                                                    <%= message.message %>
+
+                                                                                </div>
+
+                                                                                <!-- TIME -->
+                                                                                <div class="single-user-msg-time">
+
+                                                                                    <%= new Date(message.createdAt)
+                                                                                        .toLocaleTimeString([], {
+                                                                                        hour: '2-digit' ,
+                                                                                        minute: '2-digit' }) %>
+
+                                                                                </div>
+
+                                                                            </div>
+
+                                                                        </div>
+
+                                                                    </div>
+
+                                                                </div>
+
+                                                                <% }) %>
+
+                                                    </div>
+
+                                                    <!-- SEND MESSAGE -->
+                                                    <div class="single-msg-reply-comment">
+
+                                                        <form id="conversationForm">
+
+                                                            <input type="hidden" name="_csrf"
+                                                                value="<%= it.csrfToken %>">
+
+                                                            <input type="hidden" name="receiverId"
+                                                                value="<%= it.startup.id %>">
+
+                                                            <input type="hidden" name="subject" value="Startup Contact">
+
+                                                            <div class="input-group">
+
+                                                                <textarea class="form-control" name="message"
+                                                                    placeholder="Type a message here" required></textarea>
+
+                                                                <button class="btn" type="submit">
+
+                                                                    <i class="fa fa-paper-plane"></i>
+
+                                                                </button>
+
+                                                            </div>
+
+                                                        </form>
+
+                                                    </div>
+
+                                                </div>
+                                                <!-- END CHAT BOX -->
+                                            </div>
+
+                                        </div>
+                                    </div>
+                            </div>
+                        </div>
+                        <!-- OUR BLOG END -->
+                    </div>
+                    <!-- CONTENT END -->
+
+                    <%~ include('./partials/scripts') %>
+                    <div id="conversation-data" data-user-avatar="<%= it.startupProfile.avatar ? '/images/' + it.startupProfile.avatar : '/images/jobs-company/pic1.jpg' %>"></div>
+                    <script src="/js/messages.js"></script>
+
+    </body>
+
+</html>

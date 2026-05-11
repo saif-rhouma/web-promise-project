@@ -9,8 +9,98 @@ import { JobPost, JobStatus } from '../models/job-post.model';
 import { getUser } from '../../helpers/getUser.helpers';
 import { comparePassword, hashPassword } from '../../helpers/auth.helpers';
 import applicationRepository from '../repositories/application.repository';
+import { ProfileType } from '../models/user.model';
+import { Not } from 'typeorm';
 
 class StartupController {
+  // ======================
+  // PROFILE PAGE (GET)
+  // ======================
+
+  dashboardPage: AsyncRouteHandler = async (req: Request, res: Response) => {
+    try {
+      const user = await getUser(req, res, usersRepository);
+
+      if (!user?.startupProfile?.id) {
+        return res.redirect('/startup/profile');
+      }
+
+      const startupId = user.startupProfile.id;
+
+      // ======================
+      // JOBS
+      // ======================
+
+      const jobs = await jobPostRepository.findAll({
+        where: {
+          startup: {
+            id: startupId,
+          },
+        } as any,
+        relations: ['applications'],
+        order: {
+          createdAt: 'DESC',
+        },
+      });
+
+      // ======================
+      // APPLICATIONS PER JOB
+      // ======================
+
+      const applicationsPerJob = jobs.map((job) => ({
+        title: job.title,
+        total: job.applications?.length || 0,
+      }));
+
+      // ======================
+      // APPLICATIONS OVER TIME
+      // ======================
+
+      const applications = await applicationRepository.findByStartup(startupId);
+
+      const groupedApplications: Record<string, number> = {};
+
+      applications.forEach((app) => {
+        const date = new Date(app.appliedAt).toLocaleDateString('fr-FR');
+
+        groupedApplications[date] = (groupedApplications[date] || 0) + 1;
+      });
+
+      const applicationsOverTime = Object.keys(groupedApplications).map((date) => ({
+        date,
+        total: groupedApplications[date],
+      }));
+
+      // ======================
+      // STATS
+      // ======================
+
+      const stats = {
+        totalJobs: jobs.length,
+        totalApplications: applications.length,
+        publishedJobs: jobs.filter((j) => j.status === JobStatus.PUBLISHED).length,
+        draftJobs: jobs.filter((j) => j.status === JobStatus.DRAFT).length,
+      };
+
+      return res.render('pages/startup/dashboard', {
+        user,
+        startupProfile: user?.startupProfile || {},
+        currentPath: req.path,
+
+        stats,
+
+        jobs,
+
+        applicationsPerJob,
+        applicationsOverTime,
+      });
+    } catch (error) {
+      console.error(error);
+
+      return res.status(500).send('Failed to load dashboard');
+    }
+  };
+
   // ======================
   // PROFILE PAGE (GET)
   // ======================
@@ -581,6 +671,40 @@ class StartupController {
     } catch (err) {
       console.error(err);
       return res.status(500).send('Download failed');
+    }
+  };
+  // ======================
+  // PROFILE PAGE (GET)
+  // ======================
+
+  startupsPage: AsyncRouteHandler = async (req: Request, res: Response) => {
+    try {
+      const user = await getUser(req, res, usersRepository);
+
+      if (!user?.startupProfile?.id) {
+        return res.redirect('/startup/dashboard');
+      }
+
+      const users = await usersRepository.findAll({
+        relations: ['startupProfile'],
+        where: {
+          type: ProfileType.STARTUP,
+          id: Not(user?.id),
+        },
+      });
+
+      const startups = users.map((u) => u.startupProfile).filter(Boolean);
+      return res.render('pages/startup/startups', {
+        csrfToken: req.csrfToken(),
+        user,
+        startupProfile: user?.startupProfile || {},
+        currentPath: req.path,
+        startups,
+      });
+    } catch (error) {
+      console.error(error);
+
+      return res.status(500).send('Failed to load dashboard');
     }
   };
 }

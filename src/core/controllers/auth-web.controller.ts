@@ -43,8 +43,7 @@ class AuthWebController {
 
       // ✅ Redirect based on role
       if (user.role === UserRole.USER) {
-        console.log('---> USER', user);
-        return res.redirect('/startup/profile');
+        return res.redirect('/startup/');
       }
 
       return res.redirect('/');
