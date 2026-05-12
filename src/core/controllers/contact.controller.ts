@@ -8,6 +8,7 @@ import contactService from '../services/contact.service';
 
 import { getUser } from '../../helpers/getUser.helpers';
 import { ContactStatus } from '../models/contact.model';
+import { StartupProfile } from '../models/startup-profile.model';
 
 class ContactController {
   // ======================
@@ -117,7 +118,6 @@ class ContactController {
       // ======================
       // VALIDATION
       // ======================
-
       if (!receiverId || !subject || !message) {
         return res.status(400).json({
           success: false,
@@ -247,12 +247,76 @@ class ContactController {
   // ======================
   // CONVERSATION
   // ======================
+  // getConversation: AsyncRouteHandler = async (req: Request, res: Response) => {
+  //   try {
+  //     // ======================
+  //     // AUTH USER
+  //     // ======================
+
+  //     const user = await getUser(req, res, usersRepository);
+
+  //     if (!user || !user.startupProfile) {
+  //       return res.status(401).send('Unauthorized');
+  //     }
+
+  //     // ======================
+  //     // PARAMS
+  //     // ======================
+
+  //     const startupId = Array.isArray(req.params.id) ? req.params.id[0] : req.params.id;
+
+  //     if (!startupId) {
+  //       return res.status(400).send('Invalid startup id');
+  //     }
+
+  //     // ======================
+  //     // TARGET STARTUP
+  //     // ======================
+
+  //     const startup = await startupProfileRepository.findOne({
+  //       where: {
+  //         id: startupId,
+  //       },
+  //     });
+
+  //     if (!startup) {
+  //       return res.status(404).send('Startup not found');
+  //     }
+
+  //     // ======================
+  //     // CONVERSATION
+  //     // ======================
+
+  //     const conversations = await contactService.getConversation(user.startupProfile.id, startupId);
+
+  //     // ======================
+  //     // MARK AS READ
+  //     // ======================
+
+  //     await contactService.markConversationAsRead(startupId, user.startupProfile.id);
+
+  //     return res.render('pages/startup/conversation', {
+  //       csrfToken: req.csrfToken(),
+
+  //       user,
+
+  //       startupProfile: user.startupProfile,
+
+  //       conversations,
+
+  //       startup,
+
+  //       currentPath: req.path,
+  //     });
+  //   } catch (err) {
+  //     console.error(err);
+
+  //     return res.status(500).send('Failed to load conversation');
+  //   }
+  // };
+
   getConversation: AsyncRouteHandler = async (req: Request, res: Response) => {
     try {
-      // ======================
-      // AUTH USER
-      // ======================
-
       const user = await getUser(req, res, usersRepository);
 
       if (!user || !user.startupProfile) {
@@ -260,40 +324,32 @@ class ContactController {
       }
 
       // ======================
-      // PARAMS
+      // LEFT SIDEBAR CONVERSATIONS
+      // ======================
+
+      const receivedContacts = await contactService.getReceivedContacts(user.startupProfile.id);
+      // ======================
+      // ACTIVE CHAT
       // ======================
 
       const startupId = Array.isArray(req.params.id) ? req.params.id[0] : req.params.id;
 
-      if (!startupId) {
-        return res.status(400).send('Invalid startup id');
+      let startup: StartupProfile | null = null;
+      let conversations: any[] = [];
+
+      if (startupId) {
+        startup = await startupProfileRepository.findOne({
+          where: {
+            id: startupId,
+          },
+        });
+
+        if (startup) {
+          conversations = await contactService.getConversation(user.startupProfile.id, startupId);
+
+          await contactService.markConversationAsRead(startupId, user.startupProfile.id);
+        }
       }
-
-      // ======================
-      // TARGET STARTUP
-      // ======================
-
-      const startup = await startupProfileRepository.findOne({
-        where: {
-          id: startupId,
-        },
-      });
-
-      if (!startup) {
-        return res.status(404).send('Startup not found');
-      }
-
-      // ======================
-      // CONVERSATION
-      // ======================
-
-      const conversations = await contactService.getConversation(user.startupProfile.id, startupId);
-
-      // ======================
-      // MARK AS READ
-      // ======================
-
-      await contactService.markConversationAsRead(startupId, user.startupProfile.id);
 
       return res.render('pages/startup/conversation', {
         csrfToken: req.csrfToken(),
@@ -306,6 +362,9 @@ class ContactController {
 
         startup,
 
+        receivedContacts,
+        selectedStartupId: startupId,
+
         currentPath: req.path,
       });
     } catch (err) {
@@ -313,6 +372,16 @@ class ContactController {
 
       return res.status(500).send('Failed to load conversation');
     }
+  };
+
+  getConversationJson: AsyncRouteHandler = async (req: Request, res: Response) => {
+    const user = await getUser(req, res, usersRepository);
+
+    const startupId = Array.isArray(req.params.id) ? req.params.id[0] : req.params.id;
+
+    const conversations = await contactService.getConversation(user.startupProfile.id, startupId);
+
+    return res.json(conversations);
   };
 
   // ======================

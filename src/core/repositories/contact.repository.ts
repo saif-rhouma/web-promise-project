@@ -35,14 +35,65 @@ class ContactRepository extends BaseRepository<Contact> {
     });
   }
 
-  async getReceivedContacts(receiverId: string) {
+  // async getReceivedContacts(receiverId: string) {
+  //   const contacts = await this.repo.find({
+  //     where: {
+  //       receiver: {
+  //         id: receiverId,
+  //       },
+  //     } as any,
+  //     relations: ['sender', 'receiver'],
+  //     order: {
+  //       createdAt: 'DESC',
+  //     },
+  //   });
+
+  //   const grouped = new Map();
+
+  //   for (const contact of contacts) {
+  //     const senderId = contact.sender.id;
+
+  //     // because ordered DESC,
+  //     // first one is latest message
+  //     if (!grouped.has(senderId)) {
+  //       grouped.set(senderId, {
+  //         sender: contact.sender,
+  //         lastMessage: contact,
+  //         messages: [],
+  //         unreadCount: 0,
+  //       });
+  //     }
+
+  //     const conversation = grouped.get(senderId);
+
+  //     conversation.messages.push(contact);
+
+  //     if (!contact.isRead) {
+  //       conversation.unreadCount++;
+  //     }
+  //   }
+
+  //   return Array.from(grouped.values());
+  // }
+
+  async getReceivedContacts(startupId: string) {
     const contacts = await this.repo.find({
-      where: {
-        receiver: {
-          id: receiverId,
-        },
-      } as any,
+      where: [
+        {
+          sender: {
+            id: startupId,
+          },
+        } as any,
+
+        {
+          receiver: {
+            id: startupId,
+          },
+        } as any,
+      ],
+
       relations: ['sender', 'receiver'],
+
       order: {
         createdAt: 'DESC',
       },
@@ -51,24 +102,42 @@ class ContactRepository extends BaseRepository<Contact> {
     const grouped = new Map();
 
     for (const contact of contacts) {
-      const senderId = contact.sender.id;
+      // ======================
+      // OTHER USER
+      // ======================
 
-      // because ordered DESC,
-      // first one is latest message
-      if (!grouped.has(senderId)) {
-        grouped.set(senderId, {
-          sender: contact.sender,
+      const otherUser = contact.sender.id === startupId ? contact.receiver : contact.sender;
+
+      const conversationKey = otherUser.id;
+
+      // ======================
+      // FIRST = LAST MESSAGE
+      // ======================
+
+      if (!grouped.has(conversationKey)) {
+        grouped.set(conversationKey, {
+          startup: otherUser,
+
           lastMessage: contact,
+
           messages: [],
+
           unreadCount: 0,
         });
       }
 
-      const conversation = grouped.get(senderId);
+      const conversation = grouped.get(conversationKey);
 
       conversation.messages.push(contact);
 
-      if (!contact.isRead) {
+      // ======================
+      // UNREAD COUNT
+      // only received unread
+      // ======================
+
+      const isUnread = contact.receiver.id === startupId && !contact.isRead;
+
+      if (isUnread) {
         conversation.unreadCount++;
       }
     }

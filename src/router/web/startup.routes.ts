@@ -201,21 +201,44 @@ const StartupRoutes: IRouteGroup = {
     // ======================
     // CONTACTS PAGE
     // ======================
-    {
-      method: 'get',
-      path: '/messages',
-      middleware: [csrfProtection],
-      handler: ContactController.contactsPage,
-    },
+    // {
+    //   method: 'get',
+    //   path: '/messages',
+    //   middleware: [csrfProtection],
+    //   handler: ContactController.contactsPage,
+    // },
 
     // ======================
     // CONTACT DETAILS PAGE
     // ======================
+    // {
+    //   method: 'get',
+    //   path: '/contacts/:id',
+    //   middleware: [csrfProtection],
+    //   handler: ContactController.getContactDetails,
+    // },
+
+    // ======================
+    // MESSAGES / CONVERSATIONS
+    // ======================
     {
       method: 'get',
-      path: '/contacts/:id',
+      path: '/messages',
       middleware: [csrfProtection],
-      handler: ContactController.getContactDetails,
+      handler: ContactController.getConversation,
+    },
+
+    {
+      method: 'get',
+      path: '/messages/:id',
+      middleware: [csrfProtection],
+      handler: ContactController.getConversation,
+    },
+    {
+      method: 'get',
+      path: '/messages/:id/json',
+      middleware: [csrfProtection],
+      handler: ContactController.getConversationJson,
     },
 
     // ======================

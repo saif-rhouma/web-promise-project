@@ -200,14 +200,14 @@
                           </div>
 
                           <div class="col-xl-12 col-lg-12 col-md-12">
-  <div class="form-group">
-    <label>Job PDF (Optional)</label>
-    <div class="ls-inputicon-box">
-      <input class="form-control" name="pdfFile" type="file" accept=".pdf" />
-      <i class="fs-input-icon fa fa-file-pdf"></i>
-    </div>
-  </div>
-</div>
+                            <div class="form-group">
+                              <label>Job PDF (Optional)</label>
+                              <div class="ls-inputicon-box">
+                                <input class="form-control" name="pdfFile" type="file" accept=".pdf" />
+                                <i class="fs-input-icon fa fa-file-pdf"></i>
+                              </div>
+                            </div>
+                          </div>
 
                           <!--Description-->
                           <div class="col-md-12">
@@ -370,10 +370,11 @@
         <!-- OUR BLOG END -->
       </div>
       <!-- CONTENT END -->
-
-      <%~ include('./partials/footer') %>
-      <!-- BUTTON TOP START -->
-      <button class="scroltop"><span class="fa fa-angle-up relative" id="btn-vibrate"></span></button>
+      <div class="bg-gradient-to-br">
+        <%~ include('./partials/footer') %>
+        <!-- BUTTON TOP START -->
+        <button class="scroltop"><span class="fa fa-angle-up relative" id="btn-vibrate"></span></button>
+      </div>
     </div>
 
     <%~ include('./partials/scripts') %>

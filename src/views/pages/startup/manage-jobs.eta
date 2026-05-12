@@ -145,10 +145,10 @@
           <!-- OUR BLOG END -->
       </div>
       <!-- CONTENT END -->
-
+<div class="bg-gradient-to-br">
       <%~ include('./partials/footer') %>
         <!-- BUTTON TOP START -->
-        <button class="scroltop"><span class="fa fa-angle-up relative" id="btn-vibrate"></span></button>
+        <button class="scroltop"><span class="fa fa-angle-up relative" id="btn-vibrate"></span></button></div>
     </div>
     <%~ include('./partials/scripts') %>
   </body>

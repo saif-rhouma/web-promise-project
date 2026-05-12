@@ -64,7 +64,7 @@
             </div>
           </div>
           <!-- Testimonial END -->
-
+          <% if(it.startup.jobPosts.length) { %>
           <!-- OUR BLOG START -->
           <div class="section-full p-t60 p-b90">
             <div class="container">
@@ -126,6 +126,7 @@
             </div>
           </div>
           <!-- OUR BLOG END -->
+           <% } %>
         </div>
         <!-- CONTENT END -->
 

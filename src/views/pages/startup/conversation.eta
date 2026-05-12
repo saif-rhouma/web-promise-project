@@ -2,176 +2,265 @@
 <html lang="en">
 <%~ include('./partials/head') %>
 
-    <body>
-        <!-- LOADING AREA START ===== -->
-        <div class="loading-area">
-            <div class="loading-box"></div>
-            <div class="loading-pic">
-                <div class="wrapper">
-                    <div class="cssload-loader"></div>
-                </div>
-            </div>
+  <body>
+    <!-- LOADING AREA START ===== -->
+    <div class="loading-area">
+      <div class="loading-box"></div>
+      <div class="loading-pic">
+        <div class="wrapper">
+          <div class="cssload-loader"></div>
         </div>
-        <!-- LOADING AREA  END ====== -->
-<script>
-  window.currentUserAvatar = "Images.jpg";
-</script>
-        <div class="page-wraper">
-            <!-- CONTENT START -->
-            <div class="page-content">
-                <%~ include('./partials/startup-inner-banner') %>
+      </div>
+    </div>
+    <!-- LOADING AREA  END ====== -->
 
-                    <!-- OUR BLOG START -->
-                    <div class="section-full p-t120 p-b90 site-bg-white">
-                        <div class="container">
-                            <div class="row">
-                                <%~ include('./partials/startup-sidemenu') %>
+    <div class="page-wraper">
+      <!-- CONTENT START -->
+      <div class="page-content">
+        <%~ include('./partials/startup-inner-banner') %>
 
-                                    <div class="col-xl-9 col-lg-8 col-md-12 m-b30">
-                                        <!--Filter Short By-->
-                                        <div class="twm-right-section-panel candidate-save-job site-bg-gray">
-                                            <!-- RIGHT MESSAGE SECTION -->
+          <!-- OUR BLOG START -->
+          <div class="section-full p-t120 p-b90 site-bg-white">
+            <div class="container">
+              <div class="row">
+                <%~ include('./partials/startup-sidemenu') %>
+
+                  <div class="col-xl-9 col-lg-8 col-md-12 m-b30">
+
+                    <div class="twm-right-section-panel site-bg-gray">
+
+                      <div class="wt-admin-dashboard-msg-2 twm-dashboard-style-2">
+
+                        <!-- LEFT SIDEBAR -->
+                        <div class="wt-dashboard-msg-user-list">
+
+                          <!-- SEARCH -->
+                          <div class="wt-dashboard-msg-search">
+                            <div class="input-group">
+
+                              <input class="form-control" placeholder="Search Messages" type="text"
+                                id="conversationSearch">
+
+                              <button class="btn" type="button">
+                                <i class="fa fa-search"></i>
+                              </button>
+
+                            </div>
+                          </div>
+
+                          <!-- LIST -->
+                          <div id="msg-list-wrap" class="wt-dashboard-msg-search-list scrollbar-macosx">
+
+                            <% it.receivedContacts.forEach(c=> { %>
+
+                              <% const active=it.startup && it.startup.id===c.startup.id; %>
+
+                                <div class="wt-dashboard-msg-search-list-wrap conversation-item"
+                                  data-name="<%= c.startup.name.toLowerCase() %>"
+                                  data-message="<%= c.lastMessage.message.toLowerCase() %>">
 
 
+                                  <a href="#" data-id="<%= c.startup.id %>"
+                                    class="msg-user-info clearfix <%= active ? 'active' : '' %> conversation-link">
+                                    <div class="msg-user-timing">
 
-                                            <!-- CHAT BOX -->
-                                            <div class="wt-admin-dashboard-msg-2">
-                                                <!--Right Msg section-->
-                                                <div class="wt-dashboard-msg-box">
-                                                    <div class="single-msg-user-name-box">
+                                      <%= new Date(c.lastMessage.createdAt) .toLocaleDateString() %>
 
-                                                        <div class="twm-DT-candidates-list">
-                                                            <div class="twm-media">
-                                                                <div class="twm-media-pic">
-                                                                    <img src="<%= it.startup.avatar 
-                              ? '/images/' + it.startup.avatar
-                              : '/images/default-cover.jpg' %>" alt="<%= it.startup.name %>" alt="cover" />
-                                                                </div>
-                                                            </div>
-                                                            <div class="twm-mid-content">
-                                                                <a href="#" class="twm-job-title">
-                                                                    <h4>
-                                                                        <%= it.startup.name %>
-                                                                    </h4>
-                                                                    <p class="twm-candidate-address">
-                                                                        <i class="feather-map-pin"></i>
-                                                                        <%= it.startup.adress || '' %>
-                                                                    </p>
-                                                                </a>
+                                    </div>
 
-                                                            </div>
+                                    <div class="msg-user-info-pic">
 
-                                                        </div>
-                                                     
+                                      <img src="<%= c.startup.avatar
+            ? '/images/' + c.startup.avatar
+            : '/images/default-cover.jpg' %>" alt="avatar">
 
-                                                                
-                                                    </div>
+                                    </div>
 
-                                                    <!-- MESSAGES -->
-                                                    <div id="msg-chat-wrap"
-                                                        class="single-user-msg-conversation scrollbar-macosx">
+                                    <div class="msg-user-info-text">
 
-                                                        <% it.conversations.forEach(message=> { %>
+                                      <div class="msg-user-name d-flex align-items-center">
 
-                                                            <% const
-                                                                isMine=message.sender.id===it.user.startupProfile.id;
-                                                                const author=message.sender;; %>
+                                        <%= c.startup.name %>
 
-                                                                <div
-                                                                    class="single-user-comment-wrap <%= isMine ? 'sigle-user-reply' : '' %>">
+                                          <% if (c.unreadCount> 0) { %>
 
-                                                                    <div
-                                                                        class="row <%= isMine ? 'justify-content-end' : '' %>">
+                                            <span class="conversation-unread-badge">
+                                              <%= c.unreadCount %>
+                                            </span>
 
-                                                                        <div class="col-xl-9 col-lg-12">
+                                            <% } %>
 
-                                                                            <div
-                                                                                class="single-user-comment-block clearfix">
+                                      </div>
 
-                                                                                <!-- AVATAR -->
-                                                                                <div class="single-user-com-pic">
+                                      <div class="msg-user-discription">
 
-                                                                                    <img src="<%= author.avatar
-                                    ? '/images/' + author.avatar
-                                    : '/images/default-cover.jpg' %>" alt="avatar">
+                                        <%= c.lastMessage.message.substring(0, 40) %>
 
-                                                                                </div>
+                                      </div>
 
-                                                                                <!-- TEXT -->
-                                                                                <div class="single-user-com-text">
+                                    </div>
 
-                                                                                    <%= message.message %>
+                                  </a>
 
-                                                                                </div>
+                                </div>
 
-                                                                                <!-- TIME -->
-                                                                                <div class="single-user-msg-time">
+                                <% }) %>
 
-                                                                                    <%= new Date(message.createdAt)
-                                                                                        .toLocaleTimeString([], {
-                                                                                        hour: '2-digit' ,
-                                                                                        minute: '2-digit' }) %>
+                          </div>
 
-                                                                                </div>
+                        </div>
 
-                                                                            </div>
+                        <!-- RIGHT CHAT -->
+                        <!-- RIGHT CHAT -->
+                        <div class="wt-dashboard-msg-box">
 
-                                                                        </div>
+                          <!-- HEADER -->
+                          <% if (it.startup) { %>
 
-                                                                    </div>
+                            <div class="single-msg-user-name-box">
 
-                                                                </div>
+                              <div class="twm-DT-candidates-list">
 
-                                                                <% }) %>
+                                <div class="twm-media">
+                                  <div class="twm-media-pic">
+                                    <img src="<%= it.startup.avatar 
+              ? '/images/' + it.startup.avatar
+              : '/images/default-cover.jpg' %>" />
+                                  </div>
+                                </div>
 
-                                                    </div>
+                                <div class="twm-mid-content">
+                                  <h4>
+                                    <%= it.startup.name %>
+                                  </h4>
 
-                                                    <!-- SEND MESSAGE -->
-                                                    <div class="single-msg-reply-comment">
+                                  <p class="twm-candidate-address">
+                                    <i class="feather-map-pin"></i>
+                                    <%= it.startup.adress || '' %>
+                                  </p>
+                                </div>
 
-                                                        <form id="conversationForm">
+                              </div>
 
-                                                            <input type="hidden" name="_csrf"
-                                                                value="<%= it.csrfToken %>">
+                            </div>
 
-                                                            <input type="hidden" name="receiverId"
-                                                                value="<%= it.startup.id %>">
+                            <% } %>
 
-                                                            <input type="hidden" name="subject" value="Startup Contact">
 
-                                                            <div class="input-group">
+                              <!-- CHAT AREA (ALWAYS EXISTS) -->
+                              <div id="msg-chat-wrap" class="single-user-msg-conversation scrollbar-macosx"
+                                data-user-id="<%= it.user.startupProfile.id %>" data-user-avatar="<%= it.startupProfile.avatar 
+      ? '/images/' + it.startupProfile.avatar 
+      : '/images/jobs-company/pic1.jpg' %>">
 
-                                                                <textarea class="form-control" name="message"
-                                                                    placeholder="Type a message here" required></textarea>
+                                <% if (it.startup && it.conversations.length) { %>
 
-                                                                <button class="btn" type="submit">
+                                  <% it.conversations.forEach(message=> { %>
 
-                                                                    <i class="fa fa-paper-plane"></i>
+                                    <% const isMine=message.sender.id===it.user.startupProfile.id; %>
 
-                                                                </button>
+                                      <div class="single-user-comment-wrap <%= isMine ? 'sigle-user-reply' : '' %>">
 
-                                                            </div>
+                                        <div class="row <%= isMine ? 'justify-content-end' : '' %>">
 
-                                                        </form>
+                                          <div class="col-xl-9 col-lg-12">
 
-                                                    </div>
+                                            <div class="single-user-comment-block clearfix">
 
-                                                </div>
-                                                <!-- END CHAT BOX -->
+                                              <div class="single-user-com-pic">
+                                                <img src="<%= message.sender.avatar 
+                    ? '/images/' + message.sender.avatar
+                    : '/images/default-cover.jpg' %>">
+                                              </div>
+
+                                              <div class="single-user-com-text">
+                                                <%= message.message %>
+                                              </div>
+
+                                              <div class="single-user-msg-time">
+                                                <%= new Date(message.createdAt).toLocaleTimeString([], { hour: '2-digit'
+                                                  , minute: '2-digit' }) %>
+                                              </div>
+
                                             </div>
 
+                                          </div>
+
                                         </div>
-                                    </div>
-                            </div>
+
+                                      </div>
+
+                                      <% }) %>
+
+                                        <% } else { %>
+
+                                          <div
+                                            class="h-100 d-flex align-items-center justify-content-center p-5 text-muted">
+                                            <div class="text-center">
+                                              <i class="fa fa-comments fa-4x mb-3"></i>
+                                              <h5>No messages yet</h5>
+                                            </div>
+                                          </div>
+
+                                          <% } %>
+
+                              </div>
+
+
+                              <!-- ALWAYS RENDER FORM (but disabled state if no startup) -->
+                              <div class="single-msg-reply-comment">
+
+                                <form id="conversationForm">
+
+                                  <input type="hidden" name="_csrf" value="<%= it.csrfToken %>">
+
+                                  <input type="hidden" name="receiverId" value="<%= it.startup ? it.startup.id : '' %>">
+
+                                  <input type="hidden" name="subject" value="Startup Contact">
+
+                                  <div class="input-group">
+
+                                    <textarea
+  id="messageInput"
+  class="form-control"
+  name="message"
+  placeholder="<%= it.startup ? 'Type a message here' : 'Select a conversation first' %>"
+  <%= it.startup ? '' : 'disabled' %>
+  required
+></textarea>
+
+                                    <button class="btn" type="submit" <%=it.startup ? '' : 'disabled' %>
+                                      >
+                                      <i class="fa fa-paper-plane"></i>
+                                    </button>
+
+                                  </div>
+
+                                </form>
+
+                              </div>
+
                         </div>
-                        <!-- OUR BLOG END -->
+
+                      </div>
+
                     </div>
-                    <!-- CONTENT END -->
 
-                    <%~ include('./partials/scripts') %>
-                    <div id="conversation-data" data-user-avatar="<%= it.startupProfile.avatar ? '/images/' + it.startupProfile.avatar : '/images/jobs-company/pic1.jpg' %>"></div>
-                    <script src="/js/messages.js"></script>
+                  </div>
+              </div>
+            </div>
+            <!-- OUR BLOG END -->
+          </div>
+          <!-- CONTENT END -->
 
-    </body>
+          <%~ include('./partials/scripts') %>
+            <div id="conversation-data"
+              data-user-avatar="<%= it.startupProfile.avatar ? '/images/' + it.startupProfile.avatar : '/images/jobs-company/pic1.jpg' %>"
+              data-user-id="<%= it.user.startupProfile.id %>">
+            </div>
+
+            <script src="/js/messages.js"></script>
+
+  </body>
 
 </html>

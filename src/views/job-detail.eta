@@ -38,11 +38,15 @@
                                 alt="cover" />
                             </div>
                             <div class="twm-mid-content">
-                              <h4 class="twm-job-title">
+                              <h4 class="twm-job-title"  style="
+             text-shadow: 2px 0px 4px #000000;
+            ">
                                 <%=it.job.startup.name %>
                               </h4>
 
-                              <p class="twm-candidate-address">
+                              <p class="twm-candidate-address"  style="
+             text-shadow: 2px 0px 4px #000000;
+            ">
                                 <i class="feather-map-pin"></i>
                                 <%=it.job.startup.adress %>
                               </p>

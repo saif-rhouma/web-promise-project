@@ -100,7 +100,7 @@
                                     </td>
                                     <td>
                                       <div class="twm-table-controls">
-                          
+
                                         <ul class="twm-DT-controls-icon list-unstyled d-flex gap-2">
                                           <li>
                                             <a href="/startup/applications/<%= application.id %>/cv" download
@@ -147,10 +147,11 @@
           <!-- OUR BLOG END -->
       </div>
       <!-- CONTENT END -->
-
-      <%~ include('./partials/footer') %>
-        <!-- BUTTON TOP START -->
-        <button class="scroltop"><span class="fa fa-angle-up relative" id="btn-vibrate"></span></button>
+      <div class="bg-gradient-to-br">
+        <%~ include('./partials/footer') %>
+          <!-- BUTTON TOP START -->
+          <button class="scroltop"><span class="fa fa-angle-up relative" id="btn-vibrate"></span></button>
+      </div>
     </div>
     <%~ include('./partials/scripts') %>
   </body>

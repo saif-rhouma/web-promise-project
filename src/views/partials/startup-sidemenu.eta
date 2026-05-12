@@ -33,16 +33,16 @@
     <div class="twm-nav-list-1">
       <ul>
         <li class="<%= it.currentPath === '/startup/dashboard' || it.currentPath === '/startup/' ? 'active' : '' %>">
-          <a href="/startup/dashboard"><i class="fa fa-user"></i> <%= it.__('startup.sidebar.menu.dashboard') %></a>
+          <a href="/startup/dashboard"><i class="fa fa-home"></i> <%= it.__('startup.sidebar.menu.dashboard') %></a>
         </li>
         <li class="<%= it.currentPath === '/startup/profile' ? 'active' : '' %>">
-          <a href="/startup/profile"><i class="fa fa-user"></i> <%= it.__('startup.sidebar.menu.profile') %></a>
+          <a href="/startup/profile"><i class="fa fa-user-tie"></i> <%= it.__('startup.sidebar.menu.profile') %></a>
         </li>
         <li class="<%= it.currentPath === '/startup/startups' ? 'active' : '' %>">
-          <a href="/startup/startups"><i class="fa fa-user"></i> <%= it.__('startup.sidebar.menu.startups') %></a>
+          <a href="/startup/startups"><i class="fa fa-building"></i> <%= it.__('startup.sidebar.menu.startups') %></a>
         </li>
         <li class="<%= it.currentPath === '/startup/messages' ? 'active' : '' %>">
-          <a href="/startup/messages"><i class="fa fa-user"></i> <%= it.__('startup.sidebar.menu.messages') %></a>
+          <a href="/startup/messages"><i class="fa fa-comments"></i> <%= it.__('startup.sidebar.menu.messages') %></a>
         </li>
         <li class="<%= it.currentPath.startsWith('/startup/jobs') ? 'active' : '' %>">
           <a href="/startup/jobs"><i class="fa fa-suitcase"></i> <%= it.__('startup.sidebar.menu.jobs') %></a>

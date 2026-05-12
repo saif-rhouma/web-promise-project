@@ -30,7 +30,7 @@
                 <div class="twm-right-section-panel site-bg-gray">
                   <div class="twm-dash-b-blocks mb-5">
                     <div class="row">
-                      <div class="col-xl-4 col-lg-6 col-md-12 mb-3">
+                      <div class="col-xl-6 col-lg-6 col-md-12 mb-3">
                         <div class="panel panel-default">
                           <div class="panel-body wt-panel-body gradi-1 dashboard-card">
                             <div class="wt-card-wrap">
@@ -45,7 +45,7 @@
                           </div>
                         </div>
                       </div>
-                      <div class="col-xl-4 col-lg-6 col-md-12 mb-3">
+                      <div class="col-xl-6 col-lg-6 col-md-12 mb-3">
                         <div class="panel panel-default">
                           <div class="panel-body wt-panel-body gradi-2 dashboard-card">
                             <div class="wt-card-wrap">
@@ -55,19 +55,6 @@
                               </div>
                               <div class="wt-card-bottom">
                                 <h4 class="m-b0">Applications</h4>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="col-xl-4 col-lg-12 col-md-12 mb-3">
-                        <div class="panel panel-default">
-                          <div class="panel-body wt-panel-body gradi-4 dashboard-card">
-                            <div class="wt-card-wrap">
-                              <div class="wt-card-icon"><i class="far fa-bell"></i></div>
-                              <div class="wt-card-right wt-total-listing-bookmarked counter">99999</div>
-                              <div class="wt-card-bottom">
-                                <h4 class="m-b0">Notifications</h4>
                               </div>
                             </div>
                           </div>
@@ -105,10 +92,11 @@
         <!-- OUR BLOG END -->
       </div>
       <!-- CONTENT END -->
-
-      <%~ include('./partials/footer') %>
-      <!-- BUTTON TOP START -->
-      <button class="scroltop"><span class="fa fa-angle-up relative" id="btn-vibrate"></span></button>
+      <div class="bg-gradient-to-br">
+        <%~ include('./partials/footer') %>
+        <!-- BUTTON TOP START -->
+        <button class="scroltop"><span class="fa fa-angle-up relative" id="btn-vibrate"></span></button>
+      </div>
     </div>
 
     <%~ include('./partials/scripts') %>
