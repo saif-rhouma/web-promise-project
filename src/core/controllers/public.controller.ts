@@ -6,7 +6,7 @@ import usersRepository from '../repositories/user.repository';
 import jobPostRepository from '../repositories/job-post.repository';
 import applicationRepository from '../repositories/application.repository';
 // import HTTP_CODE from '../constants/httpCode';
-import { Application } from '../models/application.model';
+import { Application, ApplicationStatus } from '../models/application.model';
 import { sendContactEmail } from '../../utils/mailer';
 import { ProfileType } from '../models/user.model';
 import puppeteer from 'puppeteer-core';
@@ -17,7 +17,10 @@ class PublicController {
   home: AsyncRouteHandler = async (_req, res) => {
     const randomProfiles = await startupProfileRepository.getRandomAvatarsOnly(10);
     const randomOffers = await jobPostRepository.getRandom(6);
-    res.render('home', { randomProfiles, randomOffers });
+    const applications = await applicationRepository.count();
+    const matches = (await applicationRepository.findAll({ where: { status: ApplicationStatus.ACCEPTED } })).length;
+    console.log('---> applications, matches', applications, matches);
+    res.render('home', { randomProfiles, randomOffers, applications, matches });
   };
 
   contactPage: AsyncRouteHandler = async (req, res) => {

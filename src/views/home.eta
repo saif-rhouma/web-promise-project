@@ -91,9 +91,9 @@
                     <div class="counter-outer-two">
                       <div class="icon-content">
                         <div class="tw-count-number text-clr-sky">
-                          <span class="counter">5</span>M+
+                          <span class="counter"><%~ it.applications > 12 ?  (it.applications+12):12 %></span>+
                         </div>
-                        <p class="icon-content-info">Million daily active users</p>
+                        <p class="icon-content-info">Successful Matches</p>
                       </div>
                     </div>
                   </div>
@@ -103,9 +103,9 @@
                     <div class="counter-outer-two">
                       <div class="icon-content">
                         <div class="tw-count-number text-clr-pink">
-                          <span class="counter">9</span>K+
+                          <span class="counter"><%~ it.matches > 171 ?  (it.matches+171):171 %></span>+
                         </div>
-                        <p class="icon-content-info">Open job positions</p>
+                        <p class="icon-content-info">Applications</p>
                       </div>
                     </div>
                   </div>
