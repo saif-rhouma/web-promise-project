@@ -2,7 +2,6 @@ import multer from 'multer';
 import path from 'path';
 import fs from 'fs';
 import TinyID from '../../utils/tinyID';
-
 // base upload folder (safe for prod build)
 const baseUploadPath = path.join(process.cwd(), 'src/uploads');
 
@@ -13,7 +12,7 @@ const ensureDir = (folder: string) => {
   }
 };
 
-// generic storage factory
+// Generic storage factory
 const createStorage = (subFolder: string) => {
   const uploadPath = path.join(baseUploadPath, subFolder);
   ensureDir(uploadPath);
@@ -28,19 +27,7 @@ const createStorage = (subFolder: string) => {
   });
 };
 
-// const storage = multer.diskStorage({
-//   destination: (_req, _file, cb) => {
-//     cb(null, path.join(__dirname, '../../uploads'));
-//   },
-//   filename: (_req, file, cb) => {
-//     const fileName = `${TinyID(10)}-${Date.now()}${path.extname(file.originalname)}`;
-//     cb(null, fileName);
-//   },
-// });
-
-//
-// ✅ CV uploader (PDF only)
-//
+// CV uploader (PDF only) - No optimization needed
 export const uploadCV = multer({
   storage: createStorage('cv'),
   fileFilter: (_req, file, cb) => {
@@ -55,9 +42,7 @@ export const uploadCV = multer({
   },
 });
 
-//
-// ✅ Image uploader (JobPost)
-//
+// Image uploader (JobPost) - Optimizes images after upload
 export const uploadImage = multer({
   storage: createStorage('images'),
   fileFilter: (_req, file, cb) => {
@@ -92,8 +77,7 @@ export const uploadJobFiles = multer({
   }),
 
   fileFilter: (_req, file, cb) => {
-    const allowedImages = ['image/png', 'image/jpeg', 'image/jpg', 'image/webp'];
-
+    const allowedImages = ['image/png', 'image/jpeg', 'image/webp'];
     const allowedPdf = ['application/pdf'];
 
     if ([...allowedImages, ...allowedPdf].includes(file.mimetype)) {

@@ -3,10 +3,23 @@ import AppDataSource from '../../database/data-source';
 import { JobPost, JobStatus } from '../models/job-post.model';
 
 import BaseRepository from './baseRepository';
+import { getMonthExpression } from '../../helpers/getMonthExpression.helpers';
 
 class JobPostRepository extends BaseRepository<JobPost> {
   constructor() {
     super(AppDataSource.getRepository(JobPost));
+  }
+
+  countJobs() {
+    return this.repo.count();
+  }
+
+  countJobsWithStatus(status: JobStatus) {
+    return this.repo.count({
+      where: {
+        status: status,
+      },
+    });
   }
 
   /**
@@ -65,6 +78,16 @@ class JobPostRepository extends BaseRepository<JobPost> {
       .getRawMany();
 
     return result;
+  }
+  async jobsByMonth() {
+    const monthExpr = getMonthExpression('job.createdAt');
+    return this.repo
+      .createQueryBuilder('job')
+      .select(monthExpr, 'month')
+      .addSelect('COUNT(*)', 'count')
+      .groupBy('month')
+      .orderBy('month', 'ASC')
+      .getRawMany();
   }
 }
 

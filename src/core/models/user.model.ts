@@ -6,9 +6,15 @@ export enum UserRole {
   USER = 'USER',
 }
 
+export enum AccountStatus {
+  ACTIVE = 'ACTIVE',
+  PENDING = 'PENDING',
+  BLOCKED = 'BLOCKED',
+}
 export enum ProfileType {
   STARTUP = 'STARTUP',
   ENTERPRISE = 'ENTERPRISE',
+  UNKNOWN = 'UNKNOWN',
 }
 @Entity({ name: 'users' })
 export class User {
@@ -31,6 +37,13 @@ export class User {
     default: 'USER',
   })
   role: UserRole;
+
+  @Column({
+    type: 'text',
+    nullable: true,
+    default: 'PENDING',
+  })
+  status: string;
 
   @Column({
     type: 'text',

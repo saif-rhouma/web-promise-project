@@ -1,0 +1,92 @@
+<!-- Navigation Bar -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top">
+    <div class="container-fluid">
+        <!-- Logo/Brand -->
+        <a class="navbar-brand fw-bold" href="/">
+            <i class="fas fa-handshake"></i> WebPromise
+        </a>
+
+        <!-- Toggle Button for Mobile -->
+        <button 
+            class="navbar-toggler border-0" 
+            type="button" 
+            data-bs-toggle="collapse" 
+            data-bs-target="#navbarContent">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <!-- Navbar Content -->
+        <div class="collapse navbar-collapse" id="navbarContent">
+            <!-- User Profile Section -->
+            <% if (it.user) { %>
+                <ul class="navbar-nav ms-auto align-items-center">
+                    <!-- User Avatar -->
+                    <li class="nav-item me-2">
+                        <a class="nav-link text-white position-relative" href="/">
+                            <% if (it.user.profilePicture) { %>
+                                <img 
+                                    src="<%= it.user.profilePicture %>" 
+                                    alt="User Profile" 
+                                    class="rounded-circle" 
+                                    style="width: 40px; height: 40px; object-fit: cover;">
+                            <% } else { %>
+                                <div class="rounded-circle bg-white d-flex align-items-center justify-content-center" style="width: 40px; height: 40px;">
+                                    <span class="text-primary fw-bold"><%= it.user.firstName?.charAt(0) || 'U' %></span>
+                                </div>
+                            <% } %>
+                        </a>
+                    </li>
+
+                    <!-- User Info Dropdown -->
+                    <li class="nav-item dropdown">
+                        <a 
+                            class="nav-link dropdown-toggle text-white d-flex align-items-center" 
+                            href="#" 
+                            role="button" 
+                            data-bs-toggle="dropdown" 
+                            aria-expanded="false">
+                            <span class="d-none d-md-inline me-1"><%= it.user.firstName %> <%= it.user.lastName %></span>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end shadow">
+                            <li><a class="dropdown-item" href="/"><i class="fas fa-home me-2"></i>Home</a></li>
+                            
+                            <% if (it.user.role === 'ADMIN') { %>
+                                <li><hr class="dropdown-divider"></li>
+                                <li>
+                                    <a class="dropdown-item" href="/admin/dashboard">
+                                        <i class="fas fa-chart-bar me-2"></i>Admin Dashboard
+                                    </a>
+                                </li>
+                            <% } %>
+
+                            <li><hr class="dropdown-divider"></li>
+                            
+                            <!-- Logout -->
+                            <li>
+                                <form method="POST" action="/logout">
+                                    <input type="hidden" name="_csrf" value="<%= it.csrfToken || '' %>">
+                                    <button type="submit" class="dropdown-item text-danger w-100 d-flex align-items-center">
+                                        <i class="fas fa-sign-out-alt me-2"></i>Logout
+                                    </button>
+                                </form>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            <% } else { %>
+                <!-- Guest/Not Logged In -->
+                <ul class="navbar-nav ms-auto align-items-center">
+                    <li class="nav-item">
+                        <a class="nav-link text-white" href="/register">Register</a>
+                    </li>
+                    <li class="nav-item ms-1">
+                        <a class="nav-link text-white" href="/login">Login</a>
+                    </li>
+                </ul>
+            <% } %>
+        </div>
+    </div>
+</nav>
+
+<!-- Spacer for fixed header -->
+<div style="height: 60px; background: transparent;"></div>

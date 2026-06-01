@@ -19,44 +19,23 @@ class AdminController {
   dashboardPage: AsyncRouteHandler = async (req: Request, res: Response) => {
     try {
       const user = await getUser(req, res, usersRepository);
+      const totalUsers = await usersRepository.count();
 
-      const totalUsers = await usersRepository.repo.count();
+      const totalStartups = await usersRepository.countStartups();
 
-      const totalStartups = await usersRepository.repo.count({
-        where: {
-          type: ProfileType.STARTUP,
-        },
-      });
+      const totalEnterprises = await usersRepository.countEnterprise();
 
-      const totalEnterprises = await usersRepository.repo.count({
-        where: {
-          type: ProfileType.ENTERPRISE,
-        },
-      });
+      const totalJobs = await jobPostRepository.countJobs();
 
-      const totalJobs = await jobPostRepository.repo.count();
+      const publishedJobs = await jobPostRepository.countJobsWithStatus(JobStatus.PUBLISHED);
 
-      const publishedJobs = await jobPostRepository.repo.count({
-        where: {
-          status: JobStatus.PUBLISHED,
-        },
-      });
+      const draftJobs = await jobPostRepository.countJobsWithStatus(JobStatus.DRAFT);
 
-      const draftJobs = await jobPostRepository.repo.count({
-        where: {
-          status: JobStatus.DRAFT,
-        },
-      });
+      const archivedJobs = await jobPostRepository.countJobsWithStatus(JobStatus.ARCHIVED);
 
-      const archivedJobs = await jobPostRepository.repo.count({
-        where: {
-          status: JobStatus.ARCHIVED,
-        },
-      });
+      const totalApplications = await applicationRepository.count();
 
-      const totalApplications = await applicationRepository.repo.count();
-
-      const totalContacts = await contactRepository.repo.count();
+      const totalContacts = await contactRepository.count();
 
       const latestJobs = await jobPostRepository.findAll({
         relations: ['startup'],
@@ -74,7 +53,11 @@ class AdminController {
         take: 10,
       });
 
-      return res.render('pages/admin/dashboard', {
+      const applicationsByMonth = await applicationRepository.applicationsByMonth();
+      const jobsByMonth = await jobPostRepository.jobsByMonth();
+      const registrationsByMonth = await usersRepository.registrationsByMonth();
+
+      return res.render('pages/admin/dashboard-0', {
         csrfToken: req.csrfToken(),
         user,
 
@@ -89,7 +72,9 @@ class AdminController {
           totalApplications,
           totalContacts,
         },
-
+        applicationsByMonth,
+        jobsByMonth,
+        registrationsByMonth,
         latestJobs,
         latestApplications,
 
@@ -107,19 +92,34 @@ class AdminController {
   // ======================
   usersPage: AsyncRouteHandler = async (req: Request, res: Response) => {
     try {
+      const totalStartups = await usersRepository.countStartups();
+
+      const totalEnterprises = await usersRepository.countEnterprise();
+
       const user = await getUser(req, res, usersRepository);
 
-      const users = await usersRepository.findAll({
-        relations: ['startupProfile'],
-        order: {
-          createdAt: 'DESC',
-        },
-      });
+      // ✅ Pagination support
+      const page = Number.parseInt((req.query.page as string) || '1');
+      const limit = 20;
+      const skip = (page - 1) * limit;
+
+      const totalUsers = await usersRepository.count();
+      const totalPages = Math.ceil(totalUsers / limit);
+
+      const users = await usersRepository.findAllAccounts(skip, limit);
 
       return res.render('pages/admin/users', {
         csrfToken: req.csrfToken(),
         user,
         users,
+        totalUsers,
+        stats: {
+          totalUsers,
+          totalStartups,
+          totalEnterprises,
+        },
+        totalPages,
+        currentPage: page,
         currentPath: req.path,
       });
     } catch (err) {
@@ -136,14 +136,28 @@ class AdminController {
     try {
       const user = await getUser(req, res, usersRepository);
 
+      // ✅ Pagination support
+      const page = parseInt((req.query.page as string) || '1');
+      const limit = 20;
+      const skip = (page - 1) * limit;
+
+      const totalStartups = await usersRepository.countWithType(ProfileType.STARTUP);
+
+      const totalPages = Math.ceil(totalStartups / limit);
+
       const startups = await startupProfileRepository.findAll({
         relations: ['user', 'jobPosts'],
+        skip,
+        take: limit,
       });
 
       return res.render('pages/admin/startups', {
         csrfToken: req.csrfToken(),
         user,
         startups,
+        totalStartups,
+        totalPages,
+        currentPage: page,
         currentPath: req.path,
       });
     } catch (err) {
@@ -160,17 +174,39 @@ class AdminController {
     try {
       const user = await getUser(req, res, usersRepository);
 
+      // ✅ Pagination support
+      const page = Number.parseInt((req.query.page as string) || '1');
+      const limit = 20;
+      const skip = (page - 1) * limit;
+
+      const totalJobs = await jobPostRepository.countJobs();
+
+      const publishedJobs = await jobPostRepository.countJobsWithStatus(JobStatus.PUBLISHED);
+      const archivedJobs = await jobPostRepository.countJobsWithStatus(JobStatus.ARCHIVED);
+
+      const totalPages = Math.ceil(totalJobs / limit);
+
       const jobs = await jobPostRepository.findAll({
         relations: ['startup', 'applications'],
         order: {
           createdAt: 'DESC',
         },
+        skip,
+        take: limit,
       });
 
       return res.render('pages/admin/jobs', {
         csrfToken: req.csrfToken(),
         user,
         jobs,
+        stats: {
+          totalJobs,
+          publishedJobs,
+          archivedJobs,
+        },
+        totalJobs,
+        totalPages,
+        currentPage: page,
         currentPath: req.path,
       });
     } catch (err) {
@@ -187,17 +223,30 @@ class AdminController {
     try {
       const user = await getUser(req, res, usersRepository);
 
+      // ✅ Pagination support
+      const page = parseInt((req.query.page as string) || '1');
+      const limit = 20;
+      const skip = (page - 1) * limit;
+
+      const totalApplications = await applicationRepository.count();
+      const totalPages = Math.ceil(totalApplications / limit);
+
       const applications = await applicationRepository.findAll({
         relations: ['jobPost', 'jobPost.startup'],
         order: {
           appliedAt: 'DESC',
         },
+        skip,
+        take: limit,
       });
 
       return res.render('pages/admin/applications', {
         csrfToken: req.csrfToken(),
         user,
         applications,
+        totalApplications,
+        totalPages,
+        currentPage: page,
         currentPath: req.path,
       });
     } catch (err) {
@@ -214,17 +263,30 @@ class AdminController {
     try {
       const user = await getUser(req, res, usersRepository);
 
+      // ✅ Pagination support
+      const page = parseInt((req.query.page as string) || '1');
+      const limit = 20;
+      const skip = (page - 1) * limit;
+
+      const totalContacts = await contactRepository.count();
+      const totalPages = Math.ceil(totalContacts / limit);
+
       const contacts = await contactRepository.findAll({
         relations: ['sender', 'receiver'],
         order: {
           createdAt: 'DESC',
         },
+        skip,
+        take: limit,
       });
 
       return res.render('pages/admin/contacts', {
         csrfToken: req.csrfToken(),
         user,
         contacts,
+        totalContacts,
+        totalPages,
+        currentPage: page,
         currentPath: req.path,
       });
     } catch (err) {
@@ -241,6 +303,7 @@ class AdminController {
     try {
       const id = Array.isArray(req.params.id) ? req.params.id[0] : req.params.id;
 
+      // ✅ Ensure user exists and is valid for admin view
       const user = await usersRepository.findOne({
         where: {
           id,
@@ -249,7 +312,11 @@ class AdminController {
       });
 
       if (!user) {
-        return res.status(404).send('User not found');
+        return res.status(404).render('pages/admin/user-detail', {
+          csrfToken: req.csrfToken(),
+          user: null as any,
+          currentPath: req.path,
+        });
       }
 
       return res.render('pages/admin/user-detail', {
@@ -260,7 +327,7 @@ class AdminController {
     } catch (err) {
       console.error(err);
 
-      return res.status(500).send('Failed');
+      return res.status(500).send('Failed to load user details');
     }
   };
 
@@ -271,6 +338,7 @@ class AdminController {
     try {
       const id = Array.isArray(req.params.id) ? req.params.id[0] : req.params.id;
 
+      // ✅ Ensure job exists and is valid for admin view
       const job = await jobPostRepository.findOne({
         where: {
           id,
@@ -279,7 +347,11 @@ class AdminController {
       });
 
       if (!job) {
-        return res.status(404).send('Job not found');
+        return res.status(404).render('pages/admin/job-detail', {
+          csrfToken: req.csrfToken(),
+          job: null as any,
+          currentPath: req.path,
+        });
       }
 
       return res.render('pages/admin/job-detail', {
@@ -290,7 +362,7 @@ class AdminController {
     } catch (err) {
       console.error(err);
 
-      return res.status(500).send('Failed');
+      return res.status(500).send('Failed to load job details');
     }
   };
 
@@ -311,6 +383,7 @@ class AdminController {
 
       return res.json({
         success: true,
+        message: 'User deleted successfully',
       });
     } catch (err) {
       console.error(err);
@@ -338,6 +411,7 @@ class AdminController {
 
       return res.json({
         success: true,
+        message: 'Job deleted successfully',
       });
     } catch (err) {
       console.error(err);
@@ -369,18 +443,26 @@ class AdminController {
         });
       }
 
+      if (!['admin', 'enterprise'].includes(role)) {
+        return res.status(400).json({
+          message: 'Invalid role. Allowed roles: admin, enterprise',
+        });
+      }
+
       user.role = role as UserRole;
 
       await usersRepository.save(user);
 
       return res.json({
         success: true,
+        message: 'User role updated successfully',
+        role: user.role,
       });
     } catch (err) {
       console.error(err);
 
       return res.status(500).json({
-        message: 'Failed',
+        message: 'Failed to update user role',
       });
     }
   };
@@ -411,12 +493,13 @@ class AdminController {
       return res.json({
         success: true,
         status: job.status,
+        message: job.status === JobStatus.PUBLISHED ? 'Job published' : 'Job archived',
       });
     } catch (err) {
       console.error(err);
 
       return res.status(500).json({
-        message: 'Failed',
+        message: 'Failed to toggle job status',
       });
     }
   };

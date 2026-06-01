@@ -9,6 +9,7 @@ import runAsyncWrapper from '../utils/runAsyncWrapper';
 import PublicRoutes from './web/public.routes';
 import AuthWebRoutes from './web/auth-web.routes';
 import StartupRoutes from './web/startup.routes';
+import AdminRoutes from './web/admin.routes';
 
 class Router {
   router: IRouter;
@@ -17,6 +18,7 @@ class Router {
   authWebRoutes: IRouteGroup;
   startupRoutes: IRouteGroup;
   exampleRoutes: IRouteGroup;
+  adminRoutes: IRouteGroup;
 
   constructor() {
     this.router = express.Router();
@@ -25,6 +27,7 @@ class Router {
     this.authWebRoutes = AuthWebRoutes;
     this.startupRoutes = StartupRoutes;
     this.exampleRoutes = ExampleRoutes;
+    this.adminRoutes = AdminRoutes;
   }
 
   public create(app: Express) {
@@ -32,6 +35,7 @@ class Router {
     // TODO : attach middleware
     this._handleExampleAPI();
     this._handleAuthAPI();
+    this._handleAdminAPI();
     this._handlePageNotFound();
     this._handleExceptions();
     app.use(this.router);
@@ -62,6 +66,10 @@ class Router {
     this._attachRoutes(this.publicRoutes, '');
     this._attachRoutes(this.startupRoutes, '');
     this._attachRoutes(this.authWebRoutes, '');
+  }
+
+  private _handleAdminAPI() {
+    this._attachRoutes(this.adminRoutes, '/admin');
   }
 
   private _handleExampleAPI() {

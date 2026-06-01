@@ -7,6 +7,10 @@ class BaseRepository<T extends ObjectLiteral> {
     this.repo = repository;
   }
 
+  async count(): Promise<number> {
+    return this.repo.count();
+  }
+
   async create(data: DeepPartial<T>): Promise<T> {
     const entity = this.repo.create(data);
     return this.repo.save(entity);

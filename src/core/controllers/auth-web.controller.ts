@@ -45,12 +45,14 @@ class AuthWebController {
       if (user.role === UserRole.USER) {
         return res.redirect('/startup/');
       }
+      if (user.role === UserRole.ADMIN) {
+        return res.redirect('/admin/');
+      }
 
       return res.redirect('/');
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    } catch (_err: any) {
+    } catch (err) {
       const message = 'Invalid credentials';
-
+      console.log(`Exception while doing something: ${err}`);
       return res.status(HTTP_CODE.Unauthorized).render('pages/auth/login', {
         csrfToken: req.csrfToken(),
         error: message,

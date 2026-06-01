@@ -1,0 +1,615 @@
+/* ==========================================
+   WebPromise Project - Style.css
+   Admin Panel Styles & Utilities
+   ========================================== */
+
+/* =========================
+   RESET & GLOBAL STYLES
+   ========================= */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html,
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f4f6f9;
+    color: #333;
+    line-height: 1.6;
+}
+
+#app {
+    display: flex;
+    min-height: 100vh;
+}
+
+/* =========================
+   ADMIN SIDEBAR
+   ========================= */
+#sidebar {
+    width: 250px;
+    position: fixed;
+    top: 60px;
+    bottom: 0;
+    left: 0;
+    z-index: 100;
+}
+
+#sidebar .nav-link {
+    color: #cfd8dc;
+    padding: 12px 15px;
+    border-radius: 6px;
+    transition: all 0.3s ease;
+}
+
+#sidebar .nav-link:hover,
+#sidebar .nav-link.active {
+    background-color: rgba(255, 255, 255, 0.1);
+    color: #fff;
+}
+
+#sidebar .nav-link i {
+    width: 24px;
+    text-align: center;
+}
+
+/* =========================
+   ADMIN DASHBOARD CARD
+   ========================= */
+.stat-card {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 1.5rem;
+    border-radius: 10px;
+    text-align: center;
+    margin-bottom: 1rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.stat-card.success {
+    background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+}
+
+.stat-card.warning {
+    background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+}
+
+.stat-card.info {
+    background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+}
+
+/* =========================
+   BADGES
+   ========================= */
+.badge.status-published {
+    background-color: #28a745;
+    color: white;
+}
+
+.badge.status-draft {
+    background-color: #17a2b8;
+    color: white;
+}
+
+.badge.status-archived {
+    background-color: #6c757d;
+    color: white;
+}
+
+.badge.status-active {
+    background-color: #28a745;
+    color: white;
+}
+
+.badge.status-inactive {
+    background-color: #6c757d;
+    color: white;
+}
+
+/* =========================
+   TABLE STYLES
+   ========================= */
+.table-container {
+    overflow-x: auto;
+    border-radius: 8px;
+}
+
+.table {
+    margin-bottom: 0;
+}
+
+.table thead th {
+    background-color: #f8f9fa;
+    font-weight: 600;
+    color: #495057;
+    border-top: none;
+    padding: 1rem 0.75rem;
+}
+
+.table tbody td {
+    vertical-align: middle;
+    padding: 0.75rem;
+}
+
+/* =========================
+   PAGINATION
+   ========================= */
+.pagination .page-link {
+    color: #0d6efd;
+    border-color: #dee2e6;
+    border-radius: 4px;
+}
+
+.pagination .page-item.active .page-link {
+    background-color: #0d6efd;
+    border-color: #0d6efd;
+}
+
+.pagination .page-item.disabled .page-link {
+    color: #6c757d;
+}
+
+/* =========================
+   ACTION BUTTONS
+   ========================= */
+.btn-action {
+    padding: 0.35rem 0.75rem;
+    font-size: 0.85rem;
+    border-radius: 4px;
+}
+
+.btn-edit {
+    background-color: #17a2b8;
+    color: white;
+}
+
+.btn-edit:hover {
+    background-color: #138496;
+    color: white;
+}
+
+.btn-delete {
+    background-color: #dc3545;
+    color: white;
+}
+
+.btn-delete:hover {
+    background-color: #c82333;
+    color: white;
+}
+
+.btn-view {
+    background-color: #0d6efd;
+    color: white;
+}
+
+.btn-view:hover {
+    background-color: #0b5ed7;
+    color: white;
+}
+
+/* =========================
+   FORM ELEMENTS
+   ========================= */
+.form-control,
+.form-select {
+    border-radius: 4px;
+    padding: 0.5rem 0.75rem;
+}
+
+.form-label {
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+}
+
+/* =========================
+   ALERTS
+   ========================= */
+.alert-info {
+    border-left: 4px solid #17a2b8;
+}
+
+.alert-success {
+    border-left: 4px solid #28a745;
+}
+
+.alert-danger {
+    border-left: 4px solid #dc3545;
+}
+
+/* =========================
+   CARD STYLES
+   ========================= */
+.card {
+    border: none;
+    box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+    margin-bottom: 1.5rem;
+}
+
+.card-header {
+    background-color: #0d6efd;
+    color: white;
+    border-bottom: none;
+}
+
+.card-header.bg-primary .card-title {
+    font-weight: 600;
+}
+
+/* =========================
+   USER AVATARS
+   ========================= */
+.user-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* =========================
+   STATUS BADGES IN TABLES
+   ========================= */
+.status-badge {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.35rem 0.65rem;
+    font-size: 0.75rem;
+    font-weight: 500;
+    border-radius: 4px;
+}
+
+.status-badge.published {
+    background-color: #d4edda;
+    color: #155724;
+}
+
+.status-badge.draft {
+    background-color: #cce5ff;
+    color: #004085;
+}
+
+.status-badge.archived {
+    background-color: #e2e3e5;
+    color: #383d41;
+}
+
+/* =========================
+   LOADING SPINNER
+   ========================= */
+.spinner-border-sm {
+    width: 1rem;
+    height: 1rem;
+    border-width: 0.2em;
+}
+
+/* =========================
+   EMPTY STATES
+   ========================= */
+.empty-state {
+    text-align: center;
+    padding: 3rem 1rem;
+    color: #6c757d;
+}
+
+.empty-state i {
+    font-size: 4rem;
+    margin-bottom: 1rem;
+    opacity: 0.5;
+}
+
+/* =========================
+   RESPONSIVE ADJUSTMENTS
+   ========================= */
+@media (max-width: 768px) {
+    #sidebar {
+        transform: translateX(-250px);
+        transition: transform 0.3s ease;
+    }
+
+    #sidebar.show {
+        transform: translateX(0);
+    }
+
+    .stat-grid {
+        flex-direction: column;
+    }
+
+    .stat-grid .stat-card {
+        margin-bottom: 1rem;
+    }
+}
+
+/* =========================
+   UTILITIES
+   ========================= */
+.text-truncate {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.d-none {
+    display: none !important;
+}
+
+.d-block {
+    display: block !important;
+}
+
+/* =========================
+   HEADER NAVBAR
+   ========================= */
+.navbar {
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+}
+
+.navbar-brand {
+    font-size: 1.5rem;
+}
+
+/* =========================
+   DASHBOARD LAYOUT
+   ========================= */
+.main-content {
+    margin-left: 250px;
+    flex-grow: 1;
+}
+
+@media (max-width: 768px) {
+    .main-content {
+        margin-left: 0;
+    }
+
+    #sidebar {
+        position: fixed;
+        z-index: 999;
+    }
+
+    .main-content {
+        margin-left: 0;
+        padding-bottom: 60px;
+    }
+}
+
+/* =========================
+   BADGE SIZES
+   ========================= */
+.badge-sm {
+    padding: 0.25rem 0.5rem;
+    font-size: 0.75rem;
+}
+
+/* =========================
+   RESPONSIVE TABLES
+   ========================= */
+.table-responsive-lg .table {
+    max-width: 1400px;
+}
+
+/* =========================
+   FOOTER
+   ========================= */
+.sidebar-footer {
+    padding: 1rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* =========================
+   DIALOG/MODAL OVERLAY
+   ========================= */
+.modal-backdrop {
+    background-color: rgba(0, 0, 0, 0.6);
+}
+
+/* =========================
+   DELETE CONFIRMATION BUTTON
+   ========================= */
+.btn-danger-outline {
+    border: 1px solid #dc3545;
+    color: #dc3545;
+    background-color: transparent;
+}
+
+.btn-danger-outline:hover {
+    background-color: #dc3545;
+    color: white;
+}
+
+/* =========================
+   LOADING STATES
+   ========================= */
+.loading-skeleton {
+    animation: skeleton-loading 1.5s infinite ease-in-out;
+    background: linear-gradient(90deg, #f0f0f0 4%, #e0e0e0 25%, #f0f0f0 36%);
+    background-size: 200% 100%;
+}
+
+@keyframes skeleton-loading {
+    0% {
+        background-position: 200% 0;
+    }
+
+    100% {
+        background-position: -200% 0;
+    }
+}
+
+/* =========================
+   ACTION ICONS
+   ========================= */
+.action-icon {
+    width: 36px;
+    height: 36px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    transition: all 0.2s ease;
+}
+
+.action-icon:hover {
+    transform: scale(1.1);
+}
+
+.action-icon.edit:hover {
+    background-color: #e3f2fd;
+    color: #1565c0;
+}
+
+.action-icon.delete:hover {
+    background-color: #ffebee;
+    color: #c62828;
+}
+
+.action-icon.view:hover {
+    background-color: #e8f5e9;
+    color: #2e7d32;
+}
+
+/* =========================
+   PROFILE TYPE BADGES
+   ========================= */
+.badge-profile-startup {
+    background-color: #6c5ce7;
+    color: white;
+}
+
+.badge-profile-enterprise {
+    background-color: #00b894;
+    color: white;
+}
+
+/* =========================
+   STATISTICS GRID
+   ========================= */
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.stat-item {
+    background: white;
+    padding: 1.5rem;
+    border-radius: 8px;
+    text-align: center;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.stat-item .stat-label {
+    font-size: 0.875rem;
+    color: #6c757d;
+    margin-bottom: 0.5rem;
+}
+
+.stat-item .stat-value {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #333;
+}
+
+/* =========================
+   JOB STATUS INDICATORS
+   ========================= */
+.job-status-indicator {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    display: inline-block;
+}
+
+.job-status-published .job-status-indicator {
+    background-color: #28a745;
+}
+
+.job-status-draft .job-status-indicator {
+    background-color: #ffc107;
+}
+
+.job-status-archived .job-status-indicator {
+    background-color: #6c757d;
+}
+
+/* =========================
+   CONTACT CARD STYLES
+   ========================= */
+.contact-card {
+    border-left: 4px solid #0d6efd;
+}
+
+.contact-card.sent .border-left-color {
+    border-left-color: #28a745 !important;
+}
+
+.contact-card.received .border-left-color {
+    border-left-color: #ffc107 !important;
+}
+
+/* =========================
+   RESPONSIVE BREAKPOINTS
+   ========================= */
+@media (min-width: 992px) {
+    .row-lg-tables>.col-md-8 {
+        max-width: 56.25%;
+    }
+
+    .row-lg-tables>.col-md-4 {
+        max-width: 43.75%;
+    }
+}
+
+@media (min-width: 1200px) {
+    .row-xl-stats {
+        grid-template-columns: repeat(6, 1fr);
+    }
+
+    .stat-item-lg {
+        min-width: 180px;
+    }
+}
+
+/* =========================
+   ANIMATIONS
+   ========================= */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.card-animate {
+    animation: fadeIn 0.3s ease-out;
+}
+
+/* =========================
+   SCROLLBAR STYLING
+   ========================= */
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #ccc;
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #aaa;
+}

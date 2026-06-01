@@ -1,3 +1,4 @@
+import { getMonthExpression } from '../../helpers/getMonthExpression.helpers';
 import AppDataSource from '../../database/data-source';
 import { Application } from '../models/application.model';
 
@@ -36,6 +37,17 @@ class ApplicationRepository extends BaseRepository<Application> {
         appliedAt: 'DESC',
       },
     });
+  }
+
+  applicationsByMonth() {
+    const monthExpr = getMonthExpression('application.appliedAt');
+    return this.repo
+      .createQueryBuilder('application')
+      .select(monthExpr, 'month')
+      .addSelect('COUNT(*)', 'count')
+      .groupBy('month')
+      .orderBy('month', 'ASC')
+      .getRawMany();
   }
 }
 

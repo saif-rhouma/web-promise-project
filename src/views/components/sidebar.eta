@@ -1,0 +1,61 @@
+<!-- Admin Sidebar -->
+<nav id="sidebar" class="d-flex flex-column min-vh-100 bg-dark">
+  <!-- Logo/Brand -->
+  <div class="p-4 text-white text-center mb-3">
+    <h5 class="fw-bold"><i class="fas fa-shield-alt me-2"></i>Admin Panel</h5>
+  </div>
+
+  <!-- Navigation Links -->
+  <div class="flex-grow-1 overflow-auto">
+    <ul class="nav flex-column px-3">
+      <!-- Dashboard -->
+      <li class="nav-item mb-2">
+        <a class="nav-link active bg-primary text-white" href="/admin/dashboard">
+          <i class="fas fa-tachometer-alt me-2"></i>Dashboard
+        </a>
+      </li>
+
+      <!-- Users -->
+      <li class="nav-item mb-2">
+        <a class="nav-link text-white" href="/admin/users"> <i class="fas fa-users me-2"></i>Users </a>
+      </li>
+
+      <!-- Startups -->
+      <li class="nav-item mb-2">
+        <a class="nav-link text-white" href="/admin/startups"> <i class="fas fa-building me-2"></i>Startups </a>
+      </li>
+
+      <!-- Enterprises -->
+      <li class="nav-item mb-2">
+        <a class="nav-link text-white" href="/admin/enterprises"> <i class="fas fa-store me-2"></i>Enterprises </a>
+      </li>
+
+      <!-- Jobs -->
+      <li class="nav-item mb-2">
+        <a class="nav-link text-white" href="/admin/jobs"> <i class="fas fa-briefcase me-2"></i>Jobs </a>
+      </li>
+
+      <!-- Applications -->
+      <li class="nav-item mb-2">
+        <a class="nav-link text-white" href="/admin/applications">
+          <i class="fas fa-paper-plane me-2"></i>Applications
+        </a>
+      </li>
+
+      <!-- Contacts -->
+      <li class="nav-item mb-2">
+        <a class="nav-link text-white" href="/admin/contacts"> <i class="fas fa-envelope me-2"></i>Contacts </a>
+      </li>
+    </ul>
+  </div>
+
+  <!-- Sidebar Footer -->
+  <div class="p-3 text-white small">&copy; WebPromise Admin Panel 2024</div>
+</nav>
+
+<!-- Overlay for mobile when sidebar is collapsed -->
+<div
+  id="sidebarOverlay"
+  class="d-none position-fixed top-0 end-0 start-0 bottom-0 bg-dark opacity-50"
+  onclick="toggleSidebar()"
+></div>

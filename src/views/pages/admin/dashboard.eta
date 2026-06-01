@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - WebPromise Project</title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+    <%~ include('./components/header', { user: it.user }); %>
+
+    <div class="container mt-4">
+        <div class="row">
+            <!-- Sidebar -->
+            <div class="col-md-3">
+                <%~ include('./components/sidebar') %>
+                
+                <div class="card mt-3">
+                    <div class="card-body">
+                        <h5 class="card-title">Statistics</h5>
+                        
+                        <div class="row text-center">
+                            <div class="col-6 mb-2">
+                                <p class="text-muted" style="font-size: 0.8rem;">Total Users</p>
+                                <h3 class="text-primary"><%= it.stats.totalUsers %></h3>
+                            </div>
+                            <div class="col-6 mb-2">
+                                <p class="text-muted" style="font-size: 0.8rem;">Startups</p>
+                                <h3 class="text-success"><%= it.stats.totalStartups %></h3>
+                            </div>
+                        </div>
+                        
+                        <div class="row text-center">
+                            <div class="col-6 mb-2">
+                                <p class="text-muted" style="font-size: 0.8rem;">Enterprises</p>
+                                <h3 class="text-info"><%= it.stats.totalEnterprises %></h3>
+                            </div>
+                            <div class="col-6 mb-2">
+                                <p class="text-muted" style="font-size: 0.8rem;">Total Jobs</p>
+                                <h3 class="text-warning"><%= it.stats.totalJobs %></h3>
+                            </div>
+                        </div>
+                        
+                        <div class="row text-center">
+                            <div class="col-6 mb-2">
+                                <p class="text-muted" style="font-size: 0.8rem;">Published Jobs</p>
+                                <h3 class="text-success"><%= it.stats.publishedJobs %></h3>
+                            </div>
+                            <div class="col-6 mb-2">
+                                <p class="text-muted" style="font-size: 0.8rem;">Draft Jobs</p>
+                                <h3 class="text-info"><%= it.stats.draftJobs %></h3>
+                            </div>
+                        </div>
+                        
+                        <div class="row text-center">
+                            <div class="col-6 mb-2">
+                                <p class="text-muted" style="font-size: 0.8rem;">Archived Jobs</p>
+                                <h3 class="text-danger"><%= it.stats.archivedJobs %></h3>
+                            </div>
+                            <div class="col-6 mb-2">
+                                <p class="text-muted" style="font-size: 0.8rem;">Applications</p>
+                                <h3 class="text-primary"><%= it.stats.totalApplications %></h3>
+                            </div>
+                        </div>
+                        
+                        <div class="row text-center">
+                            <div class="col-6">
+                                <p class="text-muted" style="font-size: 0.8rem;">Contacts</p>
+                                <h3 class="text-secondary"><%= it.stats.totalContacts %></h3>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Main Content -->
+            <div class="col-md-9">
+                <div class="card mb-4">
+                    <div class="card-header bg-primary text-white">
+                        <h4 class="mb-0">Dashboard Overview</h4>
+                    </div>
+                    <div class="card-body">
+                        <p>Welcome to the Admin Dashboard. You can view all statistics, manage users, startups, jobs, applications, and contacts.</p>
+                        
+                        <% if (it.latestJobs.length > 0) { %>
+                            <h5 class="mt-4">Latest Jobs</h5>
+                            <div class="table-responsive">
+                                <table class="table table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th>Title</th>
+                                            <th>Status</th>
+                                            <th>Date</th>
+                                            <th>Startup</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <% it.latestJobs.forEach(job => { %>
+                                            <tr>
+                                                <td><%= job.title %></td>
+                                                <td>
+                                                    <span class="badge 
+                                                        <%= job.status === 'PUBLISHED' ? 'bg-success' : 
+                                                          job.status === 'DRAFT' ? 'bg-info' : 'bg-secondary' %>">
+                                                        <%= job.status %>
+                                                    </span>
+                                                </td>
+                                                <td><%= new Date(job.createdAt).toLocaleDateString() %></td>
+                                                <td><%= job.startup?.name || 'N/A' %></td>
+                                            </tr>
+                                        <% }); %>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <% } %>
+
+                        <% if (it.latestApplications.length > 0) { %>
+                            <h5 class="mt-4">Latest Applications</h5>
+                            <div class="table-responsive">
+                                <table class="table table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th>Candidate</th>
+                                            <th>Job</th>
+                                            <th>Date Applied</th>
+                                            <th>Status</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <% it.latestApplications.forEach(app => { %>
+                                            <tr>
+                                                <td><%= app.applicant?.name || 'N/A' %></td>
+                                                <td><%= app.jobPost?.title || 'N/A' %></td>
+                                                <td><%= new Date(app.appliedAt).toLocaleDateString() %></td>
+                                                <td>
+                                                    <span class="badge 
+                                                        <%= app.status === 'REJECTED' ? 'bg-danger' : 
+                                                          app.status === 'APPROVED' ? 'bg-success' : 'bg-info' %>">
+                                                        <%= app.status %>
+                                                    </span>
+                                                </td>
+                                            </tr>
+                                        <% }); %>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <% } %>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="/js/main.js"></script>
+</body>
+</html>

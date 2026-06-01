@@ -15,6 +15,7 @@ export enum JobStatus {
   DRAFT = 'draft',
   PUBLISHED = 'published',
   ARCHIVED = 'archived',
+  BLOCKED = 'blocked',
 }
 
 @Entity()

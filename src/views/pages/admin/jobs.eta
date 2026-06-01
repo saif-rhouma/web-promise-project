@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<%~ include('./partials/admin.head.eta') %>
+
+  <body>
+    <!-- LOADING AREA START ===== -->
+    <div class="loading-area">
+      <div class="loading-box"></div>
+      <div class="loading-pic">
+        <div class="wrapper">
+          <div class="cssload-loader"></div>
+        </div>
+      </div>
+    </div>
+    <!-- LOADING AREA  END ====== -->
+
+    <div class="page-wraper">
+      <%~ include('./partials/admin.sidebar.eta') %>
+
+        <!-- Page Content Holder -->
+        <div id="content">
+          <div class="content-admin-main">
+            <div class="twm-dash-b-blocks mb-5">
+              <div class="row">
+                <div class="col-xl-4 col-lg-6 col-md-12 mb-3">
+                  <div class="panel panel-default">
+                    <div class="panel-body wt-panel-body gradi-1 dashboard-card">
+                      <div class="wt-card-wrap">
+                        <div class="wt-card-icon"><i class="far fa-address-book"></i></div>
+                        <div class="wt-card-right wt-total-active-listing counter">
+                          <%= it.stats.totalJobs %>
+                        </div>
+                        <div class="wt-card-bottom">
+                          <h4 class="m-b0">Total Jobs</h4>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-xl-4 col-lg-6 col-md-12 mb-3">
+                  <div class="panel panel-default">
+                    <div class="panel-body wt-panel-body gradi-2 dashboard-card">
+                      <div class="wt-card-wrap">
+                        <div class="wt-card-icon"><i class="far fa-file-alt"></i></div>
+                        <div class="wt-card-right wt-total-listing-view counter">
+                          <%= it.stats.publishedJobs %>
+                        </div>
+                        <div class="wt-card-bottom">
+                          <h4 class="m-b0">Published Jobs</h4>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-xl-4 col-lg-6 col-md-12 mb-3">
+                  <div class="panel panel-default">
+                    <div class="panel-body wt-panel-body gradi-3 dashboard-card">
+                      <div class="wt-card-wrap">
+                        <div class="wt-card-icon"><i class="far fa-envelope"></i></div>
+                        <div class="wt-card-right wt-total-listing-review counter">
+                          <%= it.stats.archivedJobs %>
+                        </div>
+                        <div class="wt-card-bottom">
+                          <h4 class="m-b0">Archived Jobs</h4>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-lg-12 col-md-12 mb-4">
+              <div class="panel panel-default site-bg-white m-t30">
+                <div class="panel-heading wt-panel-heading p-a20">
+                  <h4 class="panel-tittle m-a0"><i class="far fa-list-alt"></i>All Jobs Post</h4>
+                </div>
+                <div class="panel-body wt-panel-body">
+                  <div class="twm-D_table p-a20 table-responsive">
+                    <table id="candidate_data_table" class="table table-bordered">
+                      <thead>
+                        <tr>
+                          <th>Title</th>
+                          <th>Status</th>
+                          <th>Date</th>
+                          <th></th>
+                        </tr>
+                      </thead>
+                      <tbody>
+
+
+                        <% it.jobs.forEach(job=> { %>
+                          <tr>
+                            <td>
+                              <div class="twm-DT-candidates-list">
+                                <div class="twm-media">
+                                  <div class="twm-media-pic">
+                                    <img src="/images/<%= job.startup.avatar || '/images/default-cover.jpg' %>"
+                                      alt="cover" />
+                                  </div>
+                                </div>
+                                <div class="twm-mid-content">
+                                  <a href="#" class="twm-job-title">
+                                    <h4>
+                                      <%= job.title %>
+                                    </h4>
+                                    <p class="twm-candidate-address">
+                                      <i class="feather-map-pin"></i>
+                                      <%= job.startup.name %>
+                                    </p>
+                                  </a>
+
+                                </div>
+
+                              </div>
+                            </td>
+                            <td>
+                              <div class="twm-jobs-category">
+                                <span class="badge 
+                                                        <%= job.status === 'PUBLISHED' ? 'bg-success' : 
+                                                          job.status === 'DRAFT' ? 'bg-info' : 'bg-secondary' %>">
+                                  <%= job.status %>
+                                </span>
+
+                              </div>
+                            </td>
+                            <td>
+                              <span>
+                                <%= new Date(job.createdAt).toLocaleDateString() %>
+                              </span>
+
+                            </td>
+                            <td>
+                              <div class="twm-table-controls">
+                                <ul class="twm-DT-controls-icon list-unstyled">
+                                  <li>
+                                    <button title="View profile" data-bs-toggle="tooltip" data-bs-placement="top">
+                                      <span class="fa fa-eye"></span>
+                                    </button>
+                                  </li>
+                                  <li>
+                                    <button title="Delete" data-bs-toggle="tooltip" data-bs-placement="top">
+                                      <span class="far fa-trash-alt"></span>
+                                    </button>
+                                  </li>
+                                </ul>
+                              </div>
+                            </td>
+                          </tr>
+                          <% }) %>
+                      </tbody>
+                      <tfoot>
+                        <tr>
+                          <th>Title</th>
+                          <th>Status</th>
+                          <th>Date</th>
+                          <th></th>
+                        </tr>
+                      </tfoot>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+    </div>
+
+    <%~ include('./partials/admin.model.eta') %>
+
+      <!--Logout Profile Popup-->
+      <div class="modal fade twm-model-popup" id="logout-dash-profile" data-bs-backdrop="static"
+        data-bs-keyboard="false" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <h4 class="modal-title">Do you want to Logout your profile?</h4>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="site-button" data-bs-dismiss="modal">No</button>
+              <button type="button" class="site-button outline-primary">Yes</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      </div>
+
+      <%~ include('./partials/admin.scripts.eta') %>
+        <div id="dashboard-data" data-applications-by-months="<%= JSON.stringify(it.applicationsByMonth || []) %>"
+          data-jobs-by-months="<%= JSON.stringify(it.jobsByMonth || []) %>"
+          data-registrations-by-months="<%= JSON.stringify(it.registrationsByMonth || []) %>"></div>
+        <script src="/js/admin-dashboard.js"></script>
+  </body>
+
+</html>
