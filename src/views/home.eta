@@ -138,9 +138,9 @@
                     <div class="col-lg-7 col-md-12">
                       <div class="twm-explore-content-outer-3">
                         <div class="twm-explore-content-3">
-                          <div class="twm-title-small">
+                          <!-- <div class="twm-title-small">
                             <%= it.__('home.employee.tag') %>
-                          </div>
+                          </div> -->
                           <div class="twm-title-large">
                             <h2>
                               <%= it.__('home.employee.title') %>

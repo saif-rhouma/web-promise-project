@@ -9,7 +9,7 @@
 
   <!-- FAVICONS ICON -->
   <link rel="icon" href="images/favicon.ico" type="/image/x-icon" />
-  <link rel="shortcut icon" type="image/x-icon" href="/images/favicon-32x32.png" />
+  <link rel="shortcut icon" type="image/x-icon" href="/images/favicon-96x96.png" />
 
   <!-- PAGE TITLE HERE -->
   <title>Promise BridgeTech</title>

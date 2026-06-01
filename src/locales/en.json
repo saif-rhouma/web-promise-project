@@ -7,8 +7,8 @@
     },
     "employee": {
       "tag": "Explore New Life",
-      "title": "Build your personal account profile",
-      "description": "This platform was funded by a grant from the United States Department of State. The platform was subsequently handed over to American Chamber of Commerce in Tunisia (AMCHAM Tunisia). The opinions, findings, and conclusions stated herein are those of the author(s) and do not necessarily reflect those of the United States Department of State.",
+      "title": "Build Bridges Between U.S. Companies, Startups, and Future Talent",
+      "description": "The platform aims to strengthen connections between companies, including U.S. companies, and local talent by highlighting recruitment needs and facilitating access to the most suitable student profiles. It also fosters open innovation by enabling collaboration between companies and startups through matchmaking opportunities that generate meaningful synergies. In addition, it supports direct access to talent with entrepreneurial experience, allowing companies to recruit candidates who have gained practical, hands-on skills within startup environments.",
       "upload_cv": "Upload Your Resume"
     }
   },
@@ -17,7 +17,7 @@
     "menu": {
       "home": "Home",
       "startups": "Startups",
-      "enterprise": "Enterprise",
+      "enterprise": "Company",
       "contact": "Contact Us"
     },
     "auth": {
