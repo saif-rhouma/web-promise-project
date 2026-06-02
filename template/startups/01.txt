@@ -1,0 +1,6 @@
+Title: AlgaePool
+Sector: Biotechnology
+
+At Algaepool, we transform end-of-life shipping containers into modular, IoT-powered units for sustainable microalgae production.
+
+

@@ -1,0 +1,5 @@
+IOT
+6 Mois
+
+La mission consiste à concevoir, développer et optimiser la BOX IoT d’AlgaePool et les solutions associées. Cette mission vise à améliorer la collecte de données, la surveillance des cultures de microalgues et l’automatisation des processus, tout en garantissant la fiabilité et l’accessibilité de la solution pour les utilisateurs finaux.
+

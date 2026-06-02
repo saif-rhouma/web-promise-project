@@ -1,0 +1,6 @@
+Smart Forest Watcher
+3 Mois
+
+La mission consiste à mettre en œuvre une architecture embarquée fiable et à
+
+faible latence pour la transmission des flux vidéos agricoles.

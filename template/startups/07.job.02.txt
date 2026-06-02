@@ -1,0 +1,4 @@
+Embedded System Eng.
+6 Mois
+
+L’ingénieur devra relever le défi d’assurer la synergie entre le hardware, le firmware et l’application mobile, tout en permettant l’intégration de fonctionnalités avancées d’IA et d’automatisation.

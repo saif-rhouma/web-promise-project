@@ -1,0 +1,4 @@
+AI/ML Engineer 
+6 Mois
+
+La mission consiste à livrer rapidement des fonctionnalités concrètes en utilisant LLM, RAG, embeddings et API existantes, pour offrir des assistants conversationnels et des systèmes intelligents.

@@ -1,0 +1,4 @@
+Smart Safe Vision
+3 Mois
+
+La mission consiste à mettre en place des API sécurisées et un tableau de bord temps réel pour la gestion et l’analyse des flux vidéos.

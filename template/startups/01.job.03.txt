@@ -1,0 +1,4 @@
+Blockchain
+6 Mois
+
+La mission consiste à concevoir et implémenter une solution blockchain intégrée au système IoT de la startup AlgaePool. Cette solution vise à sécuriser et tracer les données de production de microalgues, renforcer la transparence et valoriser l’impact environnemental et social de la solution auprès des partenaires et investisseurs.

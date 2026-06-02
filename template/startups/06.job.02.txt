@@ -1,0 +1,4 @@
+Junior FullStack Symfony Developer
+12 Mois
+
+La mission consiste à contribuer à la fois sur le backend Symfony et le frontend, afin de livrer des fonctionnalités robustes, fiables et à forte valeur ajoutée pour nos clients.

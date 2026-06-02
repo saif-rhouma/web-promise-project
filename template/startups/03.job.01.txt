@@ -1,0 +1,5 @@
+Smart Forest Watcher
+3 Mois
+
+La mission consiste à contribuer au développement d’un module d’intelligence artificielle pour la détection et la classification des incendies de forêts, basé sur l’analyse d’images et de flux vidéo.
+
