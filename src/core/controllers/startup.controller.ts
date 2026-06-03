@@ -6,7 +6,6 @@ import usersRepository from '../repositories/user.repository';
 import { StartupProfile } from '../models/startup-profile.model';
 import jobPostRepository from '../repositories/job-post.repository';
 import { JobPost, JobStatus } from '../models/job-post.model';
-import { getUser } from '../../helpers/getUser.helpers';
 import { comparePassword, hashPassword } from '../../helpers/auth.helpers';
 import applicationRepository from '../repositories/application.repository';
 import { ProfileType } from '../models/user.model';
@@ -19,7 +18,7 @@ class StartupController {
 
   dashboardPage: AsyncRouteHandler = async (req: Request, res: Response) => {
     try {
-      const user = await getUser(req, res, usersRepository);
+      const user = req['user'];
 
       if (!user?.startupProfile?.id) {
         return res.redirect('/startup/profile');
@@ -107,15 +106,15 @@ class StartupController {
 
   profilePage: AsyncRouteHandler = async (req: Request, res: Response) => {
     try {
-      const user = await getUser(req, res, usersRepository);
+      const user = req['user'];
       return res.render('pages/startup/profile', {
         csrfToken: req.csrfToken(),
         user,
         startupProfile: user?.startupProfile || {},
         currentPath: req.path,
       });
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
     } catch (error) {
+      console.log(error);
       return res.status(500).send('Failed to load profile');
     }
   };
@@ -126,22 +125,22 @@ class StartupController {
 
   passwordPage: AsyncRouteHandler = async (req: Request, res: Response) => {
     try {
-      const user = await getUser(req, res, usersRepository);
+      const user = req['user'];
       return res.render('pages/startup/change-password', {
         csrfToken: req.csrfToken(),
         user,
         startupProfile: user?.startupProfile || {},
         currentPath: req.path,
       });
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
     } catch (error) {
+      console.log(error);
       return res.status(500).send('Failed to load profile');
     }
   };
 
   changePassword: AsyncRouteHandler = async (req, res) => {
     try {
-      const user = await getUser(req, res, usersRepository);
+      const user = req['user'];
 
       const { oldPassword, newPassword, confirmPassword } = req.body;
       // ======================
@@ -183,7 +182,7 @@ class StartupController {
   // ======================
   updateProfile: AsyncRouteHandler = async (req: Request, res: Response) => {
     try {
-      const user = await getUser(req, res, usersRepository);
+      const user = req['user'];
 
       const { phone, name, email, description, sector, website, adress, socialLinks } = req.body;
 
@@ -244,7 +243,7 @@ class StartupController {
   // ======================
   updateAvatar: AsyncRouteHandler = async (req, res) => {
     try {
-      const user = await getUser(req, res, usersRepository);
+      const user = req['user'];
       const file = req.file;
       if (!file) return res.status(400).json({ message: 'No file uploaded' });
 
@@ -270,7 +269,7 @@ class StartupController {
   // ======================
   postJobPage: AsyncRouteHandler = async (req: Request, res: Response) => {
     try {
-      const user = await getUser(req, res, usersRepository);
+      const user = req['user'];
       return res.render('pages/startup/post-job', {
         csrfToken: req.csrfToken(),
         user,
@@ -287,7 +286,7 @@ class StartupController {
   // ======================
   getJobs: AsyncRouteHandler = async (req: Request, res: Response) => {
     try {
-      const user = await getUser(req, res, usersRepository);
+      const user = req['user'];
 
       const page = parseInt((req.query.page as string) || '1');
       const limit = 10;
@@ -317,7 +316,7 @@ class StartupController {
   // ======================
   deleteJob: AsyncRouteHandler = async (req: Request, res: Response) => {
     try {
-      const user = await getUser(req, res, usersRepository);
+      const user = req['user'];
       const jobId = Array.isArray(req.params.id) ? req.params.id[0] : req.params.id;
 
       const job = await jobPostRepository.findOne({
@@ -345,7 +344,7 @@ class StartupController {
   // ======================
   toggleStatus: AsyncRouteHandler = async (req: Request, res: Response) => {
     try {
-      const user = await getUser(req, res, usersRepository);
+      const user = req['user'];
       if (!user) return res.status(401).json({ message: 'Unauthorized' });
       const jobId = Array.isArray(req.params.id) ? req.params.id[0] : req.params.id;
 
@@ -373,7 +372,7 @@ class StartupController {
   // ======================
   createJob = async (req: Request, res: Response) => {
     try {
-      const user = await getUser(req, res, usersRepository);
+      const user = req['user'];
       // ✅ SAFE FILE EXTRACTION
       const files = req.files as
         | {
@@ -464,7 +463,7 @@ class StartupController {
 
   editPage = async (req: Request, res: Response) => {
     try {
-      const user = await getUser(req, res, usersRepository);
+      const user = req['user'];
       const jobId = Array.isArray(req.params.id) ? req.params.id[0] : req.params.id;
 
       const job = await jobPostRepository.findOne({
@@ -565,7 +564,7 @@ class StartupController {
 
   getApplications: AsyncRouteHandler = async (req, res) => {
     try {
-      const user = await getUser(req, res, usersRepository);
+      const user = req['user'];
 
       if (!user.startupProfile?.id) {
         return res.redirect('/startup/profile');
@@ -587,7 +586,7 @@ class StartupController {
 
   getApplicationsByJob: AsyncRouteHandler = async (req, res) => {
     try {
-      const user = await getUser(req, res, usersRepository);
+      const user = req['user'];
       const jobId = Array.isArray(req.params.id) ? req.params.id[0] : req.params.id;
 
       const applications = await applicationRepository.findByJob(jobId);
@@ -633,7 +632,7 @@ class StartupController {
 
   downloadCV: AsyncRouteHandler = async (req, res) => {
     try {
-      const user = await getUser(req, res, usersRepository);
+      const user = req['user'];
 
       const id = Array.isArray(req.params.id) ? req.params.id[0] : req.params.id;
 
@@ -679,7 +678,7 @@ class StartupController {
 
   startupsPage: AsyncRouteHandler = async (req: Request, res: Response) => {
     try {
-      const user = await getUser(req, res, usersRepository);
+      const user = req['user'];
 
       if (!user?.startupProfile?.id) {
         return res.redirect('/startup/dashboard');

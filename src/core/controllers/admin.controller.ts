@@ -7,19 +7,18 @@ import jobPostRepository from '../repositories/job-post.repository';
 import applicationRepository from '../repositories/application.repository';
 import contactRepository from '../repositories/contact.repository';
 
-import { getUser } from '../../helpers/getUser.helpers';
-
-import { ProfileType, UserRole } from '../models/user.model';
+import { AccountStatus, ProfileType, UserRole } from '../models/user.model';
 import { JobStatus } from '../models/job-post.model';
 
 class AdminController {
   // ======================
   // DASHBOARD
+
   // ======================
   dashboardPage: AsyncRouteHandler = async (req: Request, res: Response) => {
     try {
-      const user = await getUser(req, res, usersRepository);
-      const totalUsers = await usersRepository.count();
+      const user = req['user'];
+      const totalUsers = await usersRepository.countWithRole(UserRole.USER);
 
       const totalStartups = await usersRepository.countStartups();
 
@@ -96,7 +95,7 @@ class AdminController {
 
       const totalEnterprises = await usersRepository.countEnterprise();
 
-      const user = await getUser(req, res, usersRepository);
+      const user = req['user'];
 
       // ✅ Pagination support
       const page = Number.parseInt((req.query.page as string) || '1');
@@ -134,7 +133,7 @@ class AdminController {
   // ======================
   startupsPage: AsyncRouteHandler = async (req: Request, res: Response) => {
     try {
-      const user = await getUser(req, res, usersRepository);
+      const user = req['user'];
 
       // ✅ Pagination support
       const page = parseInt((req.query.page as string) || '1');
@@ -172,7 +171,7 @@ class AdminController {
   // ======================
   jobsPage: AsyncRouteHandler = async (req: Request, res: Response) => {
     try {
-      const user = await getUser(req, res, usersRepository);
+      const user = req['user'];
 
       // ✅ Pagination support
       const page = Number.parseInt((req.query.page as string) || '1');
@@ -221,7 +220,7 @@ class AdminController {
   // ======================
   applicationsPage: AsyncRouteHandler = async (req: Request, res: Response) => {
     try {
-      const user = await getUser(req, res, usersRepository);
+      const user = req['user'];
 
       // ✅ Pagination support
       const page = parseInt((req.query.page as string) || '1');
@@ -261,7 +260,7 @@ class AdminController {
   // ======================
   contactsPage: AsyncRouteHandler = async (req: Request, res: Response) => {
     try {
-      const user = await getUser(req, res, usersRepository);
+      const user = req['user'];
 
       // ✅ Pagination support
       const page = parseInt((req.query.page as string) || '1');
@@ -470,8 +469,47 @@ class AdminController {
   // ======================
   // TOGGLE JOB STATUS
   // ======================
+  toggleStatus: AsyncRouteHandler = async (req: Request, res: Response) => {
+    try {
+      const id = Array.isArray(req.params.id) ? req.params.id[0] : req.params.id;
+
+      const user = await usersRepository.findOne({
+        where: {
+          id,
+        },
+      });
+
+      if (!user) {
+        return res.status(404).json({
+          message: 'Job not found',
+        });
+      }
+
+      user.status = user.status === AccountStatus.ACTIVE ? AccountStatus.BLOCKED : AccountStatus.ACTIVE;
+
+      await usersRepository.save(user);
+
+      return res.json({
+        success: true,
+        status: user.status,
+        message: user.status === AccountStatus.ACTIVE ? 'Blocked' : 'Activated',
+      });
+    } catch (err) {
+      console.error(err);
+
+      return res.status(500).json({
+        message: 'Failed to toggle job status',
+      });
+    }
+  };
+
+  // ======================
+  // TOGGLE JOB STATUS
+  // ======================
   toggleJobStatus: AsyncRouteHandler = async (req: Request, res: Response) => {
     try {
+      const { status } = req.body;
+
       const id = Array.isArray(req.params.id) ? req.params.id[0] : req.params.id;
 
       const job = await jobPostRepository.findOne({
@@ -486,14 +524,13 @@ class AdminController {
         });
       }
 
-      job.status = job.status === JobStatus.PUBLISHED ? JobStatus.ARCHIVED : JobStatus.PUBLISHED;
+      job.status = status;
 
       await jobPostRepository.save(job);
 
       return res.json({
         success: true,
         status: job.status,
-        message: job.status === JobStatus.PUBLISHED ? 'Job published' : 'Job archived',
       });
     } catch (err) {
       console.error(err);
@@ -501,6 +538,24 @@ class AdminController {
       return res.status(500).json({
         message: 'Failed to toggle job status',
       });
+    }
+  };
+
+  // ======================
+  // PASSWORD CHANGE (GET)
+  // ======================
+
+  passwordPage: AsyncRouteHandler = async (req: Request, res: Response) => {
+    try {
+      const user = req['user'];
+      return res.render('pages/admin/change-password', {
+        csrfToken: req.csrfToken(),
+        user,
+        currentPath: req.path,
+      });
+    } catch (error) {
+      console.log(error);
+      return res.status(500).send('Failed to load profile');
     }
   };
 }

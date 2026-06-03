@@ -1,12 +1,10 @@
 import { Request, Response } from 'express';
 import AsyncRouteHandler from 'src/types/AsyncRouteHandler';
 
-import usersRepository from '../repositories/user.repository';
 import startupProfileRepository from '../repositories/startup-profile.repository';
 
 import contactService from '../services/contact.service';
 
-import { getUser } from '../../helpers/getUser.helpers';
 import { ContactStatus } from '../models/contact.model';
 import { StartupProfile } from '../models/startup-profile.model';
 
@@ -16,7 +14,7 @@ class ContactController {
   // ======================
   contactsPage: AsyncRouteHandler = async (req: Request, res: Response) => {
     try {
-      const user = await getUser(req, res, usersRepository);
+      const user = req['user'];
 
       if (!user?.startupProfile?.id) {
         return res.redirect('/startup/profile');
@@ -29,7 +27,6 @@ class ContactController {
       const unreadCount = await contactService.getUnreadCount(user.startupProfile.id);
 
       const totalConversations = receivedContacts.length;
-      console.log('----> receivedContacts', receivedContacts);
 
       return res.render('pages/startup/contacts', {
         csrfToken: req.csrfToken(),
@@ -52,7 +49,7 @@ class ContactController {
   // ======================
   getContactDetails: AsyncRouteHandler = async (req: Request, res: Response) => {
     try {
-      const user = await getUser(req, res, usersRepository);
+      const user = req['user'];
 
       const contactId = Array.isArray(req.params.id) ? req.params.id[0] : req.params.id;
 
@@ -94,9 +91,9 @@ class ContactController {
   // ======================
   sendContact: AsyncRouteHandler = async (req: Request, res: Response) => {
     try {
-      const user = await getUser(req, res, usersRepository);
+      const user = req['user'];
 
-      if (!user || !user.startupProfile) {
+      if (!user?.startupProfile) {
         return res.status(401).json({
           success: false,
           message: 'Unauthorized',
@@ -317,7 +314,7 @@ class ContactController {
 
   getConversation: AsyncRouteHandler = async (req: Request, res: Response) => {
     try {
-      const user = await getUser(req, res, usersRepository);
+      const user = req['user'];
 
       if (!user || !user.startupProfile) {
         return res.status(401).send('Unauthorized');
@@ -375,7 +372,7 @@ class ContactController {
   };
 
   getConversationJson: AsyncRouteHandler = async (req: Request, res: Response) => {
-    const user = await getUser(req, res, usersRepository);
+    const user = req['user'];
 
     const startupId = Array.isArray(req.params.id) ? req.params.id[0] : req.params.id;
 

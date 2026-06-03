@@ -1,4 +1,4 @@
-import { FindManyOptions, FindOptionsWhere } from 'typeorm';
+import { FindOptionsWhere } from 'typeorm';
 import AppDataSource from '../../database/data-source';
 import { JobPost, JobStatus } from '../models/job-post.model';
 
@@ -44,7 +44,7 @@ class JobPostRepository extends BaseRepository<JobPost> {
       skip,
       order,
       relations,
-    } as FindManyOptions<JobPost>);
+    });
   }
   async findJobsDetails(startupId, limit, skip) {
     return this.repo

@@ -78,6 +78,7 @@
                 </div>
                 <div class="panel-body wt-panel-body">
                   <div class="twm-D_table p-a20 table-responsive">
+                    <input type="hidden" name="_csrf" value="<%= it.csrfToken %>" />
                     <table id="candidate_data_table" class="table table-bordered">
                       <thead>
                         <tr>
@@ -135,34 +136,43 @@
                             <td>
                               <%= new Date(us.createdAt).toLocaleDateString() %>
                             </td>
-
                             <td>
                               <div class="twm-jobs-category">
-                                <% const statusColors={ 'ACCEPTED' : 'twm-bg-green' , 'PENDING' : 'twm-bg-golden'
-                                  , 'REJECTED' : 'twm-bg-red' }; %>
-
-                                  <span class="<%= statusColors[us?.status] || 'text-clr-default' %>">
+                                <% const statusColors={ 'ACTIVE' : 'twm-bg-green' , 'PENDING' : 'twm-bg-golden'
+                                  , 'BLOCKED' : 'twm-bg-red' }; %>
+                                  <span class="<%= statusColors[us?.status] || 'text-clr-default' %> status-badge">
                                     <%= us?.status || 'N/A' %>
                                   </span>
-
                               </div>
                             </td>
                             <td>
-                                                    <div class="twm-table-controls">
-                                                        <ul class="twm-DT-controls-icon list-unstyled">
-                                                            <li>
-                                                                <button title="View profile" data-bs-toggle="tooltip" data-bs-placement="top">
-                                                                    <span class="fa fa-eye"></span>
-                                                                </button>
-                                                            </li>
-                                                            <li>
-                                                                <button title="Delete" data-bs-toggle="tooltip" data-bs-placement="top">
-                                                                    <span class="far fa-trash-alt"></span>
-                                                                </button>
-                                                            </li>
-                                                        </ul>
-                                                    </div>
-                                                </td>
+                              <div class="twm-table-controls">
+                                <ul class="twm-DT-controls-icon list-unstyled">
+                                  <li>
+                                    <button type="button" title="<%~ us.status === 'ACTIVE' ? 'Block':'Activate' %>"
+                                      data-bs-toggle="tooltip" data-bs-placement="top" data-id="<%= us.id %>"
+                                      data-status="<%= us.status %>" class="toggle-status">
+                                      <span class="<%~ us.status === 'ACTIVE' ? 'fa fa-ban':'fa fa-check'%>"></span>
+                                    </button>
+                                  </li>
+                                  <li>
+                                    <a title="Detail" data-bs-toggle="tooltip" data-bs-placement="top"
+                                      href="/startups/<%= us.startupProfile.id %>" target="_blank">
+                                      <span class="fa fa-eye"></span>
+                                    </a>
+                                  </li>
+                                  <li>
+                                  <li>
+                                    <button type="button" title="Delete" class="delete-user" data-id="<%= us.id %>"
+                                      data-name="<%= us.startupProfile.name %>" data-bs-toggle="tooltip"
+                                      data-bs-placement="top">
+                                      <span class="far fa-trash-alt"></span>
+                                    </button>
+                                  </li>
+                                  </li>
+                                </ul>
+                              </div>
+                            </td>
                           </tr>
                           <% }) %>
                       </tbody>
@@ -209,11 +219,36 @@
       </div>
       </div>
 
+      <div class="modal fade twm-model-popup" id="deleteUserModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+
+            <div class="modal-header">
+              <h5 class="modal-title">Delete User</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+
+            <div class="modal-body">
+              Are you sure you want to delete
+              <strong id="delete-user-name"></strong> ?
+            </div>
+
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                Cancel
+              </button>
+
+              <button type="button" class="btn btn-danger" id="confirm-delete-user">
+                Delete
+              </button>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
       <%~ include('./partials/admin.scripts.eta') %>
-        <div id="dashboard-data" data-applications-by-months="<%= JSON.stringify(it.applicationsByMonth || []) %>"
-          data-jobs-by-months="<%= JSON.stringify(it.jobsByMonth || []) %>"
-          data-registrations-by-months="<%= JSON.stringify(it.registrationsByMonth || []) %>"></div>
-        <script src="/js/admin-dashboard.js"></script>
+        <script src="/js/admin-func.js"></script>
   </body>
 
 </html>

@@ -2,11 +2,13 @@ import authSessionMiddleware from '../../core/middlewares/auth-session.middlewar
 import AdminController from '../../core/controllers/admin.controller';
 import IRouteGroup from 'src/types/IRouteGroup';
 import csrfProtection from '../../core/middlewares/csrf.middleware';
+import { authorize } from '../../core/middlewares/role.middleware';
+import { UserRole } from '../../core/models/user.model';
 
 const AdminRoutes: IRouteGroup = {
   group: {
-    prefix: '', // ✅ Removed /admin prefix here since it's added in index.ts
-    middleware: [authSessionMiddleware],
+    prefix: '',
+    middleware: [authSessionMiddleware, authorize(UserRole.ADMIN)],
   },
 
   routes: [
@@ -38,15 +40,6 @@ const AdminRoutes: IRouteGroup = {
     },
 
     // ======================
-    // STARTUPS PAGE
-    // ======================
-    {
-      method: 'get',
-      path: '/startups',
-      handler: AdminController.startupsPage,
-    },
-
-    // ======================
     // JOBS PAGE
     // ======================
     {
@@ -54,15 +47,6 @@ const AdminRoutes: IRouteGroup = {
       path: '/jobs',
       middleware: [csrfProtection],
       handler: AdminController.jobsPage,
-    },
-
-    // ======================
-    // APPLICATIONS PAGE
-    // ======================
-    {
-      method: 'get',
-      path: '/applications',
-      handler: AdminController.applicationsPage,
     },
 
     // ======================
@@ -75,21 +59,12 @@ const AdminRoutes: IRouteGroup = {
     },
 
     // ======================
-    // USER DETAILS
+    // PATCH USER STATUS
     // ======================
     {
-      method: 'get',
-      path: '/user/:id',
-      handler: AdminController.userDetailsPage,
-    },
-
-    // ======================
-    // JOB DETAILS
-    // ======================
-    {
-      method: 'get',
-      path: '/job/:id',
-      handler: AdminController.jobDetailsPage,
+      method: 'patch',
+      path: '/users/:id/status',
+      handler: AdminController.toggleStatus,
     },
 
     // ======================
@@ -111,21 +86,22 @@ const AdminRoutes: IRouteGroup = {
     },
 
     // ======================
-    // UPDATE USER ROLE
-    // ======================
-    {
-      method: 'patch',
-      path: '/users/:id/role',
-      handler: AdminController.updateUserRole,
-    },
-
-    // ======================
     // TOGGLE JOB STATUS
     // ======================
     {
       method: 'patch',
       path: '/jobs/:id/status',
       handler: AdminController.toggleJobStatus,
+    },
+
+    // ======================
+    // TOGGLE JOB STATUS
+    // ======================
+    {
+      method: 'get',
+      path: '/change-password',
+      middleware: [csrfProtection],
+      handler: AdminController.passwordPage,
     },
   ],
 };

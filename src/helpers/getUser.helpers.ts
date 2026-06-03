@@ -1,4 +1,6 @@
-export async function getUser(req, res, usersRepository) {
+import { Response } from 'express';
+import { AuthRequest } from 'src/types/AuthRequest';
+export async function getUser(req: AuthRequest, res: Response, usersRepository) {
   const userId = req.session['user']?.id;
 
   if (!userId) {

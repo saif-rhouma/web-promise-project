@@ -21,22 +21,10 @@
               <div class="listing-user">
                 <div class="dropdown">
                   <a href="javascript:;" class="dropdown-toggle" id="ID-ACCOUNT_dropdown" data-bs-toggle="dropdown">
-                    <div class="user-name text-black">
-                      <span> <img src="images/user-avtar/pic4.jpg" alt="" /> </span>Nikola Tesla
+                    <div class="text-black">
+                      <span> <img src="/images/user-avtar/admin.jpg" alt="" /> </span>Admin
                     </div>
                   </a>
-                  <div class="dropdown-menu" aria-labelledby="ID-ACCOUNT_dropdown">
-                    <ul>
-                      <li>
-                        <a href="dashboard.html"><i class="fa fa-home"></i>Dashboard</a>
-                      </li>
-                      <li>
-                        <a href="dash-my-profile.html"><i class="fa fa-user"></i> Profile</a>
-                      </li>
-                      <li>
-                        <a href="index.html"><i class="fa fa-share-square"></i> Logout</a>
-                      </li>
-                    </ul>
                   </div>
                 </div>
               </div>
@@ -58,21 +46,21 @@
 
   <div class="admin-nav scrollbar-macosx">
     <ul>
-      <li class="active">
+      <li class="<%= it.currentPath === '/admin/dashboard' ? 'active' : '' %>">
         <a href="/admin/dashboard"><i class="fa fa-home"></i><span class="admin-nav-text">Dashboard</span></a>
       </li>
-      <li>
+      <li class="<%= it.currentPath === '/admin/users' ? 'active' : '' %>">
         <a href="/admin/users"><i class="fa fa-user-friends"></i><span class="admin-nav-text">Accounts </span></a>
       </li>
-      <li>
+      <li class="<%= it.currentPath === '/admin/jobs' ? 'active' : '' %>">
         <a href="/admin/jobs"><i class="fa fa-suitcase"></i><span class="admin-nav-text">Jobs </span></a>
       </li>
-      <li>
-        <a href="dash-change-password.html"
+      <li class="<%= it.currentPath === '/admin/dashboard' ? 'active' : '' %>">
+        <a href="/admin/change-password"
           ><i class="fa fa-fingerprint"></i><span class="admin-nav-text">Change Password</span></a
         >
       </li>
-      <li>
+      <li class="<%= it.currentPath === '/admin/dashboard' ? 'active' : '' %>">
         <a href="javascript:;" data-bs-toggle="modal" data-bs-target="#delete-dash-profile"
           ><i class="fa fa-trash-alt"></i><span class="admin-nav-text">Site Configuration</span></a
         >

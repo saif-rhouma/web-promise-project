@@ -24,7 +24,7 @@
             <div class="container">
               <!-- TITLE START-->
               <div class="section-head center wt-small-separator-outer">
-                <h2 class="wt-title" style="color: #e5e5e5;">Découvrez <%= it.page ? "les startups":"les entreprises" %></h2>
+                <h2 class="wt-title" style="color: #e5e5e5;">Discover innovative <%= it.page ? "Startups":"Companies" %></h2>
               </div>
               <!-- TITLE END-->
 
@@ -59,8 +59,7 @@
                               </p></p>
                             </div>
                             <div class="wt-post-readmore">
-                              <a href="/startups/<%= s.id %>" class="site-button-link site-text-primary">Découvrez les
-                                startups</a>
+                              <a href="/startups/<%= s.id %>" class="site-button-link site-text-primary">Explore</a>
                             </div>
                           </div>
                         </div>

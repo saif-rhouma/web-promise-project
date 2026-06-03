@@ -47,6 +47,11 @@
         <div class="extra-nav header-2-nav">
           <div class="extra-cell">
             <div class="header-nav-btn-section">
+              <div class="logo-header-right">
+                <a href="/">
+                  <img src="/images/amcham-border.png" alt="" />
+                </a>
+              </div>
               <div class="twm-nav-btn-left">
                 <a class="twm-nav-sign-up" href="/auth/login">
                   <i class="feather-log-in"></i> <%= it.__('header.auth.signin') %>

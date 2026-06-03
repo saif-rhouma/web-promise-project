@@ -1,6 +1,6 @@
 import { getMonthExpression } from '../../helpers/getMonthExpression.helpers';
 import AppDataSource from '../../database/data-source';
-import { ProfileType, User } from '../models/user.model';
+import { ProfileType, User, UserRole } from '../models/user.model';
 import BaseRepository from './baseRepository';
 import { IsNull, Not } from 'typeorm';
 
@@ -29,6 +29,14 @@ class UserRepository extends BaseRepository<User> {
     return this.repo.count({
       where: {
         type: type,
+      },
+    });
+  }
+
+  countWithRole(role: UserRole) {
+    return this.repo.count({
+      where: {
+        role: role,
       },
     });
   }
@@ -65,5 +73,5 @@ class UserRepository extends BaseRepository<User> {
     });
   }
 }
-
+export type UserRepositoryType = UserRepository;
 export default new UserRepository();
