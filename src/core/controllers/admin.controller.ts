@@ -6,6 +6,7 @@ import startupProfileRepository from '../repositories/startup-profile.repository
 import jobPostRepository from '../repositories/job-post.repository';
 import applicationRepository from '../repositories/application.repository';
 import contactRepository from '../repositories/contact.repository';
+import siteConfigRepository from '../repositories/site-config.repository';
 
 import { AccountStatus, ProfileType, UserRole } from '../models/user.model';
 import { JobStatus } from '../models/job-post.model';
@@ -551,6 +552,26 @@ class AdminController {
       return res.render('pages/admin/change-password', {
         csrfToken: req.csrfToken(),
         user,
+        currentPath: req.path,
+      });
+    } catch (error) {
+      console.log(error);
+      return res.status(500).send('Failed to load profile');
+    }
+  };
+
+  // ======================
+  // SITE CONFIGS PAGE (GET)
+  // ======================
+
+  configPage: AsyncRouteHandler = async (req: Request, res: Response) => {
+    try {
+      const user = req['user'];
+      const config = await siteConfigRepository.getConfig();
+      return res.render('pages/admin/site-config', {
+        csrfToken: req.csrfToken(),
+        user,
+        config,
         currentPath: req.path,
       });
     } catch (error) {

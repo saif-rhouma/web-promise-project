@@ -4,6 +4,7 @@ import IRouteGroup from 'src/types/IRouteGroup';
 import csrfProtection from '../../core/middlewares/csrf.middleware';
 import { authorize } from '../../core/middlewares/role.middleware';
 import { UserRole } from '../../core/models/user.model';
+import startupController from '../../core/controllers/startup.controller';
 
 const AdminRoutes: IRouteGroup = {
   group: {
@@ -102,6 +103,39 @@ const AdminRoutes: IRouteGroup = {
       path: '/change-password',
       middleware: [csrfProtection],
       handler: AdminController.passwordPage,
+    },
+
+    // ======================
+    // UPDATE PASSWORD CHANGE PAGE (POST)
+    // ======================
+    {
+      method: 'post',
+      path: '/change-password',
+      middleware: [csrfProtection],
+      handler: startupController.changePassword,
+    },
+
+    // ======================
+    // TOGGLE JOB STATUS
+    // ======================
+    {
+      method: 'get',
+      path: '/config',
+      middleware: [csrfProtection],
+      handler: AdminController.configPage,
+    },
+
+    // ======================
+    // OPTIONAL: LOGOUT FROM STARTUP AREA
+    // ======================
+    {
+      method: 'get',
+      path: '/logout',
+      handler: async (req, res) => {
+        req.session.destroy(() => {
+          return res.redirect('/auth/login');
+        });
+      },
     },
   ],
 };

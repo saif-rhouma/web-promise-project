@@ -55,13 +55,13 @@
       <li class="<%= it.currentPath === '/admin/jobs' ? 'active' : '' %>">
         <a href="/admin/jobs"><i class="fa fa-suitcase"></i><span class="admin-nav-text">Jobs </span></a>
       </li>
-      <li class="<%= it.currentPath === '/admin/dashboard' ? 'active' : '' %>">
+      <li class="<%= it.currentPath === '/admin/change-password' ? 'active' : '' %>">
         <a href="/admin/change-password"
           ><i class="fa fa-fingerprint"></i><span class="admin-nav-text">Change Password</span></a
         >
       </li>
-      <li class="<%= it.currentPath === '/admin/dashboard' ? 'active' : '' %>">
-        <a href="javascript:;" data-bs-toggle="modal" data-bs-target="#delete-dash-profile"
+      <li class="<%= it.currentPath === '/admin/config' ? 'active' : '' %>">
+        <a  href="/admin/config"
           ><i class="fa fa-trash-alt"></i><span class="admin-nav-text">Site Configuration</span></a
         >
       </li>

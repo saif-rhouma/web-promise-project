@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<%~ include('./partials/admin.head.eta') %>
+
+    <body>
+        <!-- LOADING AREA START ===== -->
+        <div class="loading-area">
+            <div class="loading-box"></div>
+            <div class="loading-pic">
+                <div class="wrapper">
+                    <div class="cssload-loader"></div>
+                </div>
+            </div>
+        </div>
+        <!-- LOADING AREA  END ====== -->
+
+        <div class="page-wraper">
+            <%~ include('./partials/admin.sidebar.eta') %>
+
+                <!-- Page Content Holder -->
+                <div id="content">
+                    <div class="content-admin-main">
+                        <!--Social Network-->
+                        <!-- <div class="panel panel-default">
+                            <div class="panel-heading wt-panel-heading p-a20">
+                                <h4 class="panel-tittle m-a0">Social Network</h4>
+                            </div>
+                            <div class="panel-body wt-panel-body p-a20 m-b30 ">
+                                <form>
+                                    <div class="row">
+
+                                        <div class="col-lg-4 col-md-6">
+                                            <div class="form-group">
+                                                <label>Facebook</label>
+                                                <div class="ls-inputicon-box">
+                                                    <input class="form-control wt-form-control" name="company_name"
+                                                        type="text" placeholder="https://www.facebook.com/">
+                                                    <i class="fs-input-icon fab fa-facebook-f"></i>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-lg-4 col-md-6">
+                                            <div class="form-group">
+                                                <label>Twitter</label>
+                                                <div class="ls-inputicon-box">
+                                                    <input class="form-control wt-form-control" name="company_name"
+                                                        type="text" placeholder="https://twitter.com/">
+                                                    <i class="fs-input-icon fab fa-twitter"></i>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-lg-4 col-md-6">
+                                            <div class="form-group">
+                                                <label>linkedin</label>
+                                                <div class="ls-inputicon-box">
+                                                    <input class="form-control wt-form-control" name="company_name"
+                                                        type="text" placeholder="https://in.linkedin.com/">
+                                                    <i class="fs-input-icon fab fa-linkedin-in"></i>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-lg-4 col-md-6">
+                                            <div class="form-group">
+                                                <label>Whatsapp</label>
+                                                <div class="ls-inputicon-box">
+                                                    <input class="form-control wt-form-control" name="company_name"
+                                                        type="text" placeholder="https://www.whatsapp.com/">
+                                                    <i class="fs-input-icon fab fa-whatsapp"></i>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-lg-4 col-md-6">
+                                            <div class="form-group">
+                                                <label>Instagram</label>
+                                                <div class="ls-inputicon-box">
+                                                    <input class="form-control wt-form-control" name="company_name"
+                                                        type="text" placeholder="https://www.instagram.com/">
+                                                    <i class="fs-input-icon fab fa-instagram"></i>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-lg-4 col-md-6">
+                                            <div class="form-group">
+                                                <label>Pinterest</label>
+                                                <div class="ls-inputicon-box">
+                                                    <input class="form-control wt-form-control" name="company_name"
+                                                        type="text" placeholder="https://in.pinterest.com/">
+                                                    <i class="fs-input-icon fab fa-pinterest-p"></i>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-lg-4 col-md-6">
+                                            <div class="form-group">
+                                                <label>Tumblr</label>
+                                                <div class="ls-inputicon-box">
+                                                    <input class="form-control wt-form-control" name="company_name"
+                                                        type="text" placeholder="https://www.tumblr.com/">
+                                                    <i class="fs-input-icon fab fa-tumblr"></i>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-lg-4 col-md-6">
+                                            <div class="form-group">
+                                                <label>Youtube</label>
+                                                <div class="ls-inputicon-box">
+                                                    <input class="form-control wt-form-control" name="company_name"
+                                                        type="text" placeholder="https://www.youtube.com/">
+                                                    <i class="fs-input-icon fab fa-youtube"></i>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-lg-12 col-md-12">
+                                            <div class="text-left">
+                                                <button type="submit" class="site-button">Save Changes</button>
+                                            </div>
+                                        </div>
+
+
+                                    </div>
+                                </form>
+                            </div>
+                        </div> -->
+
+
+
+                        <form>
+                            <div class="row">
+
+                                <!-- ================= SITE BASIC INFO ================= -->
+                                <div class="col-lg-6 col-md-6">
+                                    <div class="form-group">
+                                        <label>Site Name</label>
+                                        <input class="form-control wt-form-control" name="siteName" type="text"
+                                            placeholder="My Platform" value="<%= it.config?.siteName || '' %>">
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-6 col-md-6">
+                                    <div class="form-group">
+                                        <label>Logo URL</label>
+                                        <input class="form-control wt-form-control" name="logoUrl" type="text"
+                                            placeholder="/assets/logo.png" value="<%= it.config?.logoUrl || '' %>">
+                                    </div>
+                                </div>
+
+                                <!-- ================= SYSTEM SETTINGS ================= -->
+
+                                <div class="col-lg-4 col-md-6">
+                                    <div class="form-group">
+                                        <label>Maintenance Mode</label>
+                                        <select class="form-control wt-form-control" name="maintenanceMode">
+                                            <option value="false" <%=!it.config?.maintenanceMode ? 'selected' : '' %>
+                                                >Disabled</option>
+                                            <option value="true" <%=it.config?.maintenanceMode ? 'selected' : '' %>
+                                                >Enabled</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-4 col-md-6">
+                                    <div class="form-group">
+                                        <label>Registration</label>
+                                        <select class="form-control wt-form-control" name="registrationEnabled">
+                                            <option value="true" <%=it.config?.registration?.enabled ? 'selected' : ''
+                                                %>>Enabled</option>
+                                            <option value="false" <%=!it.config?.registration?.enabled ? 'selected' : ''
+                                                %>>Disabled</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-4 col-md-6">
+                                    <div class="form-group">
+                                        <label>Account Verification</label>
+                                        <select class="form-control wt-form-control" name="verificationRequired">
+                                            <option value="true" <%=it.config?.verification?.required ? 'selected' : ''
+                                                %>>Required</option>
+                                            <option value="false" <%=!it.config?.verification?.required ? 'selected'
+                                                : '' %>>Not Required</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <!-- ================= SOCIAL NETWORK ================= -->
+                                <div class="col-12 mt-4">
+                                    <h5>Social Networks</h5>
+                                </div>
+
+                                <div class="col-lg-4 col-md-6">
+                                    <div class="form-group">
+                                        <label>Facebook</label>
+                                         <div class="ls-inputicon-box">
+                                        <input class="form-control wt-form-control" name="facebook" type="text"
+                                            placeholder="https://facebook.com/"
+                                            value="<%= it.config?.socialLinks?.facebook || '' %>">
+                                        <i class="fs-input-icon fab fa-facebook-f"></i></div>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-4 col-md-6">
+                                    <div class="form-group">
+                                        <label>Twitter</label>
+                                        <div class="ls-inputicon-box">
+                                        <input class="form-control wt-form-control" name="twitter" type="text"
+                                            placeholder="https://twitter.com/"
+                                            value="<%= it.config?.socialLinks?.twitter || '' %>">
+                                        <i class="fs-input-icon fab fa-twitter"></i></div>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-4 col-md-6">
+                                    <div class="form-group">
+                                        <label>Instagram</label>
+                                        <div class="ls-inputicon-box">
+                                        <input class="form-control wt-form-control" name="instagram" type="text"
+                                            placeholder="https://instagram.com/"
+                                            value="<%= it.config?.socialLinks?.instagram || '' %>">
+                                        <i class="fs-input-icon fab fa-instagram"></i></div>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-4 col-md-6">
+                                    <div class="form-group">
+                                        <label>Youtube</label>
+                                        <div class="ls-inputicon-box">
+                                        <input class="form-control wt-form-control" name="youtube" type="text"
+                                            placeholder="https://youtube.com/"
+                                            value="<%= it.config?.socialLinks?.youtube || '' %>">
+                                        <i class="fs-input-icon fab fa-youtube"></i></div>
+                                    </div>
+                                </div>
+
+                                <!-- ================= SUBMIT ================= -->
+                                <div class="col-lg-12 col-md-12 mt-4">
+                                    <div class="text-left">
+                                        <button type="submit" class="site-button">
+                                            Save Changes
+                                        </button>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </form>
+                    </div>
+
+                </div>
+        </div>
+
+        <%~ include('./partials/admin.model.eta') %>
+
+            <!--Logout Profile Popup-->
+            <div class="modal fade twm-model-popup" id="logout-dash-profile" data-bs-backdrop="static"
+                data-bs-keyboard="false" tabindex="-1" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <h4 class="modal-title">Do you want to Logout your profile?</h4>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="site-button" data-bs-dismiss="modal">No</button>
+                             <a href="/admin/logout" class="site-button outline-primary">Yes</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            </div>
+
+            <%~ include('./partials/admin.scripts.eta') %>
+                <script src="/js/admin-func.js"></script>
+    </body>
+
+</html>

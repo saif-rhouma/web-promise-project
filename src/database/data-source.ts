@@ -8,6 +8,7 @@ import { StartupProfile } from '../core/models/startup-profile.model';
 import { JobPost } from '../core/models/job-post.model';
 import { Application } from '../core/models/application.model';
 import { Contact } from '../core/models/contact.model';
+import { SiteConfig } from '../core/models/site-config.model';
 //! MODELS IMPORT END
 
 const migrationsPath = join(__dirname, '..', 'database/migrations/**/*.ts');
@@ -21,7 +22,7 @@ const AppDataSource = new DataSource({
   password: environment.DB_PASSWORD,
   synchronize: environment.isDev,
   logging: false,
-  entities: [User, StartupProfile, JobPost, Application, Contact],
+  entities: [User, StartupProfile, JobPost, Application, Contact, SiteConfig],
   migrationsTableName: 'migrations',
   migrations: [migrationsPath],
   subscribers: [],
