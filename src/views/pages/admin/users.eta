@@ -149,6 +149,12 @@
                               <div class="twm-table-controls">
                                 <ul class="twm-DT-controls-icon list-unstyled">
                                   <li>
+                                    <a title="Detail" data-bs-toggle="tooltip" data-bs-placement="top"
+                                      href="/startups/<%= us.startupProfile.id %>" target="_blank">
+                                      <span class="fa fa-eye"></span>
+                                    </a>
+                                  </li>
+                                  <li>
                                     <button type="button" title="<%~ us.status === 'ACTIVE' ? 'Block':'Activate' %>"
                                       data-bs-toggle="tooltip" data-bs-placement="top" data-id="<%= us.id %>"
                                       data-status="<%= us.status %>" class="toggle-status">
@@ -156,12 +162,13 @@
                                     </button>
                                   </li>
                                   <li>
-                                    <a title="Detail" data-bs-toggle="tooltip" data-bs-placement="top"
-                                      href="/startups/<%= us.startupProfile.id %>" target="_blank">
-                                      <span class="fa fa-eye"></span>
-                                    </a>
-                                  </li>
                                   <li>
+                                    <button type="button" title="Reset Password"  data-id="<%= us.id %>"
+                                      data-name="<%= us.startupProfile.name %>" data-bs-toggle="tooltip"
+                                      data-bs-placement="top">
+                                      <span class="fa fa-key"></span>
+                                    </button>
+                                  </li>
                                   <li>
                                     <button type="button" title="Delete" class="delete-user" data-id="<%= us.id %>"
                                       data-name="<%= us.startupProfile.name %>" data-bs-toggle="tooltip"

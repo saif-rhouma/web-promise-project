@@ -136,7 +136,7 @@
                             <div class="row">
 
                                 <!-- ================= SITE BASIC INFO ================= -->
-                                <div class="col-lg-6 col-md-6">
+                                <!-- <div class="col-lg-6 col-md-6">
                                     <div class="form-group">
                                         <label>Site Name</label>
                                         <input class="form-control wt-form-control" name="siteName" type="text"
@@ -150,11 +150,11 @@
                                         <input class="form-control wt-form-control" name="logoUrl" type="text"
                                             placeholder="/assets/logo.png" value="<%= it.config?.logoUrl || '' %>">
                                     </div>
-                                </div>
+                                </div> -->
 
                                 <!-- ================= SYSTEM SETTINGS ================= -->
 
-                                <div class="col-lg-4 col-md-6">
+                                <!-- <div class="col-lg-4 col-md-6">
                                     <div class="form-group">
                                         <label>Maintenance Mode</label>
                                         <select class="form-control wt-form-control" name="maintenanceMode">
@@ -164,9 +164,9 @@
                                                 >Enabled</option>
                                         </select>
                                     </div>
-                                </div>
+                                </div> -->
 
-                                <div class="col-lg-4 col-md-6">
+                                <div class="col-lg-6 col-md-6">
                                     <div class="form-group">
                                         <label>Registration</label>
                                         <select class="form-control wt-form-control" name="registrationEnabled">
@@ -178,7 +178,7 @@
                                     </div>
                                 </div>
 
-                                <div class="col-lg-4 col-md-6">
+                                <div class="col-lg-6 col-md-6">
                                     <div class="form-group">
                                         <label>Account Verification</label>
                                         <select class="form-control wt-form-control" name="verificationRequired">
