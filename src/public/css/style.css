@@ -8940,15 +8940,22 @@ ol.comment-list li.comment .comment-respond .comment-form p {
 }
 
 .twm-blog-post-1-outer .wt-post-media {
-  margin-top: -40px;
+  /* margin-top: -10px; */
+  display: flex;
+  align-items: center;
+  justify-content: center;
   border-radius: 10px;
+  padding: 30px;
   overflow: hidden;
-  box-shadow: 0px 10px 25px rgba(56, 152, 226, 0.3);
+  /* box-shadow: 0px 10px 25px rgba(56, 152, 226, 0.3); */
   margin-bottom: 50px;
 }
 
 .twm-blog-post-1-outer .wt-post-media img {
-  width: 100%;
+  border-radius: 10px;
+  width: 120px;
+  height: 120px;
+  box-shadow: 0px 10px 25px rgba(56, 152, 226, 0.3);
 }
 
 .twm-blog-post-1-outer .wt-post-info {
