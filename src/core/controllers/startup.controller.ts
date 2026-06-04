@@ -276,8 +276,8 @@ class StartupController {
         startupProfile: user?.startupProfile || {},
         currentPath: req.path,
       });
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
     } catch (error) {
+      console.log(error);
       return res.status(500).send('Failed to load profile');
     }
   };

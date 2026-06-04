@@ -40,7 +40,7 @@
                           <!--Job title-->
                           <div class="col-xl-4 col-lg-6 col-md-12">
                             <div class="form-group">
-                              <label>Job Title</label>
+                              <label>Job Title <span class="text-danger">*</span></label>
                               <div class="ls-inputicon-box">
                                 <input class="form-control" name="title" type="text" placeholder="exp.Full Stack ..." />
                                 <i class="fs-input-icon fa fa-address-card"></i>
@@ -176,7 +176,7 @@
                           <!--Complete Address-->
                           <div class="col-xl-12 col-lg-6 col-md-12">
                             <div class="form-group">
-                              <label>Complete Address</label>
+                              <label>Complete Address <span class="text-danger">*</span></label>
                               <div class="ls-inputicon-box">
                                 <input
                                   class="form-control"
@@ -212,7 +212,7 @@
                           <!--Description-->
                           <div class="col-md-12">
                             <div class="form-group">
-                              <label>Description</label>
+                              <label>Description <span class="text-danger">*</span></label>
                               <textarea
                                 class="form-control"
                                 rows="3"
@@ -246,13 +246,13 @@
                           <!-- Remote Work -->
                           <div class="col-xl-6 col-lg-6 col-md-12">
                             <div class="form-group">
-                              <label>Travail à distance</label>
+                              <label>Remote Work</label>
                               <div class="ls-inputicon-box">
                                 <select class="wt-select-box selectpicker" name="remoteWork" data-live-search="true">
                                   <option value="" disabled selected>Choose option</option>
-                                  <option value="on-site">Sur site</option>
-                                  <option value="hybrid">Hybride</option>
-                                  <option value="remote">100% Télétravail</option>
+                                  <option value="on-site">On-site</option>
+                                  <option value="hybrid">Hybrid</option>
+                                  <option value="remote">100% Remote</option>
                                 </select>
                                 <i class="fs-input-icon fa fa-laptop-house"></i>
                               </div>
@@ -273,7 +273,7 @@
 
                           <div class="col-xl-12 col-md-12">
                             <div class="form-group">
-                              <label>Ce que nous vous offrons</label>
+                              <label>What We Offer</label>
 
                               <div id="offerEditor" style="height: 200px; background: white"></div>
 
@@ -283,7 +283,7 @@
 
                           <div class="col-xl-12 col-md-12">
                             <div class="form-group">
-                              <label>Connaissances</label>
+                              <label>Knowledge</label>
                               <div id="knowledgeEditor" style="height: 200px; background: white"></div>
                               <input type="hidden" name="knowledge" id="knowledgeInput" />
                             </div>
@@ -291,7 +291,7 @@
 
                           <div class="col-xl-12 col-md-12">
                             <div class="form-group">
-                              <label>Soft Skill</label>
+                              <label>Soft Skills</label>
                               <div id="skillEditor" style="height: 200px; background: white"></div>
                               <input type="hidden" name="softSkills" id="skillInput" />
                             </div>

@@ -1,6 +1,6 @@
 import multer from 'multer';
-import path from 'path';
-import fs from 'fs';
+import path from 'node:path';
+import fs from 'node:fs';
 import TinyID from '../../utils/tinyID';
 // base upload folder (safe for prod build)
 const baseUploadPath = path.join(process.cwd(), 'src/uploads');

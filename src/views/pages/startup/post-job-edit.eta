@@ -40,7 +40,7 @@
                               <!--Job title-->
                               <div class="col-xl-4 col-lg-6 col-md-12">
                                 <div class="form-group">
-                                  <label>Job Title</label>
+                                  <label>Job Title <span class="text-danger">*</span></label>
                                   <div class="ls-inputicon-box">
                                     <input class="form-control" name="title" type="text" placeholder="Devid Smith"
                                       value="<%= it.job.title %>" />
@@ -156,7 +156,7 @@
                               <!--Complete Address-->
                               <div class="col-xl-12 col-lg-6 col-md-12">
                                 <div class="form-group">
-                                  <label>Complete Address</label>
+                                  <label>Complete Address <span class="text-danger">*</span></label>
                                   <div class="ls-inputicon-box">
                                     <input class="form-control" name="location" type="text"
                                       value="<%= it.job.location %>"
@@ -216,7 +216,7 @@
                               <!--Description-->
                               <div class="col-md-12">
                                 <div class="form-group">
-                                  <label>Description</label>
+                                  <label>Description <span class="text-danger">*</span></label>
                                   <textarea class="form-control" rows="3" name="description"
                                     placeholder="Greetings! We are Galaxy Software Development Company. We hope you enjoy our services and quality.">
 <%= it.job.description %></textarea>
@@ -247,17 +247,17 @@
                               <!-- Remote Work -->
                               <div class="col-xl-6 col-lg-6 col-md-12">
                                 <div class="form-group">
-                                  <label>Travail à distance</label>
+                                  <label>Remote Work</label>
                                   <div class="ls-inputicon-box">
                                     <select class="wt-select-box selectpicker" name="remoteWork"
                                       data-live-search="true">
-                                      <option value="" disabled selected>Choose option</option>
-                                      <option value="on-site" <%=it.job.remoteWork==='on-site' ? 'selected' : '' %>>>Sur
-                                        site</option>
-                                      <option value="hybrid" <%=it.job.remoteWork==='hybrid' ? 'selected' : '' %>
-                                        >>Hybride</option>
-                                      <option value="remote" <%=it.job.remoteWork==='remote' ? 'selected' : '' %>>>100%
-                                        Télétravail</option>
+                                      <option value="">Choose option</option>
+                                      <option value="on-site" <%=it.job.remoteWork==='on-site' ? 'selected' : '' %>
+                                        >On-site</option>
+                                      <option value="hybrid" <%=it.job.remoteWork==='hybrid' ? 'selected' : '' %>>Hybrid
+                                      </option>
+                                      <option value="remote" <%=it.job.remoteWork==='remote' ? 'selected' : '' %>>100%
+                                        Remote</option>
                                     </select>
                                     <i class="fs-input-icon fa fa-laptop-house"></i>
                                   </div>
@@ -278,7 +278,7 @@
 
                               <div class="col-xl-12 col-md-12">
                                 <div class="form-group">
-                                  <label>Ce que nous vous offrons</label>
+                                  <label>What We Offer</label>
 
                                   <div id="offerEditor" style="height: 200px; background: white"></div>
 
@@ -288,7 +288,7 @@
 
                               <div class="col-xl-12 col-md-12">
                                 <div class="form-group">
-                                  <label>Connaissances</label>
+                                  <label>Knowledge</label>
                                   <div id="knowledgeEditor" style="height: 200px; background: white"></div>
                                   <input type="hidden" name="knowledge" id="knowledgeInput" />
                                 </div>
@@ -296,7 +296,7 @@
 
                               <div class="col-xl-12 col-md-12">
                                 <div class="form-group">
-                                  <label>Soft Skill</label>
+                                  <label>Soft Skills</label>
                                   <div id="skillEditor" style="height: 200px; background: white"></div>
                                   <input type="hidden" name="softSkills" id="skillInput" />
                                 </div>
@@ -341,10 +341,11 @@
           <!-- OUR BLOG END -->
       </div>
       <!-- CONTENT END -->
-<div class="bg-gradient-to-br">
-      <%~ include('./partials/footer') %>
-        <!-- BUTTON TOP START -->
-        <button class="scroltop"><span class="fa fa-angle-up relative" id="btn-vibrate"></span></button></div>
+      <div class="bg-gradient-to-br">
+        <%~ include('./partials/footer') %>
+          <!-- BUTTON TOP START -->
+          <button class="scroltop"><span class="fa fa-angle-up relative" id="btn-vibrate"></span></button>
+      </div>
     </div>
 
     <%~ include('./partials/scripts') %>

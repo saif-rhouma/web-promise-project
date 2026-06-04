@@ -9,9 +9,11 @@ class AuthWebController {
   // LOGIN PAGE
   // ======================
   loginPage: AsyncRouteHandler = async (req: Request, res: Response) => {
+    const config = req['config'];
     return res.render('pages/auth/login', {
       csrfToken: req.csrfToken(),
       error: null,
+      config,
     });
   };
 
@@ -19,6 +21,7 @@ class AuthWebController {
   // LOGIN ACTION
   // ======================
   login: AsyncRouteHandler = async (req: Request, res: Response) => {
+    const config = req['config'];
     try {
       const { email, password } = req.body;
 
@@ -56,6 +59,7 @@ class AuthWebController {
       return res.status(HTTP_CODE.Unauthorized).render('pages/auth/login', {
         csrfToken: req.csrfToken(),
         error: message,
+        config,
       });
     }
   };
@@ -64,8 +68,10 @@ class AuthWebController {
   // REGISTER PAGE
   // ======================
   registerPage: AsyncRouteHandler = async (req: Request, res: Response) => {
+    const config = req['config'];
     return res.render('pages/auth/register', {
       csrfToken: req.csrfToken(),
+      config,
     });
   };
 

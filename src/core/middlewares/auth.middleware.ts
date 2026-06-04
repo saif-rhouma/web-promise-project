@@ -7,7 +7,7 @@ import environment from '../../configs/environment';
 const authMiddleware: Middleware<void> = (req: Request, _res: Response, next: NextFunction) => {
   try {
     const authHeader = req.headers['authorization'];
-    if (!authHeader || !authHeader.startsWith('Bearer ')) {
+    if (!authHeader?.startsWith('Bearer ')) {
       throw new UnauthorizedException(MSG_EXCEPTION.UNAUTHORIZED_AUTH_HEADER_MISSING_OR_MALFORMED);
     }
 

@@ -60,7 +60,6 @@ class AdminController {
       return res.render('pages/admin/dashboard-0', {
         csrfToken: req.csrfToken(),
         user,
-
         stats: {
           totalUsers,
           totalStartups,
@@ -77,7 +76,6 @@ class AdminController {
         registrationsByMonth,
         latestJobs,
         latestApplications,
-
         currentPath: req.path,
       });
     } catch (err) {
@@ -96,6 +94,8 @@ class AdminController {
 
       const totalEnterprises = await usersRepository.countEnterprise();
 
+      const totalUsers = await usersRepository.countWithRole(UserRole.USER);
+
       const user = req['user'];
 
       // ✅ Pagination support
@@ -103,7 +103,6 @@ class AdminController {
       const limit = 20;
       const skip = (page - 1) * limit;
 
-      const totalUsers = await usersRepository.count();
       const totalPages = Math.ceil(totalUsers / limit);
 
       const users = await usersRepository.findAllAccounts(skip, limit);
@@ -577,6 +576,44 @@ class AdminController {
     } catch (error) {
       console.log(error);
       return res.status(500).send('Failed to load profile');
+    }
+  };
+
+  // ======================
+  // SITE CONFIGS UPDATE (POST)
+  // ======================
+
+  updateConfig: AsyncRouteHandler = async (req: Request, res: Response) => {
+    try {
+      const { registrationEnabled, verificationRequired, facebook, twitter, instagram, youtube } = req.body;
+
+      const config = await siteConfigRepository.getConfigObject();
+
+      config.settings = {
+        ...config.settings,
+
+        registration: {
+          enabled: registrationEnabled === 'true',
+        },
+
+        verification: {
+          required: verificationRequired === 'true',
+        },
+
+        socialLinks: {
+          facebook: facebook?.trim() || '',
+          twitter: twitter?.trim() || '',
+          instagram: instagram?.trim() || '',
+          youtube: youtube?.trim() || '',
+        },
+      };
+      await siteConfigRepository.save(config);
+
+      return res.redirect('/admin/config');
+    } catch (error) {
+      console.error(error);
+
+      return res.status(500).send('Failed to update configuration');
     }
   };
 }

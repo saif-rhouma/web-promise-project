@@ -1,11 +1,13 @@
 import IRouteGroup from 'src/types/IRouteGroup';
 import authWebController from '../../core/controllers/auth-web.controller';
 import csrfProtection from '../../core/middlewares/csrf.middleware';
+import configMiddleware from '../../core/middlewares/config.middleware';
+import registrationMiddleware from '../../core/middlewares/registration.middleware';
 
 const AuthWebRoutes: IRouteGroup = {
   group: {
     prefix: '/auth',
-    middleware: [csrfProtection],
+    middleware: [csrfProtection, configMiddleware],
   },
   routes: [
     {
@@ -21,11 +23,13 @@ const AuthWebRoutes: IRouteGroup = {
     {
       method: 'get',
       path: '/register',
+      middleware: [registrationMiddleware],
       handler: authWebController.registerPage,
     },
     {
       method: 'post',
       path: '/register',
+      middleware: [registrationMiddleware],
       handler: authWebController.register,
     },
     {

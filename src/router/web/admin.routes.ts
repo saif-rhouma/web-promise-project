@@ -125,6 +125,13 @@ const AdminRoutes: IRouteGroup = {
       handler: AdminController.configPage,
     },
 
+    {
+      method: 'post',
+      path: '/site-config',
+      middleware: [csrfProtection],
+      handler: AdminController.updateConfig,
+    },
+
     // ======================
     // OPTIONAL: LOGOUT FROM STARTUP AREA
     // ======================

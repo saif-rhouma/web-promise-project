@@ -17,25 +17,41 @@
           <div class="row">
             <div class="col-lg-3 col-md-6 col-sm-6">
               <div class="widget widget_services ftr-list-center">
-                <a href="/startups"><h3 class="widget-title"><%= it.__('footer.links.startups') %></h3></a>
+                <a href="/startups">
+                  <h3 class="widget-title">
+                    <%= it.__('footer.links.startups') %>
+                  </h3>
+                </a>
               </div>
             </div>
 
             <div class="col-lg-3 col-md-6 col-sm-6">
               <div class="widget widget_services ftr-list-center">
-                <a href="/contact"> <h3 class="widget-title"><%= it.__('footer.links.contact') %></h3></a>
+                <a href="/contact">
+                  <h3 class="widget-title">
+                    <%= it.__('footer.links.contact') %>
+                  </h3>
+                </a>
               </div>
             </div>
 
             <div class="col-lg-3 col-md-6 col-sm-6">
               <div class="widget widget_services ftr-list-center">
-                <a href="/auth/login"><h3 class="widget-title"><%= it.__('footer.links.signin') %></h3></a>
+                <a href="/auth/login">
+                  <h3 class="widget-title">
+                    <%= it.__('footer.links.signin') %>
+                  </h3>
+                </a>
               </div>
             </div>
 
             <div class="col-lg-3 col-md-6 col-sm-6">
               <div class="widget widget_services ftr-list-center">
-                <a href="/auth/register"><h3 class="widget-title"><%= it.__('footer.links.register') %></h3></a>
+                <a href="<% it.config?.registration?.enabled ? '/auth/register' : '#' %>">
+                  <h3 class="widget-title">
+                    <%= it.__('footer.links.register') %>
+                  </h3>
+                </a>
               </div>
             </div>
           </div>
@@ -74,7 +90,9 @@
           </div>
         </div>
         <div class="col-lg-12 col-md-12">
-          <p style="font-size: 12px"><%= it.__('footer.about') %></p>
+          <p style="font-size: 12px">
+            <%= it.__('footer.about') %>
+          </p>
         </div>
       </div>
     </div>
@@ -82,13 +100,23 @@
     <div class="footer-bottom">
       <div class="footer-bottom-info">
         <div class="footer-copy-right">
-          <span class="copyrights-text"><%= it.__('footer.copyright') %></span>
+          <span class="copyrights-text">
+            <%= it.__('footer.copyright') %>
+          </span>
         </div>
         <ul class="social-icons">
-          <li><a href="javascript:void(0);" class="fab fa-facebook-f"></a></li>
-          <li><a href="javascript:void(0);" class="fab fa-twitter"></a></li>
-          <li><a href="javascript:void(0);" class="fab fa-instagram"></a></li>
-          <li><a href="javascript:void(0);" class="fab fa-youtube"></a></li>
+          <% if(it.config?.socialLinks?.facebook) { %>
+            <li><a href="<%= it.config?.socialLinks?.facebook %>" class="fab fa-facebook-f"></a></li>
+            <% } %>
+              <% if(it.config?.socialLinks?.twitter) { %>
+                <li><a href="<%= it.config?.socialLinks?.twitter %>" class="fab fa-twitter"></a></li>
+                <% } %>
+                  <% if(it.config?.socialLinks?.instagram) { %>
+                    <li><a href="<%= it.config?.socialLinks?.instagram %>" class="fab fa-instagram"></a></li>
+                    <% } %>
+                      <% if(it.config?.socialLinks?.youtube) { %>
+                        <li><a href="<%= it.config?.socialLinks?.youtube %>" class="fab fa-youtube"></a></li>
+                        <% } %>
         </ul>
       </div>
     </div>

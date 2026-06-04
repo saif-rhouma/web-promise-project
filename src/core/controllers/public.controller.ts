@@ -1,35 +1,38 @@
-import path from 'path';
-import fs from 'fs';
+import path from 'node:path';
+import fs from 'node:fs';
 import AsyncRouteHandler from 'src/types/AsyncRouteHandler';
 import startupProfileRepository from '../repositories/startup-profile.repository';
 import usersRepository from '../repositories/user.repository';
 import jobPostRepository from '../repositories/job-post.repository';
 import applicationRepository from '../repositories/application.repository';
-// import HTTP_CODE from '../constants/httpCode';
 import { Application, ApplicationStatus } from '../models/application.model';
 import { sendContactEmail } from '../../utils/mailer';
 import { ProfileType } from '../models/user.model';
 import puppeteer from 'puppeteer-core';
 import chromium from '@sparticuz/chromium';
 import { getHtmlObj } from '../../helpers/getHtmlObj.helpers';
+import { JobStatus } from '../models/job-post.model';
 
 class PublicController {
-  home: AsyncRouteHandler = async (_req, res) => {
+  home: AsyncRouteHandler = async (req, res) => {
+    const config = req['config'];
     const randomProfiles = await startupProfileRepository.getRandomAvatarsOnly(10);
     const randomOffers = await jobPostRepository.getRandom(6);
     const applications = await applicationRepository.count();
     const matches = (await applicationRepository.findAll({ where: { status: ApplicationStatus.ACCEPTED } })).length;
-    console.log('---> applications, matches', applications, matches);
-    res.render('home', { randomProfiles, randomOffers, applications, matches });
+    res.render('home', { randomProfiles, randomOffers, applications, matches, config });
   };
 
   contactPage: AsyncRouteHandler = async (req, res) => {
+    const config = req['config'];
     res.render('contact', {
       query: req.query,
+      config,
     });
   };
 
-  listStartups: AsyncRouteHandler = async (_req, res) => {
+  listStartups: AsyncRouteHandler = async (req, res) => {
+    const config = req['config'];
     const users = await usersRepository.findAll({
       relations: ['startupProfile'],
       where: {
@@ -37,10 +40,11 @@ class PublicController {
       },
     });
     const startups = users.map((u) => u.startupProfile).filter(Boolean);
-    res.render('startups', { startups, page: 'startups' });
+    return res.render('startups', { startups, page: 'startups', config });
   };
 
-  listEnterprise: AsyncRouteHandler = async (_req, res) => {
+  listEnterprise: AsyncRouteHandler = async (req, res) => {
+    const config = req['config'];
     const users = await usersRepository.findAll({
       relations: ['startupProfile'],
       where: {
@@ -48,28 +52,33 @@ class PublicController {
       },
     });
     const startups = users.map((u) => u.startupProfile).filter(Boolean);
-    res.render('startups', { startups });
+    res.render('startups', { startups, config });
   };
 
   getStartupDetails: AsyncRouteHandler = async (req, res) => {
+    const config = req['config'];
     const startupId = Array.isArray(req.params.id) ? req.params.id[0] : req.params.id;
-    const startup = await startupProfileRepository.findOne({
-      where: { id: startupId },
-      relations: ['jobPosts'],
-    });
-    res.render('startup-detail', { startup });
+
+    const startup = await startupProfileRepository.getStartupsDetails(startupId);
+
+    if (!startup) {
+      return res.status(404).render('404');
+    }
+
+    return res.render('startup-detail', { startup, config });
   };
 
   getJobDetails: AsyncRouteHandler = async (req, res) => {
+    const config = req['config'];
     const jobId = Array.isArray(req.params.id) ? req.params.id[0] : req.params.id;
 
     const job = await jobPostRepository.findOne({
-      where: { id: jobId },
+      where: { id: jobId, status: JobStatus.PUBLISHED },
       relations: ['startup'],
     });
 
     if (!job) return res.status(404).send('Job not found');
-    res.render('job-detail', { csrfToken: req.csrfToken(), job });
+    return res.render('job-detail', { csrfToken: req.csrfToken(), job, config });
   };
 
   applyToJob: AsyncRouteHandler = async (req, res) => {
@@ -104,14 +113,15 @@ class PublicController {
   };
 
   applySuccess: AsyncRouteHandler = async (req, res) => {
+    const config = req['config'];
     const jobId = Array.isArray(req.params.jobId) ? req.params.jobId[0] : req.params.jobId;
     const job = await jobPostRepository.findOne({
-      where: { id: jobId },
+      where: { id: jobId, status: JobStatus.PUBLISHED },
       relations: ['startup'],
     });
 
     if (!job) return res.render('error-404');
-    res.render('success', { job });
+    res.render('success', { job, config });
   };
 
   sendContactMessage: AsyncRouteHandler = async (req, res) => {
@@ -177,7 +187,7 @@ class PublicController {
         await jobPostRepository.save(job);
       }
 
-      const filePath = path.join(process.cwd(), '/src/uploads/pdf/', job.pdfFile as string);
+      const filePath = path.join(process.cwd(), '/src/uploads/pdf/', job.pdfFile);
 
       const stat = fs.statSync(filePath);
 

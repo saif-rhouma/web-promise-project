@@ -2,10 +2,12 @@ import { uploadCV } from '../../core/middlewares/uploader.middleware';
 import publicController from '../../core/controllers/public.controller';
 import IRouteGroup from 'src/types/IRouteGroup';
 import csrfProtection from '../../core/middlewares/csrf.middleware';
+import configMiddleware from '../../core/middlewares/config.middleware';
 
 const PublicRoutes: IRouteGroup = {
   group: {
     prefix: '',
+    middleware: [configMiddleware],
   },
   routes: [
     {
